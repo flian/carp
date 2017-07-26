@@ -1,10 +1,11 @@
 # carp
 maybe just another foundation show case
 
-##parent
+##carp-parent
 定义公共依赖，理论上所有的子模块都需要使用parent作为父模块
-
-##ofbiz-entity-engine
+##carp-base
+功能配置等功能
+##carp-ofbiz-entity-engine
 引入ofbiz entity engine（atlassitan分支版本）
 
 

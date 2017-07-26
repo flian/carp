@@ -8,8 +8,16 @@
     <artifactId>showcase</artifactId>
     <version>1.0-SNAPSHOT</version>
     <modules>
-        <module>parent</module>
-        <module>ofbiz-entity-engine</module>
+        <module>carp-parent</module>
+        <module>carp-base</module>
+        <module>carp-ofbiz-entity-engine</module>
+        <module>carp-service-interface</module>
+        <module>carp-service</module>
+        <module>carp-admin</module>
+        <module>carp-front</module>
+        <module>carp-mobile</module>
+        <module>carp-service-interface</module>
+
     </modules>
     <packaging>pom</packaging>
     <properties>
