@@ -1,0 +1,69 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <artifactId>parent</artifactId>
+        <groupId>org.lotus.carp</groupId>
+        <version>1.0-SNAPSHOT</version>
+        <relativePath>../parent/pom.xml</relativePath>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+
+    <artifactId>ofbiz-entity-engine</artifactId>
+    <packaging>jar</packaging>
+
+    <name>ofbiz-entity-engine</name>
+    <url>https://github.com/flian/carp</url>
+
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <java.version>1.8</java.version>
+        <jotm.version>2.0.10</jotm.version>
+    </properties>
+
+    <repositories>
+        <repository>
+            <id>atlassian_ci</id>
+            <name>atlassian_ci</name>
+            <url>http://repo.jenkins-ci.org/public</url>
+        </repository>
+        <repository>
+            <id>atlassian_proxy</id>
+            <name>atlassian_proxy</name>
+            <url>https://maven.atlassian.com/repository/public/</url>
+        </repository>
+    </repositories>
+    <dependencies>
+        <!-- jotm include -->
+        <dependency>
+            <groupId>jotm</groupId>
+            <artifactId>jotm</artifactId>
+            <version>${jotm.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.glassfish.main.connectors</groupId>
+            <artifactId>javax.resource</artifactId>
+            <version>3.1.2</version>
+        </dependency>
+        <!-- atlassian entity engine-->
+        <dependency>
+            <groupId>com.atlassian.ofbiz</groupId>
+            <artifactId>entityengine</artifactId>
+            <version>1.2.2</version>
+        </dependency>
+        <dependency>
+            <groupId>com.atlassian.ofbiz</groupId>
+            <artifactId>entityengine-share</artifactId>
+            <version>1.2.2</version>
+        </dependency>
+        <dependency>
+            <groupId>com.atlassian.util.concurrent</groupId>
+            <artifactId>atlassian-util-concurrent</artifactId>
+            <version>2.6.2</version>
+        </dependency>
+        <dependency>
+            <groupId>javax.transaction</groupId>
+            <artifactId>jta</artifactId>
+            <version>1.1</version>
+        </dependency>
+    </dependencies>
+</project>
