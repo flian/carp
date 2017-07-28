@@ -22,14 +22,14 @@
 
     <repositories>
         <repository>
-            <id>atlassian_ci</id>
-            <name>atlassian_ci</name>
-            <url>http://repo.jenkins-ci.org/public</url>
-        </repository>
-        <repository>
             <id>atlassian_proxy</id>
             <name>atlassian_proxy</name>
             <url>https://maven.atlassian.com/repository/public/</url>
+        </repository>
+        <repository>
+            <id>atlassian_ci</id>
+            <name>atlassian_ci</name>
+            <url>http://repo.jenkins-ci.org/public</url>
         </repository>
     </repositories>
     <dependencies>
@@ -49,6 +49,12 @@
             <groupId>com.atlassian.ofbiz</groupId>
             <artifactId>entityengine</artifactId>
             <version>1.2.2</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>javax.transaction</groupId>
+                    <artifactId>jta</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
         <dependency>
             <groupId>com.atlassian.ofbiz</groupId>
