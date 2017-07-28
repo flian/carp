@@ -31,7 +31,7 @@ public class JxlsTemplate {
      * @param context jxsl上下文
      * @throws IOException
      */
-    public static void processTemplate(InputStream templateStream, OutputStream out, Context context) throws IOException {
+    private static void processTemplate(InputStream templateStream, OutputStream out, Context context) throws IOException {
         JxlsHelper.getInstance().processTemplate(templateStream, out, context);
     }
 
