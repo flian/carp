@@ -11,7 +11,7 @@
         <module>carp-parent</module>
         <module>carp-base</module>
         <module>carp-ofbiz-entity-engine</module>
-        <module>carp-service</module>
+        <module>carp-core</module>
         <module>carp-admin</module>
         <module>carp-front</module>
         <module>carp-mobile</module>
