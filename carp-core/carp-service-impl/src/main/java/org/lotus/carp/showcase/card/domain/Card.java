@@ -2,10 +2,7 @@ package org.lotus.carp.showcase.card.domain;
 
 import lombok.Data;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.io.Serializable;
 import java.math.BigDecimal;
 
@@ -17,6 +14,7 @@ import java.math.BigDecimal;
  */
 @Entity
 @Data
+@Table(name="carp_showcase_card")
 public class Card implements Serializable {
 
     private static final long serialVersionUID = 3909450513871676563L;

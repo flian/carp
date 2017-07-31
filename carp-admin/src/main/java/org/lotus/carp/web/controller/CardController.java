@@ -14,7 +14,7 @@ import java.util.List;
  * Date: 7/31/2017
  * Time: 4:36 PM
  */
-@RestController("/cards")
+@RestController
 public class CardController {
     @Autowired
     private CardService cardService;
