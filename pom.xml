@@ -10,7 +10,6 @@
     <modules>
         <module>carp-parent</module>
         <module>carp-base</module>
-        <module>carp-ofbiz-entity-engine</module>
         <module>carp-core</module>
         <module>carp-admin</module>
         <module>carp-front</module>
