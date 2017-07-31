@@ -13,12 +13,12 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>1.3.3.RELEASE</version>
+        <version>1.5.6.RELEASE</version>
     </parent>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <java.version>1.8</java.version>
-        <springboot.starter.version>1.3.3.RELEASE</springboot.starter.version>
+        <springboot.starter.version>1.5.6.RELEASE</springboot.starter.version>
         <poi.version>3.16</poi.version>
         <junit.version>4.12</junit.version>
     </properties>
@@ -48,15 +48,22 @@
                 <artifactId>druid</artifactId>
                 <version>1.0.20</version>
             </dependency>
+            <dependency>
+                <groupId>org.flywaydb</groupId>
+                <artifactId>flyway-core</artifactId>
+                <version>4.0.3</version>
+            </dependency>
             <!-- powermock to mockit static method and so on-->
             <dependency>
                 <groupId>org.powermock</groupId>
                 <artifactId>powermock-module-junit4</artifactId>
                 <version>1.6.5</version>
+                <scope>test</scope>
             </dependency>
             <dependency>
                 <groupId>org.powermock</groupId>
                 <artifactId>powermock-api-mockito</artifactId>
+                <scope>test</scope>
                 <version>1.6.5</version>
             </dependency>
             <!-- json -->
@@ -109,9 +116,26 @@
     </dependencyManagement>
     <dependencies>
         <dependency>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+        </dependency>
+        <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
-            <version>${junit.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.powermock</groupId>
+            <artifactId>powermock-module-junit4</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.powermock</groupId>
+            <artifactId>powermock-api-mockito</artifactId>
             <scope>test</scope>
         </dependency>
     </dependencies>

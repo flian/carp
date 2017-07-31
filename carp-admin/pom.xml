@@ -12,13 +12,26 @@
     <packaging>jar</packaging>
 
     <name>carp-admin</name>
-    <url>http://maven.apache.org</url>
+    <url>https://github.com/flian/carp</url>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 
     <dependencies>
-
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.lotus.carp</groupId>
+            <artifactId>carp-service</artifactId>
+            <version>${version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.lotus.carp</groupId>
+            <artifactId>carp-service-impl</artifactId>
+            <version>${version}</version>
+        </dependency>
     </dependencies>
 </project>
