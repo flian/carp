@@ -25,33 +25,6 @@ public class JxlsTemplate {
     private static final String TEMPLATE_DIR = "/excelTemplates/";
 
     protected static Log logger = LogFactory.getLog(JxlsTemplate.class);
-
-    /**
-     * @param templateStream excel模板流
-     * @param out            生成excel写入的输出流
-     * @param context        jxsl上下文
-     * @throws IOException
-     */
-    private static void processTemplate(InputStream templateStream, OutputStream out, Context context) throws IOException {
-        JxlsHelper.getInstance().processTemplate(templateStream, out, context);
-    }
-
-    /**
-     * @param templateStream excel模板流
-     * @param out            生成excel写入的输出流
-     * @param params         交给jxls处理模板需要的参数
-     * @throws IOException
-     */
-    public static void processTemplate(InputStream templateStream, OutputStream out, Map<String, ?> params) throws IOException {
-        Context context = new Context();
-        if (params != null) {
-            for (String key : params.keySet()) {
-                context.putVar(key, params.get(key));
-            }
-        }
-        processTemplate(templateStream, out, context);
-    }
-
     /**
      * 使用JxlsTemplate.class.getResourceAsStream load 模板
      *
@@ -81,4 +54,31 @@ public class JxlsTemplate {
         }
         processTemplate(in, out, params);
     }
+    /**
+     * @param templateStream excel模板流
+     * @param out            生成excel写入的输出流
+     * @param context        jxsl上下文
+     * @throws IOException
+     */
+    private static void processTemplate(InputStream templateStream, OutputStream out, Context context) throws IOException {
+        JxlsHelper.getInstance().processTemplate(templateStream, out, context);
+    }
+
+    /**
+     * @param templateStream excel模板流
+     * @param out            生成excel写入的输出流
+     * @param params         交给jxls处理模板需要的参数
+     * @throws IOException
+     */
+    public static void processTemplate(InputStream templateStream, OutputStream out, Map<String, ?> params) throws IOException {
+        Context context = new Context();
+        if (params != null) {
+            for (String key : params.keySet()) {
+                context.putVar(key, params.get(key));
+            }
+        }
+        processTemplate(templateStream, out, context);
+    }
+
+
 }
