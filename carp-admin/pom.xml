@@ -26,12 +26,13 @@
         <dependency>
             <groupId>org.lotus.carp</groupId>
             <artifactId>carp-service</artifactId>
-            <version>${version}</version>
+            <version>${carp.version}</version>
         </dependency>
         <dependency>
             <groupId>org.lotus.carp</groupId>
             <artifactId>carp-service-impl</artifactId>
-            <version>${version}</version>
+            <version>${carp.version}</version>
         </dependency>
     </dependencies>
+
 </project>

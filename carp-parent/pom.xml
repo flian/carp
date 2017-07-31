@@ -21,6 +21,7 @@
         <springboot.starter.version>1.5.6.RELEASE</springboot.starter.version>
         <poi.version>3.16</poi.version>
         <junit.version>4.12</junit.version>
+        <carp.version>1.0-SNAPSHOT</carp.version>
     </properties>
     <repositories>
         <repository>

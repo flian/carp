@@ -1,7 +1,9 @@
 package org.lotus.carp.showcase.card.repository;
 
 import org.lotus.carp.showcase.card.domain.Card;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.repository.CrudRepository;
+import org.springframework.stereotype.Repository;
 
 
 /**
@@ -10,6 +12,7 @@ import org.springframework.data.repository.CrudRepository;
  * Date: 7/31/2017
  * Time: 5:00 PM
  */
+@Repository
 public interface CardRepository extends CrudRepository<Card, Long> {
     Card findByCardId(String code);
 }
