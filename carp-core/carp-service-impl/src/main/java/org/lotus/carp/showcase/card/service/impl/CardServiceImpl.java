@@ -1,8 +1,10 @@
 package org.lotus.carp.showcase.card.service.impl;
 
+import org.lotus.carp.showcase.card.convter.CardConvter;
 import org.lotus.carp.showcase.card.enums.CardType;
 import org.lotus.carp.showcase.card.repository.CardRepository;
 import org.lotus.carp.showcase.card.service.CardService;
+import org.lotus.carp.showcase.card.vo.CardDto;
 import org.lotus.carp.showcase.card.vo.CardQuery;
 import org.lotus.carp.showcase.card.vo.CardResult;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,24 +23,27 @@ import java.util.List;
 public class CardServiceImpl implements CardService {
     @Autowired
     CardRepository cardRepository;
+    @Autowired
+    CardConvter cardConvter;
 
     @Override
     public List<CardResult> list(CardQuery query) {
-       return null;
+        return cardConvter.toList(cardRepository.findAll());
     }
 
     @Override
-    public CardResult save(Card Dto) {
-        return null;
+    public CardResult save(CardDto dto) {
+        return cardConvter.toResult(cardRepository.save(cardConvter.fromDto(dto)));
     }
 
     @Override
     public CardResult get(String cardCode) {
-        return null;
+        return cardConvter.toResult(cardRepository.findByCardId(cardCode));
     }
 
     @Override
     public CardResult getByType(CardType type) {
+        //TODO pending
         return null;
     }
 }
