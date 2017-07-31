@@ -18,6 +18,10 @@
     </properties>
 
     <dependencies>
-
+        <dependency>
+            <groupId>org.lotus.carp</groupId>
+            <artifactId>carp-service</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
     </dependencies>
 </project>
