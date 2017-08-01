@@ -1,6 +1,9 @@
 package org.lotus.carp.base.utils.excel;
 
-import junit.framework.TestCase;
+import com.google.common.base.Preconditions;
+import org.junit.Assert;
+import org.junit.Before;
+import org.junit.Test;
 
 import java.io.ByteArrayOutputStream;
 import java.util.*;
@@ -11,11 +14,13 @@ import java.util.*;
  * Date: 7/28/2017
  * Time: 3:38 PM
  */
-public class JxlsTemplateTest extends TestCase {
+
+public class JxlsTemplateTest {
     private Map params;
     private ByteArrayOutputStream out;
 
-    protected void setUp() throws Exception {
+    @Before
+    public void setUp() throws Exception {
         params = new HashMap();
         List list = new ArrayList();
         Map item1 = new HashMap();
@@ -46,15 +51,16 @@ public class JxlsTemplateTest extends TestCase {
         out = new ByteArrayOutputStream();
     }
 
+    @Test
     public void testProcessTemplate() throws Exception {
         JxlsTemplate.processTemplate("test.xls", out, params);
-        //System.out.println(out);
+        Assert.assertTrue("should render some message.",out.size()>0);
     }
 
+    @Test
     public void testProcessTemplate1() throws Exception {
-        //OutputStream  out = new FileOutputStream(Paths.get("d:/aa.xls").toFile());
         JxlsTemplate.processTemplate(JxlsTemplateTest.class, "test.xls", out, params);
-        //System.out.println(out);
+        Assert.assertTrue("should render some message.",out.size()>0);
     }
 
 }
