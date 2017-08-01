@@ -5,7 +5,7 @@ import org.lotus.carp.showcase.card.enums.CardType;
 import org.lotus.carp.showcase.card.repository.CardRepository;
 import org.lotus.carp.showcase.card.service.CardService;
 import org.lotus.carp.showcase.card.vo.CardDto;
-import org.lotus.carp.showcase.card.vo.CardQuery;
+import org.lotus.carp.showcase.card.vo.CardCriteria;
 import org.lotus.carp.showcase.card.vo.CardResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -26,7 +26,7 @@ public class CardServiceImpl implements CardService {
     CardConvter cardConvter;
 
     @Override
-    public List<CardResult> list(CardQuery query) {
+    public List<CardResult> list(CardCriteria query) {
         return cardConvter.toList(cardRepository.findAll());
     }
 

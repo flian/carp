@@ -6,5 +6,5 @@ package org.lotus.carp.showcase.card.vo;
  * Date: 7/31/2017
  * Time: 2:30 PM
  */
-public class CardQuery {
+public class CardCriteria {
 }

@@ -2,10 +2,9 @@ package org.lotus.carp.showcase.card.service;
 
 import org.lotus.carp.showcase.card.enums.CardType;
 import org.lotus.carp.showcase.card.vo.CardDto;
-import org.lotus.carp.showcase.card.vo.CardQuery;
+import org.lotus.carp.showcase.card.vo.CardCriteria;
 import org.lotus.carp.showcase.card.vo.CardResult;
 
-import javax.smartcardio.Card;
 import java.util.List;
 
 /**
@@ -15,7 +14,7 @@ import java.util.List;
  * Time: 2:25 PM
  */
 public interface CardService {
-    public List<CardResult> list(CardQuery query);
+    public List<CardResult> list(CardCriteria query);
     public CardResult save(CardDto Dto);
     public CardResult get(String cardCode);
     public CardResult getByType(CardType type);

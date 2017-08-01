@@ -1,7 +1,6 @@
 package org.lotus.carp.showcase.card.repository;
 
 import org.lotus.carp.showcase.card.domain.Card;
-import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
