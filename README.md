@@ -8,9 +8,20 @@ maybe just another foundation show case
 >carp-base
 功能配置等功能
 
+>carp-core
+服务接口、实现方法
 
->carp-ofbiz-entity-engine
-引入ofbiz entity engine（atlassitan分支版本）
+>carp-admin
+管理端
+
+>carp-front
+PC端
+
+>carp-mobile
+mobile端
+
+>carp-webapp
+包含全部
 
 
 鲤鱼
