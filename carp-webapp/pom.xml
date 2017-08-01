@@ -12,9 +12,10 @@
     <packaging>jar</packaging>
 
     <name>carp-webapp</name>
-    <url>http://maven.apache.org</url>
+    <url>https://github.com/flian/carp</url>
 
     <properties>
+        <start-class>org.lotus.carp.WebappApplication</start-class>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 
@@ -35,4 +36,19 @@
             <version>${carp.version}</version>
         </dependency>
     </dependencies>
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <dependencies>
+                    <dependency>
+                        <groupId>org.springframework</groupId>
+                        <artifactId>springloaded</artifactId>
+                        <version>1.2.0.RELEASE</version>
+                    </dependency>
+                </dependencies>
+            </plugin>
+        </plugins>
+    </build>
 </project>

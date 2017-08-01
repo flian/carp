@@ -12,7 +12,7 @@
     <packaging>pom</packaging>
 
     <name>carp-core</name>
-    <url>http://maven.apache.org</url>
+    <url>https://github.com/flian/carp</url>
     <modules>
         <module>carp-service</module>
         <module>carp-service-impl</module>

@@ -11,8 +11,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  * Time: 4:24 PM
  */
 @SpringBootApplication
-public class AdminMain {
+public class AdminApplication {
     public static void main(String[] args) {
-        SpringApplication.run(AdminMain.class, args) ;
+        SpringApplication.run(AdminApplication.class, args) ;
     }
 }
