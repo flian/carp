@@ -4,7 +4,7 @@
         <artifactId>carp-parent</artifactId>
         <groupId>org.lotus.carp</groupId>
         <version>1.0-SNAPSHOT</version>
-        <relativePath>../carp-base/pom.xml</relativePath>
+        <relativePath>../carp-parent/pom.xml</relativePath>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 

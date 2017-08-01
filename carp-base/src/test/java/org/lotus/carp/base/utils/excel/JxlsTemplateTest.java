@@ -48,13 +48,13 @@ public class JxlsTemplateTest extends TestCase {
 
     public void testProcessTemplate() throws Exception {
         JxlsTemplate.processTemplate("test.xls", out, params);
-        System.out.println(out);
+        //System.out.println(out);
     }
 
     public void testProcessTemplate1() throws Exception {
         //OutputStream  out = new FileOutputStream(Paths.get("d:/aa.xls").toFile());
         JxlsTemplate.processTemplate(JxlsTemplateTest.class, "test.xls", out, params);
-        System.out.println(out);
+        //System.out.println(out);
     }
 
 }
