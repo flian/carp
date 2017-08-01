@@ -4,6 +4,7 @@ import org.lotus.carp.showcase.card.service.CardService;
 import org.lotus.carp.showcase.card.vo.CardResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -15,10 +16,11 @@ import java.util.List;
  * Time: 4:36 PM
  */
 @RestController
+@RequestMapping("/admin/cards")
 public class CardController {
     @Autowired
     private CardService cardService;
-    @GetMapping("/list")
+    @GetMapping
     public List<CardResult> list() {
         return cardService.list(null);
     }
