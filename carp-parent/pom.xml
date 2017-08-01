@@ -18,11 +18,22 @@
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <java.version>1.8</java.version>
+        <java.source.version>1.8</java.source.version>
+        <java.target.version>1.8</java.target.version>
         <springboot.starter.version>1.5.6.RELEASE</springboot.starter.version>
-        <spring.springloaded.version>1.2.1.RELEASE</spring.springloaded.version>
+        <spring.springloaded.version>1.2.0.RELEASE</spring.springloaded.version>
         <poi.version>3.16</poi.version>
         <junit.version>4.12</junit.version>
+        <mysql.jdbc.version>5.1.34</mysql.jdbc.version>
+        <flyway.verison>4.0.3</flyway.verison>
+        <durid.version>1.0.20</durid.version>
+        <powermock.version>1.6.5</powermock.version>
+        <fastjson.version>1.2.15</fastjson.version>
+        <guava.version>19.0</guava.version>
+        <lombok.version>1.16.10</lombok.version>
+        <assertj.version>2.2.0</assertj.version>
+        <jxsl.poi.version>1.0.13</jxsl.poi.version>
+        <jxls.version>2.4.0</jxls.version>
         <carp.version>1.0-SNAPSHOT</carp.version>
     </properties>
     <repositories>
@@ -43,54 +54,54 @@
             <dependency>
                 <groupId>mysql</groupId>
                 <artifactId>mysql-connector-java</artifactId>
-                <version>5.1.34</version>
+                <version>${mysql.jdbc.version}</version>
             </dependency>
             <!-- druid -->
             <dependency>
                 <groupId>com.alibaba</groupId>
                 <artifactId>druid</artifactId>
-                <version>1.0.20</version>
+                <version>${durid.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.flywaydb</groupId>
                 <artifactId>flyway-core</artifactId>
-                <version>4.0.3</version>
+                <version>${flyway.verison}</version>
             </dependency>
             <!-- powermock to mockit static method and so on-->
             <dependency>
                 <groupId>org.powermock</groupId>
                 <artifactId>powermock-module-junit4</artifactId>
-                <version>1.6.5</version>
+                <version>${powermock.version}</version>
                 <scope>test</scope>
             </dependency>
             <dependency>
                 <groupId>org.powermock</groupId>
                 <artifactId>powermock-api-mockito</artifactId>
                 <scope>test</scope>
-                <version>1.6.5</version>
+                <version>${powermock.version}</version>
             </dependency>
             <!-- json -->
             <dependency>
                 <groupId>com.alibaba</groupId>
                 <artifactId>fastjson</artifactId>
-                <version>1.2.15</version>
+                <version>${fastjson.version}</version>
             </dependency>
             <!-- https://mvnrepository.com/artifact/com.google.guava/guava -->
             <dependency>
                 <groupId>com.google.guava</groupId>
                 <artifactId>guava</artifactId>
-                <version>19.0</version>
+                <version>${guava.version}</version>
             </dependency>
             <!-- https://mvnrepository.com/artifact/org.projectlombok/lombok -->
             <dependency>
                 <groupId>org.projectlombok</groupId>
                 <artifactId>lombok</artifactId>
-                <version>1.16.10</version>
+                <version>${lombok.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.assertj</groupId>
                 <artifactId>assertj-core</artifactId>
-                <version>2.2.0</version>
+                <version>${assertj.version}</version>
                 <scope>test</scope>
             </dependency>
             <!-- poi,poi-ooxml-->
@@ -108,12 +119,12 @@
             <dependency>
                 <groupId>org.jxls</groupId>
                 <artifactId>jxls-poi</artifactId>
-                <version>1.0.13</version>
+                <version>${jxsl.poi.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.jxls</groupId>
                 <artifactId>jxls</artifactId>
-                <version>2.4.0</version>
+                <version>${jxls.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
@@ -153,8 +164,8 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
                 <configuration>
-                    <source>1.8</source>
-                    <target>1.8</target>
+                    <source>${java.source.version}</source>
+                    <target>${java.target.version}</target>
                 </configuration>
             </plugin>
         </plugins>

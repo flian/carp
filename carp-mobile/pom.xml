@@ -15,7 +15,7 @@
     <url>https://github.com/flian/carp</url>
 
     <properties>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+
     </properties>
 
     <dependencies>
