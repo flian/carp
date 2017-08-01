@@ -1,11 +1,11 @@
 package org.lotus.carp.web.controller;
 
+import org.lotus.carp.showcase.card.domain.Card;
 import org.lotus.carp.showcase.card.service.CardService;
+import org.lotus.carp.showcase.card.vo.CardDto;
 import org.lotus.carp.showcase.card.vo.CardResult;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -23,5 +23,13 @@ public class CardController {
     @GetMapping
     public List<CardResult> list() {
         return cardService.list(null);
+    }
+    @GetMapping("/{cardId}")
+    public CardResult get(@PathVariable("cardId") String cardId){
+        return cardService.get(cardId);
+    }
+    @PostMapping
+    public CardResult saveOrUpdate(CardDto dto){
+        return cardService.save(dto);
     }
 }
