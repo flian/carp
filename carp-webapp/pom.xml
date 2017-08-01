@@ -19,6 +19,20 @@
     </properties>
 
     <dependencies>
-
+        <dependency>
+            <groupId>org.lotus.carp</groupId>
+            <artifactId>carp-admin</artifactId>
+            <version>${carp.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.lotus.carp</groupId>
+            <artifactId>carp-front</artifactId>
+            <version>${carp.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.lotus.carp</groupId>
+            <artifactId>carp-mobile</artifactId>
+            <version>${carp.version}</version>
+        </dependency>
     </dependencies>
 </project>
