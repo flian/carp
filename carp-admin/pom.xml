@@ -48,7 +48,7 @@
                 <dependency>
                     <groupId>org.springframework</groupId>
                     <artifactId>springloaded</artifactId>
-                    <version>1.2.0.RELEASE</version>
+                    <version>${spring.springloaded.version}</version>
                 </dependency>
             </dependencies>
         </plugin>
