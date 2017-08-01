@@ -14,7 +14,7 @@
         <module>carp-admin</module>
         <module>carp-front</module>
         <module>carp-mobile</module>
-
+        <module>carp-webapp</module>
     </modules>
     <packaging>pom</packaging>
     <properties>
