@@ -1,6 +1,5 @@
 package org.lotus.carp.web.controller;
 
-import org.lotus.carp.showcase.card.domain.Card;
 import org.lotus.carp.showcase.card.service.CardService;
 import org.lotus.carp.showcase.card.vo.CardDto;
 import org.lotus.carp.showcase.card.vo.CardResult;
