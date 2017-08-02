@@ -50,7 +50,7 @@ public class JxlsTemplate {
         InputStream in = resourceBaseClass.getResourceAsStream(TEMPLATE_DIR + template);
         if (null == in) {
             logger.error("can't find excel template by path:" + TEMPLATE_DIR + template);
-            throw new RuntimeException("找不到excel模板！,位置:" + TEMPLATE_DIR + template);
+            throw new TemplateNotFoundException("找不到excel模板！,位置:" + TEMPLATE_DIR + template);
         }
         processTemplate(in, out, params);
     }

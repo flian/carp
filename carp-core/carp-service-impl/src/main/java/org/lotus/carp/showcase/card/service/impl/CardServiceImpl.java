@@ -1,7 +1,7 @@
 package org.lotus.carp.showcase.card.service.impl;
 
 import org.lotus.carp.showcase.card.convter.CardConvter;
-import org.lotus.carp.showcase.card.enums.CardType;
+import org.lotus.carp.showcase.card.enums.CardTypeEnum;
 import org.lotus.carp.showcase.card.repository.CardRepository;
 import org.lotus.carp.showcase.card.service.CardService;
 import org.lotus.carp.showcase.card.vo.CardDto;
@@ -21,9 +21,9 @@ import java.util.List;
 @Service
 public class CardServiceImpl implements CardService {
     @Autowired
-    CardRepository cardRepository;
+    private CardRepository cardRepository;
     @Autowired
-    CardConvter cardConvter;
+    private CardConvter cardConvter;
 
     @Override
     public List<CardResult> list(CardCriteria query) {
@@ -41,7 +41,7 @@ public class CardServiceImpl implements CardService {
     }
 
     @Override
-    public CardResult getByType(CardType type) {
+    public CardResult getByType(CardTypeEnum type) {
         //TODO pending
         return null;
     }

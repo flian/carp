@@ -1,6 +1,6 @@
 package org.lotus.carp.showcase.card.service;
 
-import org.lotus.carp.showcase.card.enums.CardType;
+import org.lotus.carp.showcase.card.enums.CardTypeEnum;
 import org.lotus.carp.showcase.card.vo.CardDto;
 import org.lotus.carp.showcase.card.vo.CardCriteria;
 import org.lotus.carp.showcase.card.vo.CardResult;
@@ -17,5 +17,5 @@ public interface CardService {
     public List<CardResult> list(CardCriteria query);
     public CardResult save(CardDto Dto);
     public CardResult get(String cardCode);
-    public CardResult getByType(CardType type);
+    public CardResult getByType(CardTypeEnum type);
 }
