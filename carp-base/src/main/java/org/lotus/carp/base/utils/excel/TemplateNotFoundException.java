@@ -7,10 +7,6 @@ package org.lotus.carp.base.utils.excel;
  * Time: 9:53 AM
  */
 public class TemplateNotFoundException extends RuntimeException {
-    public TemplateNotFoundException() {
-        super();
-    }
-
     public TemplateNotFoundException(String message) {
         super(message);
     }

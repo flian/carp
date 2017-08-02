@@ -35,7 +35,7 @@ public class JxlsTemplateTest {
 
         list.add(settlement1);
         list.add(settlement2);
-        
+
         params.put("settlementDetailList", list);
 
         params.put("settlement", genSettlementDetail());
@@ -53,6 +53,26 @@ public class JxlsTemplateTest {
     public void testProcessTemplate1() throws Exception {
         JxlsTemplate.processTemplate(JxlsTemplateTest.class, "test.xls", out, params);
         Assert.assertTrue("should render some message.", out.size() > 0);
+    }
+
+    @Test
+    public void testProcessTemplate2() throws Exception {
+        Class clazz = JxlsTemplateTest.class;
+        String file = "test.xls";
+        JxlsTemplate.processTemplate(clazz, file, out, params);
+        Assert.assertTrue("should render some message.", out.size() > 0);
+    }
+
+    @Test
+    public void testProcessTemplateWithInvalidFile() {
+        Class clazz = JxlsTemplateTest.class;
+        String file = "NO_EXIST.xls";
+        try {
+            JxlsTemplate.processTemplate(clazz, file, out, params);
+            Assert.fail("Excepted an TemplateNotFoundException to be thrown.");
+        } catch (Exception e) {
+            Assert.assertTrue("Excepted an TemplateNotFoundException to be thrown.", (e instanceof TemplateNotFoundException));
+        }
     }
 
     private Map genSettlementDetail() {
