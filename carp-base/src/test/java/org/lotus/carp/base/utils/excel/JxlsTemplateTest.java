@@ -22,44 +22,51 @@ public class JxlsTemplateTest {
     public void setUp() throws Exception {
         params = new HashMap();
         List list = new ArrayList();
-        Map item1 = new HashMap();
-        item1.put("orerCode", "001");
-        item1.put("sapOrderCode", "aa");
-        item1.put("pointPrice", "11");
-        item1.put("totalAmount", "11");
-        item1.put("actualAmount", "122");
-        item1.put("productName", "aaa");
+        Map settlement1 = new HashMap();
+        settlement1.put("orerCode", "001");
+        settlement1.put("sapOrderCode", "aa");
+        settlement1.put("pointPrice", "11");
+        settlement1.put("totalAmount", "11");
+        settlement1.put("actualAmount", "122");
+        settlement1.put("productName", "aaa");
 
-        Map item2 = new HashMap();
-        item1.put("orerCode", "002");
-        list.add(item1);
-        list.add(item2);
+        Map settlement2 = new HashMap();
+        settlement2.put("orerCode", "002");
+
+        list.add(settlement1);
+        list.add(settlement2);
+        
         params.put("settlementDetailList", list);
-        params.put("settlement", new HashMap() {{
-            put("balanceCode", "SC0001");
-            put("status", "已结算");
-            put("supplierName", "SAP");
-            put("balanceStartTime", new Date());
-            put("balanceEndTime", new Date());
-            put("cashPrice", "12.00");
-            put("platformRate", "1");
-            put("platformCost", "5");
-            put("bankAccountName", "6224");
-            put("bankAccountCard", "中国银行");
-        }});
+
+        params.put("settlement", genSettlementDetail());
+
         out = new ByteArrayOutputStream();
     }
 
     @Test
     public void testProcessTemplate() throws Exception {
         JxlsTemplate.processTemplate("test.xls", out, params);
-        Assert.assertTrue("should render some message.",out.size()>0);
+        Assert.assertTrue("should render some message.", out.size() > 0);
     }
 
     @Test
     public void testProcessTemplate1() throws Exception {
         JxlsTemplate.processTemplate(JxlsTemplateTest.class, "test.xls", out, params);
-        Assert.assertTrue("should render some message.",out.size()>0);
+        Assert.assertTrue("should render some message.", out.size() > 0);
     }
 
+    private Map genSettlementDetail() {
+        Map settlement = new HashMap();
+        settlement.put("balanceCode", "SC0001");
+        settlement.put("status", "已结算");
+        settlement.put("supplierName", "SAP");
+        settlement.put("balanceStartTime", new Date());
+        settlement.put("balanceEndTime", new Date());
+        settlement.put("cashPrice", "12.00");
+        settlement.put("platformRate", "1");
+        settlement.put("platformCost", "5");
+        settlement.put("bankAccountName", "6224");
+        settlement.put("bankAccountCard", "中国银行");
+        return settlement;
+    }
 }
