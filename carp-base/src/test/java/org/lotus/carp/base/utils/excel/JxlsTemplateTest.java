@@ -77,6 +77,17 @@ public class JxlsTemplateTest {
         }
     }
 
+    @Test
+    public void testWithAnotherXls() {
+        Class clazz = JxlsTemplateTest.class;
+        String file = "testNormal.xls";
+        try {
+            JxlsTemplate.processTemplate(clazz, file, out, params);
+        } catch (IOException e) {
+            Assert.fail("Should work");
+        }
+    }
+
     private Map genSettlementDetail() {
         Map settlement = new HashMap();
         settlement.put("balanceCode", "SC0001");
