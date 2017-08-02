@@ -29,6 +29,11 @@
         </dependency>
         <dependency>
             <groupId>org.lotus.carp</groupId>
+            <artifactId>carp-base</artifactId>
+            <version>${carp.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.lotus.carp</groupId>
             <artifactId>carp-service</artifactId>
             <version>${carp.version}</version>
         </dependency>
@@ -36,6 +41,10 @@
             <groupId>org.lotus.carp</groupId>
             <artifactId>carp-service-impl</artifactId>
             <version>${carp.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-freemarker</artifactId>
         </dependency>
     </dependencies>
     <build>
