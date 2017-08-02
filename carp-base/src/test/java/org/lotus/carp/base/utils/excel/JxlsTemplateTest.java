@@ -5,6 +5,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.util.*;
 
 /**
@@ -70,8 +71,9 @@ public class JxlsTemplateTest {
         try {
             JxlsTemplate.processTemplate(clazz, file, out, params);
             Assert.fail("Excepted an TemplateNotFoundException to be thrown.");
-        } catch (Exception e) {
-            Assert.assertTrue("Excepted an TemplateNotFoundException to be thrown.", (e instanceof TemplateNotFoundException));
+        } catch (TemplateNotFoundException e) {
+        } catch (IOException e) {
+            Assert.fail("Excepted an TemplateNotFoundException to be thrown.");
         }
     }
 
