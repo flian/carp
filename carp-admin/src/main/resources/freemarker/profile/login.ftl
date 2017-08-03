@@ -27,19 +27,25 @@
 <body class="hold-transition login-page">
 <div class="login-box">
     <div class="login-logo">
-        <a href="../../index2.html"><b>CARP</b>login</a>
+        <a href="#"><b>CARP</b>login</a>
     </div>
     <!-- /.login-logo -->
     <div class="login-box-body">
         <p class="login-box-msg">请登录</p>
+    <#if RequestParameters.error??>
+        用户名密码错误！
+    </#if>
 
-        <form action="${rc.contextPath}/admin/dashboard" method="get">
+    <#if RequestParameters.logout??>
+        注销成功！
+    </#if>
+        <form action="${rc.contextPath}/login" method="post">
             <div class="form-group has-feedback">
-                <input type="text" class="form-control" placeholder="用户名">
+                <input name="username" type="text" class="form-control" placeholder="用户名">
                 <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
             </div>
             <div class="form-group has-feedback">
-                <input type="password" class="form-control" placeholder="密码，至少6位字母、数字组合">
+                <input name="password" type="password" class="form-control" placeholder="密码，至少6位字母、数字组合">
                 <span class="glyphicon glyphicon-lock form-control-feedback"></span>
             </div>
             <div class="row">
@@ -58,13 +64,13 @@
             </div>
         </form>
 
-    <!--    <div class="social-auth-links text-center">
-            <p>- OR -</p>
-            <a href="#" class="btn btn-block btn-social btn-facebook btn-flat"><i class="fa fa-facebook"></i> Sign in using
-                Facebook</a>
-            <a href="#" class="btn btn-block btn-social btn-google btn-flat"><i class="fa fa-google-plus"></i> Sign in using
-                Google+</a>
-        </div>-->
+        <!--    <div class="social-auth-links text-center">
+                <p>- OR -</p>
+                <a href="#" class="btn btn-block btn-social btn-facebook btn-flat"><i class="fa fa-facebook"></i> Sign in using
+                    Facebook</a>
+                <a href="#" class="btn btn-block btn-social btn-google btn-flat"><i class="fa fa-google-plus"></i> Sign in using
+                    Google+</a>
+            </div>-->
         <!-- /.social-auth-links -->
 
         <!--<a href="#">I forgot my password</a><br>

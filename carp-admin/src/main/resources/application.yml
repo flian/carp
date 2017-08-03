@@ -1,5 +1,6 @@
 server:
     port: 8081
+    context-path: /admin
 spring:
     datasource:
         name: adminDev

@@ -14,10 +14,7 @@ import javax.servlet.http.HttpServletRequest;
  * Date: 8/2/2017
  * Time: 5:05 PM
  */
-@RequestMapping(AdminBaseController.ADMIN_PATH)
 public abstract class AdminBaseController implements BaseController {
-    protected static final String ADMIN_PATH = "/admin";
-
     protected HttpServletRequest request() {
         RequestAttributes ra = RequestContextHolder.getRequestAttributes();
         ServletRequestAttributes sra = (ServletRequestAttributes) ra;

@@ -33,6 +33,9 @@
 		<logger name="org.springframework">
 			<level value="INFO" />
 		</logger>
+		<logger name="org.springframework.security">
+			<level value="DEBUG" />
+		</logger>
 		<logger name="jdbc.sqlonly" additivity="false" level="ERROR"/>
 
 
