@@ -31,6 +31,6 @@ spring:
         requestContextAttribute: rc
         exposeSpringMacroHelpers: true
         settings:
-          auto_import: /layout/defaultLayout.ftl as layout
+          auto_import: /layout/layout.ftl as layout
 flyway:
   enabled: false

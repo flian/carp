@@ -21,6 +21,10 @@ public class DashboardController extends AdminBaseController implements ErrorCon
         return "/dashboard";
     }
 
+    @GetMapping("/login")
+    public String login(){
+        return "profile/login";
+    }
     @Override
     public String getErrorPath() {
         return ADMIN_PATH + ERROR_PATH;

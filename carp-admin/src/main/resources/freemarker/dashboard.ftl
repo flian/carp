@@ -1,1 +1,3 @@
-hello!
+<@layout.main>
+
+</@layout.main>
