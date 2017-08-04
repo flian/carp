@@ -34,7 +34,7 @@
     <header class="main-header">
 
         <!-- Logo -->
-        <a href="${rc.contextPath}/webjars/AdminLTE/index2.html" class="logo">
+        <a href="${rc.contextPath}" class="logo">
             <!-- mini logo for sidebar mini 50x50 pixels -->
             <span class="logo-mini"><b>CARP</b>V1.0</span>
             <!-- logo for regular state and mobile devices -->
@@ -332,6 +332,20 @@
             <!-- sidebar menu: : style can be found in sidebar.less -->
             <ul class="sidebar-menu">
                 <li class="header">MAIN NAVIGATION</li>
+                <li class="active treeview">
+                    <a href="#">
+                        <i class="fa fa-dashboard"></i> <span>权限中心</span>
+                        <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+                    </a>
+                    <ul class="treeview-menu">
+                        <li><a href="#"><i class="fa fa-circle-o"></i> 用户管理</a></li>
+                        <li class=""><a href="#"><i class="fa fa-circle-o"></i> 角色管理</a></li>
+                        <li class=""><a href="#"><i class="fa fa-circle-o"></i> 菜单管理</a></li>
+                        <li class="active"><a href="#"><i class="fa fa-circle-o"></i> 功能管理</a></li>
+                    </ul>
+                </li>
                 <li class="active treeview">
                     <a href="#">
                         <i class="fa fa-dashboard"></i> <span>Dashboard</span>
