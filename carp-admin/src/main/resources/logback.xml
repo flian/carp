@@ -37,8 +37,14 @@
 			<level value="DEBUG" />
 		</logger>
 		<logger name="jdbc.sqlonly" additivity="false" level="ERROR"/>
-
-
+		<!--log setting for log4jdbc -->
+		<logger nam="net.sf.log4jdbc" level="ERROR"/>
+		<logger nam="jdbc.audit" level="ERROR"/>
+		<logger nam="jdbc.resultset" level="ERROR"/>
+		<logger nam="jdbc.sqlonly" level="ERROR"/>
+		<logger nam="jdbc.sqltiming" level="ERROR"/>
+		<logger nam="jdbc.connection" level="ERROR"/>
+		<logger nam="log4jdbc.debug" level="ERROR"/>
 		<root level="ERROR">
 			<appender-ref ref="ALL"/>
 			<appender-ref ref="STDOUT" />

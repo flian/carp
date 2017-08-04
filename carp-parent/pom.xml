@@ -34,6 +34,7 @@
         <assertj.version>2.2.0</assertj.version>
         <jxsl.poi.version>1.0.13</jxsl.poi.version>
         <jxls.version>2.4.0</jxls.version>
+        <log4jdbc.version>1.2</log4jdbc.version>
         <carp.version>1.0-SNAPSHOT</carp.version>
     </properties>
     <repositories>
@@ -126,6 +127,13 @@
                 <artifactId>jxls</artifactId>
                 <version>${jxls.version}</version>
             </dependency>
+            <!-- log4jdbc -->
+            <dependency>
+                <groupId>com.googlecode.log4jdbc</groupId>
+                <artifactId>log4jdbc</artifactId>
+                <version>${log4jdbc.version}</version>
+                <scope>runtime</scope>
+            </dependency>
         </dependencies>
     </dependencyManagement>
     <dependencies>
@@ -151,6 +159,11 @@
             <groupId>org.powermock</groupId>
             <artifactId>powermock-api-mockito</artifactId>
             <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.googlecode.log4jdbc</groupId>
+            <artifactId>log4jdbc</artifactId>
+            <scope>runtime</scope>
         </dependency>
     </dependencies>
     <build>
