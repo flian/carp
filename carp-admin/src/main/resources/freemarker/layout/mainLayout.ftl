@@ -36,9 +36,9 @@
         <!-- Logo -->
         <a href="index2.html" class="logo">
             <!-- mini logo for sidebar mini 50x50 pixels -->
-            <span class="logo-mini"><b>A</b>LT</span>
+            <span class="logo-mini"><b>CARP</b>V1.0</span>
             <!-- logo for regular state and mobile devices -->
-            <span class="logo-lg"><b>Admin</b>LTE</span>
+            <span class="logo-lg"><b>CARP</b>V1.0</span>
         </a>
 
         <!-- Header Navbar: style can be found in header.less -->
@@ -47,6 +47,16 @@
             <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
                 <span class="sr-only">Toggle navigation</span>
             </a>
+            <ul class="nav navbar-nav">
+                <li class="active">
+                    <a href="#">系统管理</a>
+                    <span class="sr-only">(current)</span>
+                </li>
+                <li class="">
+                    <a href="#">业务管理</a>
+                </li>
+            </ul>
+
             <!-- Navbar Right Menu -->
             <div class="navbar-custom-menu">
                 <ul class="nav navbar-nav">
@@ -516,10 +526,9 @@
 
     <footer class="main-footer">
         <div class="pull-right hidden-xs">
-            <b>Version</b> 2.3.8
+            <b>Version</b> 1.0
         </div>
-        <strong>Copyright &copy; 2014-2016 <a href="http://almsaeedstudio.com">Almsaeed Studio</a>.</strong> All rights
-        reserved.
+        <strong>Copyright &copy; 2014-2024  CARP.</strong> All right reserved.
     </footer>
 
     <!-- Control Sidebar -->
