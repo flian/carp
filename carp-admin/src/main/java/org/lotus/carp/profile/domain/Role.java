@@ -20,7 +20,7 @@ public class Role implements Serializable{
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    @Column(name = "role_code")
+    @Column(name = "role_code",unique = true,length = 30)
     private String name;
     @ManyToMany(mappedBy = "roles")
     private Set<User> users;

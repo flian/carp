@@ -33,5 +33,14 @@ spring:
         exposeSpringMacroHelpers: true
         settings:
           auto_import: /layout/layout.ftl as layout
-flyway:
-  enabled: false
+    jpa:
+      show-sql: true
+      properties:
+        javax:
+         persistence:
+           schema-generation:
+            create-source:  metadata
+            scripts:
+              action: create
+              create-target: carp_reate.sql
+flyway:  enabled: false

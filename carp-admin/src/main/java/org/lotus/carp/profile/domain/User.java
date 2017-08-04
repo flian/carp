@@ -20,7 +20,7 @@ public class User implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    @Column(name="user_name")
+    @Column(name="user_name",unique = true,length = 20)
     private String userName;
     private String password;
     @Transient
