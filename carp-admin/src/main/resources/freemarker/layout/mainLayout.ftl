@@ -74,7 +74,7 @@
                                     <li><!-- start message -->
                                         <a href="#">
                                             <div class="pull-left">
-                                                <img src="${rc.contextPath}/webjars/AdminLTE/dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
+                                                <img src="${rc.contextPath}/webjars/AdminLTE/dist/img/avatar2.png" class="img-circle" alt="User Image">
                                             </div>
                                             <h4>
                                                 Support Team
@@ -256,16 +256,16 @@
                     <!-- User Account: style can be found in dropdown.less -->
                     <li class="dropdown user user-menu">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                            <img src="${rc.contextPath}/webjars/AdminLTE/dist/img/user2-160x160.jpg" class="user-image" alt="User Image">
-                            <span class="hidden-xs">Alexander Pierce</span>
+                            <img src="${rc.contextPath}/webjars/AdminLTE/dist/img/avatar2.png" class="user-image" alt="User Image">
+                            <span class="hidden-xs"><#include "widget/currentUserName.ftl"/></span>
                         </a>
                         <ul class="dropdown-menu">
                             <!-- User image -->
                             <li class="user-header">
-                                <img src="${rc.contextPath}/webjars/AdminLTE/dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
+                                <img src="${rc.contextPath}/webjars/AdminLTE/dist/img/avatar2.png" class="img-circle" alt="User Image">
 
                                 <p>
-                                    Alexander Pierce - Web Developer
+                                    <#include "widget/currentUserName.ftl"/>- Web Developer
                                     <small>Member since Nov. 2012</small>
                                 </p>
                             </li>
@@ -311,10 +311,10 @@
             <!-- Sidebar user panel -->
             <div class="user-panel">
                 <div class="pull-left image">
-                    <img src="${rc.contextPath}/webjars/AdminLTE/dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
+                    <img src="${rc.contextPath}/webjars/AdminLTE/dist/img/avatar2.png" class="img-circle" alt="User Image">
                 </div>
                 <div class="pull-left info">
-                    <p>Alexander Pierce</p>
+                    <p><#include "widget/currentUserName.ftl"/></p>
                     <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
                 </div>
             </div>
@@ -331,7 +331,7 @@
             <!-- /.search form -->
             <!-- sidebar menu: : style can be found in sidebar.less -->
             <ul class="sidebar-menu">
-                <li class="header">MAIN NAVIGATION</li>
+                <li class="header"></li>
                 <li class="active treeview">
                     <a href="#">
                         <i class="fa fa-dashboard"></i> <span>权限中心</span>
