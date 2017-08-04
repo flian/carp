@@ -31,20 +31,20 @@
 			<appender-ref ref="STDOUT"/>
 		</logger>
 		<logger name="org.springframework">
-			<level value="INFO" />
+			<level value="ERROR" />
 		</logger>
 		<logger name="org.springframework.security">
-			<level value="DEBUG" />
+			<level value="ERROR" />
 		</logger>
 		<logger name="jdbc.sqlonly" additivity="false" level="ERROR"/>
 		<!--log setting for log4jdbc -->
-		<logger nam="net.sf.log4jdbc" level="ERROR"/>
-		<logger nam="jdbc.audit" level="ERROR"/>
-		<logger nam="jdbc.resultset" level="ERROR"/>
-		<logger nam="jdbc.sqlonly" level="ERROR"/>
-		<logger nam="jdbc.sqltiming" level="ERROR"/>
-		<logger nam="jdbc.connection" level="ERROR"/>
-		<logger nam="log4jdbc.debug" level="ERROR"/>
+		<logger name="net.sf.log4jdbc" level="ERROR"/>
+		<logger name="jdbc.audit" level="ERROR"/>
+		<logger name="jdbc.resultset" level="ERROR"/>
+		<logger name="jdbc.sqlonly" level="INFO"/>
+		<logger name="jdbc.sqltiming" level="INFO"/>
+		<logger name="jdbc.connection" level="ERROR"/>
+		<logger name="log4jdbc.debug" level="ERROR"/>
 		<root level="ERROR">
 			<appender-ref ref="ALL"/>
 			<appender-ref ref="STDOUT" />
