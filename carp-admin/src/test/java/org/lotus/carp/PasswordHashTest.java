@@ -13,7 +13,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 public class PasswordHashTest {
     @Test
-    public void BCryptPasswordEncoderTest(){
+    public void bcryptPasswordEncoderTest(){
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
         String rawAdminPassword = "admin123";
         String rawUserPassword = "user123";

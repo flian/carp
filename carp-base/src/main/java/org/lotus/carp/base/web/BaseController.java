@@ -14,10 +14,10 @@ public interface BaseController {
     @ExceptionHandler
     @ResponseBody
     default public Object exceptionHandle(Exception e) {
-        return e == null ? this.Response().addMessage("系统错误!").execFailue() : (e.getMessage() == null ? this.Response().addException(e).addMessage("系统错误!").execFailue() : this.Response().addException(e).addMessage(e.getMessage()).execFailue());
+        return e == null ? this.response().addMessage("系统错误!").execFailue() : (e.getMessage() == null ? this.response().addException(e).addMessage("系统错误!").execFailue() : this.response().addException(e).addMessage(e.getMessage()).execFailue());
     }
 
-    default ResponseWrapper Response() {
+    default ResponseWrapper response() {
         return ResponseWrapper.create();
     }
 }

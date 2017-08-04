@@ -1,7 +1,6 @@
 package org.lotus.carp.web.controller;
 
 import org.lotus.carp.base.web.BaseController;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.context.request.RequestAttributes;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
