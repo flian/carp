@@ -42,6 +42,7 @@ public class UserServiceImpl implements UserDetailsService {
         return new org.springframework.security.core.userdetails.User(user.getUserName(), user.getPassword(), grantedAuthorities);
     }
 
+    @Transactional(readOnly = true)
     public Page<User> search(String q, Pageable page) {
         return userRepository.search(q, page);
     }

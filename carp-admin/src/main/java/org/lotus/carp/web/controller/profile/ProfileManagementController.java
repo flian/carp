@@ -32,7 +32,7 @@ public class ProfileManagementController extends AdminBaseController {
         return "profile/list";
     }
 
-    @RequestMapping
+    @RequestMapping("/data")
     @ResponseBody
     public ResponseWrapper<UserResult> queryUsers(String q, Pageable page) {
         return response().execSuccess(userConvter.toList(userService.search(q, page)));
