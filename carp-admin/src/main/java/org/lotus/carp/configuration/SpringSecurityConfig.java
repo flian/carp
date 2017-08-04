@@ -26,16 +26,14 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
     private AccessDeniedHandler accessDeniedHandler;
-    // roles admin allow to access /admin/**
-    // roles user allow to access /user/**
-    // custom 403 access denied handler
+
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable()
                 .authorizeRequests()
                 .antMatchers("/","/webjars/**").permitAll()
-                .antMatchers("/admin/**").hasAnyRole("ADMIN")
-                .antMatchers("/user/**").hasAnyRole("USER")
+                .antMatchers("/admin/**").hasAnyRole("ROLE_ADMIN")
+                .antMatchers("/user/**").hasAnyRole("ROLE_USER")
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()
@@ -51,11 +49,6 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
-       /*  in memory auth
-       auth.inMemoryAuthentication()
-                .withUser("user").password("password").roles("USER")
-                .and()
-                .withUser("admin").password("password").roles("ADMIN");*/
     }
     @Bean
     public PasswordEncoder passwordEncoder() {
