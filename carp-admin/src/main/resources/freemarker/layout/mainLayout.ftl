@@ -1,4 +1,4 @@
-<#macro main>
+<#macro main  pageJS=''>
 <!DOCTYPE html>
 <html>
 <head>
@@ -29,8 +29,6 @@
     <![endif]-->
     <!-- import CSS -->
     <link rel="stylesheet" href="${rc.contextPath}/webjars/element-ui/lib/theme-default/index.css">
-    <script src="${rc.contextPath}/webjars/vue/dist/vue.js"></script>
-    <script src="${rc.contextPath}/webjars/element-ui/lib/index.js"></script>
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
 <div class="wrapper">
@@ -766,6 +764,12 @@
 <script src="${rc.contextPath}/webjars/AdminLTE/dist/js/pages/dashboard2.js"></script>
 <!-- AdminLTE for demo purposes -->
 <script src="${rc.contextPath}/webjars/AdminLTE/dist/js/demo.js"></script>
+<!-- vue and element-ui-->
+<script src="${rc.contextPath}/webjars/vue/dist/vue.js"></script>
+<script src="${rc.contextPath}/webjars/element-ui/lib/index.js"></script>
+    <#if pageJS?is_directive>
+        <@pageJS/>
+    </#if>
 </body>
 </html>
 </#macro>
