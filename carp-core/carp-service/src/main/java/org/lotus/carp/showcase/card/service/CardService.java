@@ -1,9 +1,11 @@
 package org.lotus.carp.showcase.card.service;
 
 import org.lotus.carp.showcase.card.enums.CardTypeEnum;
-import org.lotus.carp.showcase.card.vo.CardDto;
 import org.lotus.carp.showcase.card.vo.CardCriteria;
+import org.lotus.carp.showcase.card.vo.CardDto;
 import org.lotus.carp.showcase.card.vo.CardResult;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 import java.util.List;
 
@@ -15,6 +17,7 @@ import java.util.List;
  */
 public interface CardService {
     public List<CardResult> list(CardCriteria query);
+    public Page<CardResult> query(CardCriteria query, Pageable page);
     public CardResult save(CardDto Dto);
     public CardResult get(String cardCode);
     public CardResult getByType(CardTypeEnum type);

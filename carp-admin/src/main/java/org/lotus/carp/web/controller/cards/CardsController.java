@@ -6,10 +6,12 @@ import org.lotus.carp.showcase.card.vo.CardDto;
 import org.lotus.carp.showcase.card.vo.CardResult;
 import org.lotus.carp.web.controller.AdminBaseController;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
+
 
 /**
  * Created with IntelliJ IDEA.
@@ -30,8 +32,8 @@ public class CardsController extends AdminBaseController {
 
     @GetMapping("/data")
     @ResponseBody
-    public ResponseWrapper<List<CardResult>> list() {
-        return response().execSuccess(cardService.list(null));
+    public ResponseWrapper<Page<CardResult>> list(Pageable page) {
+        return response().execSuccess(cardService.query(null, page));
     }
 
     @GetMapping("/{cardId}")

@@ -1,7 +1,7 @@
 package org.lotus.carp.showcase.card.repository;
 
 import org.lotus.carp.showcase.card.domain.Card;
-import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.stereotype.Repository;
 
 
@@ -12,6 +12,6 @@ import org.springframework.stereotype.Repository;
  * Time: 5:00 PM
  */
 @Repository
-public interface CardRepository extends CrudRepository<Card, Long> {
+public interface CardRepository extends PagingAndSortingRepository<Card, Long> {
     Card findByCardId(String code);
 }

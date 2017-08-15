@@ -4,10 +4,12 @@ import org.lotus.carp.showcase.card.convter.CardConvter;
 import org.lotus.carp.showcase.card.enums.CardTypeEnum;
 import org.lotus.carp.showcase.card.repository.CardRepository;
 import org.lotus.carp.showcase.card.service.CardService;
-import org.lotus.carp.showcase.card.vo.CardDto;
 import org.lotus.carp.showcase.card.vo.CardCriteria;
+import org.lotus.carp.showcase.card.vo.CardDto;
 import org.lotus.carp.showcase.card.vo.CardResult;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -28,6 +30,11 @@ public class CardServiceImpl implements CardService {
     @Override
     public List<CardResult> list(CardCriteria query) {
         return cardConvter.toList(cardRepository.findAll());
+    }
+
+    @Override
+    public Page<CardResult> query(CardCriteria query, Pageable page) {
+        return cardConvter.toPageList(cardRepository.findAll(page));
     }
 
     @Override

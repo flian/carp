@@ -1,5 +1,5 @@
 <@layout.main pageJS=myPageJS>
-    cards list page. vue & element UI test.
+cards list page. vue & element UI test.
 
 <div id="app">
     <el-button type="primary">新增</el-button>
@@ -7,7 +7,7 @@
     <el-button type="primary" icon="delete"></el-button>
     <el-table
             :data="tableData3"
-            style="width: 100%"  @selection-change="handleSelectionChange">
+            style="width: 100%" @selection-change="handleSelectionChange">
         <el-table-column
                 type="selection"
                 width="55">
@@ -40,11 +40,11 @@
     <el-pagination
             @size-change="handleSizeChange"
             @current-change="handleCurrentChange"
-            :current-page.sync="currentPage4"
+            :current-page.sync="query.page"
             :page-sizes="[1, 10, 20, 40]"
-            :page-size="1"
+            :page-size="query.limit"
             layout="total, sizes, prev, pager, next, jumper"
-            :total="400">
+            :total="total">
     </el-pagination>
 </div>
 </@layout.main>
@@ -54,18 +54,35 @@
         el: '#app',
         methods: {
             handleSizeChange(val) {
-                console.log(val+` items per page`);
+                console.log(val + ` items per page`);
             },
             handleCurrentChange(val) {
-                console.log(`current page: `+val);
+                console.log(`current page: ` + val);
             },
             handleSelectionChange(val) {
-                console.log(`select page: `+val);
+                console.log(`select page: ` + val);
+            },
+            queryCards(){
+                axios.get("${rc.contextPath}/cards/data",{params:this.query}).then(response =>{
+                    console.log(response);
+                    this.cards = response.data.payload.content;
+                    this.query.number = response.data.payload.number;
+                    this.query.size = response.data.payload.size;
+                })
             }
         },
-        data: function() {
+        created(){
+            this.queryCards();
+        },
+
+        data: function () {
             return {
-                currentPage4: 4,
+                query: {
+                    number: 1,
+                    size: 10
+                },
+                total:1,
+                cards: null,
                 tableData3: [{
                     date: '2016-05-03',
                     name: 'Tom',
