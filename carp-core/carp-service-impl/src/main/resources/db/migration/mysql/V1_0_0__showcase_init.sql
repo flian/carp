@@ -8,3 +8,7 @@ balance_value decimal(9,2) COMMENT '当前余额',
 PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+INSERT INTO `carp_showcase_card` VALUES (1, 'card001', '0001', 1000.00, 1.00, 1000.00);
+INSERT INTO `carp_showcase_card` VALUES (2, 'card002', '0001', 100.00, 0.00, 100.00);
+
+
