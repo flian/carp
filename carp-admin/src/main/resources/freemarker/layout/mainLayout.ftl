@@ -27,6 +27,10 @@
     <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
     <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
+    <!-- import CSS -->
+    <link rel="stylesheet" href="${rc.contextPath}/webjars/element-ui/lib/theme-default/index.css">
+    <script src="${rc.contextPath}/webjars/vue/dist/vue.js"></script>
+    <script src="${rc.contextPath}/webjars/element-ui/lib/index.js"></script>
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
 <div class="wrapper">
