@@ -13,5 +13,8 @@ import java.math.BigDecimal;
 @Data
 public class CardResult {
     private Long id;
+    private String cardId;
     private BigDecimal balanceValue;
+    private BigDecimal frozenValue;
+    private BigDecimal issueValue;
 }

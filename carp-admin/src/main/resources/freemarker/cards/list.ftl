@@ -6,7 +6,7 @@ cards list page. vue & element UI test.
     <el-button type="primary" icon="edit"></el-button>
     <el-button type="primary" icon="delete"></el-button>
     <el-table
-            :data="tableData3"
+            :data="cards"
             style="width: 100%" @selection-change="handleSelectionChange">
         <el-table-column
                 type="selection"
@@ -14,35 +14,36 @@ cards list page. vue & element UI test.
         </el-table-column>
         <el-table-column type="expand">
             <template scope="props">
-                <p>State: {{ props.row.state }}</p>
-                <p>City: {{ props.row.city }}</p>
-                <p>Address: {{ props.row.address }}</p>
-                <p>Zip: {{ props.row.zip }}</p>
+                <p>卡号: {{ props.row.cardId }}</p>
+                <p>余额: {{ props.row.balanceValue }}</p>
+                <p>冻结余额: {{ props.row.frozenValue }}</p>
+                <p>可用余额: {{ props.row.balanceValue - props.row.frozenValue }}</p>
+
             </template>
         </el-table-column>
         <el-table-column
-                label="Date"
-                prop="date">
+                label="卡号"
+                prop="cardId">
         </el-table-column>
         <el-table-column
-                label="Name"
-                prop="name">
+                label="发行面值"
+                prop="issueValue">
         </el-table-column>
         <el-table-column
-                label="City"
-                prop="city">
+                label="冻结金额"
+                prop="frozenValue">
         </el-table-column>
         <el-table-column
-                label="Address"
-                prop="address">
+                label="余额"
+                prop="balanceValue">
         </el-table-column>
     </el-table>
     <el-pagination
             @size-change="handleSizeChange"
             @current-change="handleCurrentChange"
-            :current-page.sync="query.page"
+            :current-page="query.page"
             :page-sizes="[1, 10, 20, 40]"
-            :page-size="query.limit"
+            :page-size="query.size"
             layout="total, sizes, prev, pager, next, jumper"
             :total="total">
     </el-pagination>
@@ -53,11 +54,13 @@ cards list page. vue & element UI test.
     new Vue({
         el: '#app',
         methods: {
-            handleSizeChange(val) {
-                console.log(val + ` items per page`);
+            handleSizeChange(newSize) {
+                this.query.size = newSize;
+                this.queryCards();
             },
-            handleCurrentChange(val) {
-                console.log(`current page: ` + val);
+            handleCurrentChange(newPage) {
+               this.query.page = newPage;
+                this.queryCards();
             },
             handleSelectionChange(val) {
                 console.log(`select page: ` + val);
@@ -66,8 +69,7 @@ cards list page. vue & element UI test.
                 axios.get("${rc.contextPath}/cards/data",{params:this.query}).then(response =>{
                     console.log(response);
                     this.cards = response.data.payload.content;
-                    this.query.number = response.data.payload.number;
-                    this.query.size = response.data.payload.size;
+                    this.total = response.data.payload.totalPages;
                 })
             }
         },
@@ -78,61 +80,11 @@ cards list page. vue & element UI test.
         data: function () {
             return {
                 query: {
-                    number: 1,
+                    page: 1,
                     size: 10
                 },
                 total:1,
-                cards: null,
-                tableData3: [{
-                    date: '2016-05-03',
-                    name: 'Tom',
-                    state: 'California',
-                    city: 'Los Angeles',
-                    address: 'No. 189, Grove St, Los Angeles',
-                    zip: 'CA 90036'
-                }, {
-                    date: '2016-05-02',
-                    name: 'Tom',
-                    state: 'California',
-                    city: 'Los Angeles',
-                    address: 'No. 189, Grove St, Los Angeles',
-                    zip: 'CA 90036'
-                }, {
-                    date: '2016-05-04',
-                    name: 'Tom',
-                    state: 'California',
-                    city: 'Los Angeles',
-                    address: 'No. 189, Grove St, Los Angeles',
-                    zip: 'CA 90036'
-                }, {
-                    date: '2016-05-01',
-                    name: 'Tom',
-                    state: 'California',
-                    city: 'Los Angeles',
-                    address: 'No. 189, Grove St, Los Angeles',
-                    zip: 'CA 90036'
-                }, {
-                    date: '2016-05-08',
-                    name: 'Tom',
-                    state: 'California',
-                    city: 'Los Angeles',
-                    address: 'No. 189, Grove St, Los Angeles',
-                    zip: 'CA 90036'
-                }, {
-                    date: '2016-05-06',
-                    name: 'Tom',
-                    state: 'California',
-                    city: 'Los Angeles',
-                    address: 'No. 189, Grove St, Los Angeles',
-                    zip: 'CA 90036'
-                }, {
-                    date: '2016-05-07',
-                    name: 'Tom',
-                    state: 'California',
-                    city: 'Los Angeles',
-                    address: 'No. 189, Grove St, Los Angeles',
-                    zip: 'CA 90036'
-                }]
+                cards: null
             }
         }
     })
