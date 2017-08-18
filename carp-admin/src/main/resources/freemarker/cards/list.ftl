@@ -20,8 +20,8 @@
             <el-table-column label="余额" prop="balanceValue"></el-table-column>
         </el-table>
         <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange"
-                :current-page="query.page" :page-sizes="[1, 10, 20, 40]" :page-size="query.size"
-                layout="total, sizes, prev, pager, next, jumper" :total="total">
+                :current-page="query.page" :page-sizes="[5, 10, 20, 40]" :page-size="query.size"
+                layout="total, sizes, prev, pager, next, jumper" :total="totalElements">
         </el-pagination>
     </div>
 </@layout.main>
@@ -45,7 +45,8 @@
                     axios.get("${rc.contextPath}/cards/data", {params: this.query}).then(response => {
                         console.log(response);
                         this.cards = response.data.payload.content;
-                        this.total = response.data.payload.totalPages;
+                        this.totalPage = response.data.payload.totalPages;
+                        this.totalElements = response.data.payload.totalElements;
                     })
                 }
             },
@@ -59,7 +60,8 @@
                         page: 1,
                         size: 10
                     },
-                    total: 1,
+                    totalPage: 0,
+                    totalElements:0,
                     cards: null
                 }
             }
