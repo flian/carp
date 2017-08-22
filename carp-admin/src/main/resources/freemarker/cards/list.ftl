@@ -52,9 +52,9 @@
                 },
                 deleteSelected(){
                     var self = this;
-                    this.$confirm('This will permanently delete the file. Continue?', 'Warning', {
-                        confirmButtonText: 'OK',
-                        cancelButtonText: 'Cancel',
+                    this.$confirm('永久删除选中行?', '确认删除', {
+                        confirmButtonText: '确认删除',
+                        cancelButtonText: '取消',
                         type: 'warning'
                     }).then(() => {
                         var ids = [];
@@ -65,12 +65,12 @@
                         //todo delete card from server side
                         this.$message({
                             type: 'success',
-                            message: 'Delete completed'
+                            message: '删除成功！'
                         });
                     }).catch(() => {
                         this.$message({
                             type: 'info',
-                            message: 'Delete canceled'
+                            message: '取消删除！'
                         });
                     });
                 },
