@@ -1,9 +1,9 @@
 <@layout.main pageJS=myPageJS>
 <section class="content">
     <div id="app">
-        <el-button type="primary">新增</el-button>
-        <el-button type="primary" icon="edit" :disable="!(selectedCards && selectedCards.length == 1) "></el-button>
-        <el-button type="primary" icon="delete" @click="deleteSelected" :disabled="!(selectedCards && selectedCards.length > 0) "></el-button>
+        <el-button type="primary" @click="add">新增</el-button>
+        <el-button type="primary" icon="edit" @click="edit" :disabled="shouldDisableEdit"></el-button>
+        <el-button type="primary" icon="delete" @click="deleteSelected" :disabled="shouldDisableDelete"></el-button>
         <el-table :data.sync="cards" style="width: 100%" @selection-change="handleSelectionChange">
             <el-table-column type="selection"  width="55"></el-table-column>
             <el-table-column type="expand">
@@ -29,7 +29,27 @@
     <script>
         new Vue({
             el: '#app',
+            computed:{
+                shouldDisableEdit() {
+                    if(this.selectedCards.length == 1){
+                        return false;
+                    }
+                    return true;
+                },
+                shouldDisableDelete() {
+                    if( this.selectedCards.length >0){
+                        return false;
+                    }
+                    return true;
+                }
+            },
             methods: {
+                add(){
+                    console.log('pending add func!');
+                },
+                edit(){
+                  console.log('pending edit func!');
+                },
                 deleteSelected(){
                     var self = this;
                     this.$confirm('This will permanently delete the file. Continue?', 'Warning', {
@@ -86,8 +106,8 @@
                     },
                     totalPage: 0,
                     totalElements:0,
-                    cards: null,
-                    selectedCards: null
+                    cards: [],
+                    selectedCards: []
                 }
             }
         })
