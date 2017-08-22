@@ -2,9 +2,9 @@
 <section class="content">
     <div id="app">
         <el-button type="primary">新增</el-button>
-        <el-button type="primary" icon="edit"></el-button>
-        <el-button type="primary" icon="delete"></el-button>
-        <el-table :data="cards" style="width: 100%" @selection-change="handleSelectionChange">
+        <el-button type="primary" icon="edit" :disable="!(selectedCards && selectedCards.length == 1) "></el-button>
+        <el-button type="primary" icon="delete" @click="deleteSelected" :disabled="!(selectedCards && selectedCards.length > 0) "></el-button>
+        <el-table :data.sync="cards" style="width: 100%" @selection-change="handleSelectionChange">
             <el-table-column type="selection"  width="55"></el-table-column>
             <el-table-column type="expand">
                 <template scope="props">
@@ -30,6 +30,30 @@
         new Vue({
             el: '#app',
             methods: {
+                deleteSelected(){
+                    var self = this;
+                    this.$confirm('This will permanently delete the file. Continue?', 'Warning', {
+                        confirmButtonText: 'OK',
+                        cancelButtonText: 'Cancel',
+                        type: 'warning'
+                    }).then(() => {
+                        var ids = [];
+                        self.selectedCards.forEach(function(val,idx){
+                            ids.push(val.id);
+                            self.cards.splice(self.cards.indexOf(val),1);
+                        });
+                        //todo delete card from server side
+                        this.$message({
+                            type: 'success',
+                            message: 'Delete completed'
+                        });
+                    }).catch(() => {
+                        this.$message({
+                            type: 'info',
+                            message: 'Delete canceled'
+                        });
+                    });
+                },
                 handleSizeChange(newSize) {
                     this.query.size = newSize;
                     this.queryCards();
@@ -39,7 +63,7 @@
                     this.queryCards();
                 },
                 handleSelectionChange(val) {
-                    console.log(`select page: ` + val);
+                    this.selectedCards = val;
                 },
                 queryCards(){
                     axios.get("${rc.contextPath}/cards/data", {params: this.query}).then(response => {
@@ -62,7 +86,8 @@
                     },
                     totalPage: 0,
                     totalElements:0,
-                    cards: null
+                    cards: null,
+                    selectedCards: null
                 }
             }
         })
