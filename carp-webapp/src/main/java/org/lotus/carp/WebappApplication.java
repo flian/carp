@@ -5,7 +5,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 /**
  * Created with IntelliJ IDEA.
- * User: Foy Lian
+ * @author : Foy Lian
  * Date: 8/1/2017
  * Time: 5:13 PM
  */

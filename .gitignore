@@ -83,3 +83,6 @@ buildNumber.properties
 hs_err_pid*
 
 carp_reate.sql
+
+#ignore jrebel.xml
+rebel.xml
