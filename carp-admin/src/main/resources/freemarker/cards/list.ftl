@@ -1,9 +1,23 @@
 <@layout.main pageJS=myPageJS>
 <section class="content">
     <div id="app">
-        <el-button type="primary" @click="add">新增</el-button>
+        <el-button type="primary" @click="add">添加</el-button>
         <el-button type="primary" icon="edit" @click="edit" :disabled="shouldDisableEdit"></el-button>
         <el-button type="primary" icon="delete" @click="deleteSelected" :disabled="shouldDisableDelete"></el-button>
+        <el-collapse accordion>
+            <el-collapse-item title="More...">
+                <div class="filter-container">
+                    <el-input  style="width: 200px;" class="filter-item" placeholder="标题" >
+                    </el-input>
+                    <el-input  style="width: 200px;" class="filter-item" placeholder="姓名" >
+                    </el-input>
+                    <el-button class="filter-item" type="primary" v-waves icon="search" @click="">搜索</el-button>
+                    <el-button class="filter-item" style="margin-left: 10px;" @click="add" type="primary" icon="edit">添加</el-button>
+                    <el-button class="filter-item" type="primary" icon="document" @click="">导出</el-button>
+                    <el-checkbox class="filter-item"  >显示审核人</el-checkbox>
+                </div>
+            </el-collapse-item>
+        </el-collapse>
         <el-table :data.sync="cards" style="width: 100%" @selection-change="handleSelectionChange">
             <el-table-column type="selection"  width="55"></el-table-column>
             <el-table-column type="expand">
@@ -18,6 +32,17 @@
             <el-table-column label="发行面值" prop="issueValue"></el-table-column>
             <el-table-column label="冻结金额" prop="frozenValue"></el-table-column>
             <el-table-column label="余额" prop="balanceValue"></el-table-column>
+
+            <el-table-column align="center" label="操作">
+                <template scope="scope">
+                    <el-button  size="small" type="success" @click="">编辑
+                    </el-button>
+                    <el-button  size="small" @click="">草稿
+                    </el-button>
+                    <el-button  size="small" type="danger" @click="">删除
+                    </el-button>
+                </template>
+            </el-table-column>
         </el-table>
         <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange"
                 :current-page="query.page" :page-sizes="[5, 10, 20, 40]" :page-size="query.size"
