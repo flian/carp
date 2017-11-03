@@ -15,13 +15,13 @@ import org.springframework.web.bind.annotation.*;
 
 /**
  * Created with IntelliJ IDEA.
- * User: Foy Lian
+ * @author : Foy Lian
  * Date: 7/31/2017
  * Time: 4:36 PM
  */
 @Controller
 @RequestMapping("/cards")
-public class CardsController extends AdminBaseController {
+public class CardController extends AdminBaseController {
     @Autowired
     private CardService cardService;
 

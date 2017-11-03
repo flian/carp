@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 /**
  * Created with IntelliJ IDEA.
- * User: Foy Lian
+ * @author : Foy Lian
  * Date: 8/4/2017
  * Time: 3:51 PM
  */

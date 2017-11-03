@@ -1,8 +1,7 @@
 <@layout.main pageJS=myPageJS>
 <section class="content">
     <div id="app">
-        <el-button type="primary" @click="add">添加</el-button>
-        <el-button type="primary" icon="edit" @click="edit" :disabled="shouldDisableEdit"></el-button>
+        <el-button class="filter-item" style="margin-left: 10px;" @click="add" type="primary" icon="edit">添加</el-button>
         <el-button type="primary" icon="delete" @click="deleteSelected" :disabled="shouldDisableDelete"></el-button>
         <el-collapse accordion>
             <el-collapse-item title="More...">
@@ -11,8 +10,7 @@
                     </el-input>
                     <el-input  style="width: 200px;" class="filter-item" placeholder="姓名" >
                     </el-input>
-                    <el-button class="filter-item" type="primary" v-waves icon="search" @click="">搜索</el-button>
-                    <el-button class="filter-item" style="margin-left: 10px;" @click="add" type="primary" icon="edit">添加</el-button>
+                    <el-button class="filter-item" type="primary"  icon="search" @click="">搜索</el-button>
                     <el-button class="filter-item" type="primary" icon="document" @click="">导出</el-button>
                     <el-checkbox class="filter-item"  >显示审核人</el-checkbox>
                 </div>
@@ -35,11 +33,9 @@
 
             <el-table-column align="center" label="操作">
                 <template scope="scope">
-                    <el-button  size="small" type="success" @click="">编辑
+                    <el-button  size="small" type="success" @click="edit(scope.row)">编辑
                     </el-button>
-                    <el-button  size="small" @click="">草稿
-                    </el-button>
-                    <el-button  size="small" type="danger" @click="">删除
+                    <el-button  size="small" type="danger" @click="deleteRow(row)">删除
                     </el-button>
                 </template>
             </el-table-column>
@@ -48,6 +44,28 @@
                 :current-page="query.page" :page-sizes="[5, 10, 20, 40]" :page-size="query.size"
                 layout="total, sizes, prev, pager, next, jumper" :total="totalElements">
         </el-pagination>
+
+        <el-dialog title="新增/修改卡片信息" :visible.sync="createOrEditVisible">
+            <el-form>
+                <el-form-item label="卡号" >
+                    <el-input v-model="cardItem.cardId" auto-complete="off"></el-input>
+                </el-form-item>
+                <el-form-item label="发行面值" >
+                    <el-input v-model="cardItem.issueValue" auto-complete="off"></el-input>
+                </el-form-item>
+                <el-form-item label="冻结金额" >
+                    <el-input v-model="cardItem.frozenValue" auto-complete="off"></el-input>
+                </el-form-item>
+                <el-form-item label="余额" >
+                    <el-input v-model="cardItem.balanceValue" auto-complete="off"></el-input>
+                </el-form-item>
+                </el-form-item>
+            </el-form>
+            <div slot="footer" class="dialog-footer">
+                <el-button @click="createOrEditVisible = false">取 消</el-button>
+                <el-button type="primary" @click="createOrUpdateCard">保 存</el-button>
+            </div>
+        </el-dialog>
     </div>
 </@layout.main>
 <#macro myPageJS>
@@ -55,12 +73,6 @@
         new Vue({
             el: '#app',
             computed:{
-                shouldDisableEdit() {
-                    if(this.selectedCards.length == 1){
-                        return false;
-                    }
-                    return true;
-                },
                 shouldDisableDelete() {
                     if( this.selectedCards.length >0){
                         return false;
@@ -71,9 +83,31 @@
             methods: {
                 add(){
                     console.log('pending add func!');
+                    var self = this;
+                    self.cardItem = {};
+                    self.createOrEditVisible = true;
                 },
-                edit(){
+                edit(row){
                   console.log('pending edit func!');
+                    var self = this;
+                    var item = row;
+                    self.cardItem = JSON.parse(JSON.stringify(item));
+                    self.createOrEditVisible = true;
+                },
+                createOrUpdateCard(){
+                    var self = this;
+                    axios.post("${rc.contextPath}/cards",JSON.parse(JSON.stringify(self.cardItem)) ).then(response => {
+                        console.log(response);
+                        self.createOrEditVisible = false;
+                        // save server side
+                        this.$message({
+                            type: 'success',
+                            message: '保存成功！'
+                        });
+                    })
+                },
+                deleteRow(row){
+                  //todo delete row
                 },
                 deleteSelected(){
                     var self = this;
@@ -132,7 +166,9 @@
                     totalPage: 0,
                     totalElements:0,
                     cards: [],
-                    selectedCards: []
+                    selectedCards: [],
+                    createOrEditVisible: false,
+                    cardItem:{}
                 }
             }
         })
