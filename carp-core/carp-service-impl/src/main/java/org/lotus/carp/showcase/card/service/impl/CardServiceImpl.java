@@ -80,6 +80,6 @@ public class CardServiceImpl implements CardService {
     }
 
     private String random() {
-        return "" + Math.random() * 1000000000L;
+        return "" + (int)(Math.random() * 1000000000);
     }
 }

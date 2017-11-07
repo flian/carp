@@ -23,10 +23,14 @@
             <artifactId>spring-data-commons</artifactId>
             <scope>compile</scope>
         </dependency>
+        <!-- Bean Validation API support -->
         <dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-validator</artifactId>
-            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>javax.validation</groupId>
+            <artifactId>validation-api</artifactId>
         </dependency>
     </dependencies>
 </project>

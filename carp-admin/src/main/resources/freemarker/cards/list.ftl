@@ -107,13 +107,21 @@
                 createCard(){
                     var self = this;
                     axios.post("${rc.contextPath}/cards", JSON.parse(JSON.stringify(self.cardItem))).then(response => {
-                        console.log(response);
+                        if(response.data.procCode != 200){
+                            this.$message({
+                                type: 'success',
+                                message:  response.data.message
+                            });
+                            return;
+                        }
                         self.createVisible = false;
                         // save server side
                         this.$message({
                             type: 'success',
                             message: '保存成功！'
                         });
+                    }).catch(error =>{
+                        console.log(error);
                     });
                     self.queryCards();
                 },

@@ -4,6 +4,7 @@ import org.lotus.carp.base.vo.ResponseWrapper;
 import org.lotus.carp.showcase.card.service.CardService;
 import org.lotus.carp.showcase.card.vo.CardCreateDto;
 import org.lotus.carp.showcase.card.vo.CardResult;
+import org.lotus.carp.showcase.card.vo.CardUpdateDto;
 import org.lotus.carp.web.controller.AdminBaseController;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -45,14 +46,14 @@ public class CardController extends AdminBaseController {
 
     @PostMapping
     @ResponseBody
-    public ResponseWrapper<CardResult> save(@Valid CardCreateDto dto) {
+    public ResponseWrapper<CardResult> save(@Valid @RequestBody  CardCreateDto dto) {
         return response().execSuccess(cardService.save(dto));
     }
 
     @PutMapping
     @ResponseBody
-    public ResponseWrapper<CardResult> update(@Valid CardCreateDto dto) {
-        return response().execSuccess(cardService.save(dto));
+    public ResponseWrapper<CardResult> update(@Valid @RequestBody CardUpdateDto dto) {
+        return response().execSuccess(cardService.update(dto));
     }
 
 }

@@ -1,9 +1,11 @@
 package org.lotus.carp.showcase.card.vo;
 
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 import org.hibernate.validator.constraints.Length;
-import org.hibernate.validator.constraints.NotEmpty;
 
+import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
 
 /**
@@ -16,13 +18,13 @@ import java.math.BigDecimal;
 @Data
 public class CardUpdateDto {
 
-    @NotEmpty(message = "卡号不能为空")
+    @NotNull(message = "卡号不能为空")
     @Length(max = 64, message = "卡号不能超过64位")
     private String  cardId;
 
-    @NotEmpty(message = "冻结金额不能为空")
+    @NotNull(message = "冻结金额不能为空")
     private BigDecimal frozenValue;
 
-    @NotEmpty(message = "余额不能为空")
+    @NotNull(message = "余额不能为空")
     private BigDecimal balanceValue;
 }

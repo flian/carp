@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 public interface BaseController {
     @ExceptionHandler
     @ResponseBody
-    default public Object exceptionHandle(Exception e) {
+    default  Object exceptionHandle(Exception e) {
         return e == null ? this.response().addMessage("系统错误!").execFailue() : (e.getMessage() == null ? this.response().addException(e).addMessage("系统错误!").execFailue() : this.response().addException(e).addMessage(e.getMessage()).execFailue());
     }
 
