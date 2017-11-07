@@ -45,25 +45,37 @@
                 layout="total, sizes, prev, pager, next, jumper" :total="totalElements">
         </el-pagination>
 
-        <el-dialog title="新增/修改卡片信息" :visible.sync="createOrEditVisible">
+        <el-dialog :title="新增卡片信息 ">
             <el-form>
-                <el-form-item label="卡号" >
-                    <el-input v-model="cardItem.cardId" auto-complete="off"></el-input>
-                </el-form-item>
                 <el-form-item label="发行面值" >
                     <el-input v-model="cardItem.issueValue" auto-complete="off"></el-input>
                 </el-form-item>
-                <el-form-item label="冻结金额" >
+            </el-form>
+            <div slot="footer" class="dialog-footer">
+                <el-button @click="createOrEditVisible = false">取 消</el-button>
+                <el-button type="primary" @click="createCard">保 存</el-button>
+            </div>
+        </el-dialog>
+
+        <el-dialog :title="修改卡片信息 " :visible.sync="editVisible">
+            <el-form>
+                <el-form-item label="卡号"  readonly="true">
+                    <el-input v-model="cardItem.cardId" auto-complete="off"></el-input>
+                </el-form-item>
+                <el-form-item label="发行面值"  readonly="true">
+                    <el-input v-model="cardItem.issueValue" auto-complete="off"></el-input>
+                </el-form-item>
+                <el-form-item label="冻结金额">
                     <el-input v-model="cardItem.frozenValue" auto-complete="off"></el-input>
                 </el-form-item>
                 <el-form-item label="余额" >
                     <el-input v-model="cardItem.balanceValue" auto-complete="off"></el-input>
                 </el-form-item>
-                </el-form-item>
             </el-form>
+
             <div slot="footer" class="dialog-footer">
                 <el-button @click="createOrEditVisible = false">取 消</el-button>
-                <el-button type="primary" @click="createOrUpdateCard">保 存</el-button>
+                <el-button type="primary" @click="updateCard">保 存</el-button>
             </div>
         </el-dialog>
     </div>
@@ -82,34 +94,50 @@
             },
             methods: {
                 add(){
-                    console.log('pending add func!');
                     var self = this;
                     self.cardItem = {};
-                    self.createOrEditVisible = true;
+                    self.createVisible = true;
                 },
                 edit(row){
-                  console.log('pending edit func!');
                     var self = this;
                     var item = row;
                     self.cardItem = JSON.parse(JSON.stringify(item));
                     self.createOrEditVisible = true;
                 },
-                createOrUpdateCard(){
+                createCard(){
                     var self = this;
                     axios.post("${rc.contextPath}/cards",JSON.parse(JSON.stringify(self.cardItem)) ).then(response => {
                         console.log(response);
-                        self.createOrEditVisible = false;
+                        self.createVisible = false;
+                        // save server side
+                        this.$message({
+                            type: 'success',
+                            message: '保存成功！'
+                        });
+                    });
+                    self.queryCards();
+                },
+                updateCard(){
+                    var self = this;
+                    axios.put("${rc.contextPath}/cards",JSON.parse(JSON.stringify(self.cardItem)) ).then(response => {
+                        console.log(response);
+                        self.editVisible = false;
                         // save server side
                         this.$message({
                             type: 'success',
                             message: '保存成功！'
                         });
                     })
+                    self.queryCards();
                 },
+
                 deleteRow(row){
-                  //todo delete row
+                    this.deleteBySelectedCards(row);
                 },
                 deleteSelected(){
+                  this.deleteBySelectedCards(this.selectedCards);
+                },
+                deleteBySelectedCards(cards){
                     var self = this;
                     this.$confirm('永久删除选中行?', '确认删除', {
                         confirmButtonText: '确认删除',
@@ -117,11 +145,11 @@
                         type: 'warning'
                     }).then(() => {
                         var ids = [];
-                        self.selectedCards.forEach(function(val,idx){
+                        cards.forEach(function(val){
                             ids.push(val.id);
                             self.cards.splice(self.cards.indexOf(val),1);
                         });
-                        //todo delete card from server side
+                       self.deleteCardsByIds(ids);
                         this.$message({
                             type: 'success',
                             message: '删除成功！'
@@ -131,6 +159,11 @@
                             type: 'info',
                             message: '取消删除！'
                         });
+                    });
+                },
+                deleteCardsByIds(ids){
+                    axios.post("${rc.contextPath}/cards/delete",ids).then(response =>{
+                        console.log(response);
                     });
                 },
                 handleSizeChange(newSize) {
@@ -167,7 +200,8 @@
                     totalElements:0,
                     cards: [],
                     selectedCards: [],
-                    createOrEditVisible: false,
+                    createVisible: false,
+                    updateVisible : false,
                     cardItem:{}
                 }
             }
