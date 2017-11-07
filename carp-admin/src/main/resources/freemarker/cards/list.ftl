@@ -1,6 +1,6 @@
 <@layout.main pageJS=myPageJS>
 <section class="content">
-    <div id="app">
+    <div id="app" v-cloak>
         <el-button class="filter-item" style="margin-left: 10px;" @click="add" type="primary" icon="edit">添加</el-button>
         <el-button type="primary" icon="delete" @click="deleteSelected" :disabled="shouldDisableDelete"></el-button>
         <el-collapse accordion>

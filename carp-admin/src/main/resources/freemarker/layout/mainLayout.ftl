@@ -31,6 +31,9 @@
     <![endif]-->
     <!-- import CSS -->
     <link rel="stylesheet" href="${rc.contextPath}/webjars/element-ui/lib/theme-default/index.css">
+
+    <!--carp common css-->
+    <link rel="stylesheet" href="${rc.contextPath}/css/common.css">
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
 <div class="wrapper">
