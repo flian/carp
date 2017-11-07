@@ -1,55 +1,85 @@
 package org.lotus.carp.showcase.card.service.impl;
 
-import org.lotus.carp.showcase.card.convter.CardConvter;
+import org.lotus.carp.showcase.card.convter.CardConverter;
+import org.lotus.carp.showcase.card.domain.Card;
 import org.lotus.carp.showcase.card.enums.CardTypeEnum;
 import org.lotus.carp.showcase.card.repository.CardRepository;
 import org.lotus.carp.showcase.card.service.CardService;
+import org.lotus.carp.showcase.card.vo.CardCreateDto;
 import org.lotus.carp.showcase.card.vo.CardCriteria;
-import org.lotus.carp.showcase.card.vo.CardDto;
 import org.lotus.carp.showcase.card.vo.CardResult;
+import org.lotus.carp.showcase.card.vo.CardUpdateDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 /**
  * Created with IntelliJ IDEA.
- * User: Foy Lian
- * Date: 7/31/2017
- * Time: 2:48 PM
+ *
+ * @author : Foy Lian
+ *         Date: 7/31/2017
+ *         Time: 2:48 PM
  */
 @Service
 public class CardServiceImpl implements CardService {
     @Autowired
     private CardRepository cardRepository;
     @Autowired
-    private CardConvter cardConvter;
+    private CardConverter cardConverter;
 
     @Override
     public List<CardResult> list(CardCriteria query) {
-        return cardConvter.toList(cardRepository.findAll());
+        return cardConverter.toList(cardRepository.findAll());
     }
 
     @Override
     public Page<CardResult> query(CardCriteria query, Pageable page) {
-        return cardConvter.toPageList(cardRepository.findAll(page));
+        return cardConverter.toPageList(cardRepository.findAll(page));
     }
 
     @Override
-    public CardResult save(CardDto dto) {
-        return cardConvter.toResult(cardRepository.save(cardConvter.fromDto(dto)));
+    public CardResult save(CardCreateDto dto) {
+        Card card = new Card();
+        card.setCardId(generateCardId());
+        card.setIssueValue(dto.getIssueValue());
+        card.setBalanceValue(card.getIssueValue());
+        card.setFrozenValue(BigDecimal.ZERO);
+        card = cardRepository.save(card);
+        return cardConverter.toResult(card);
     }
 
     @Override
     public CardResult get(String cardCode) {
-        return cardConvter.toResult(cardRepository.findByCardId(cardCode));
+        return cardConverter.toResult(cardRepository.findByCardId(cardCode));
     }
 
     @Override
     public CardResult getByType(CardTypeEnum type) {
         //TODO pending
         return null;
+    }
+
+    @Override
+    public CardResult update(CardUpdateDto updateDto) {
+        Card card = cardRepository.findByCardId(updateDto.getCardId());
+        card.setFrozenValue(updateDto.getFrozenValue());
+        card.setBalanceValue(updateDto.getBalanceValue());
+        return cardConverter.toResult(cardRepository.save(card));
+    }
+
+    private String generateCardId() {
+        LocalDate now = LocalDate.now();
+        String cardIdPrefix = now.format(DateTimeFormatter.ofPattern("yyyyMMdd"));
+        return String.format("%s%s", cardIdPrefix, random());
+    }
+
+    private String random() {
+        return "" + Math.random() * 1000000000L;
     }
 }
