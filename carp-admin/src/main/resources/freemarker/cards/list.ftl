@@ -6,18 +6,18 @@
         <el-collapse accordion>
             <el-collapse-item title="More...">
                 <div class="filter-container">
-                    <el-input  style="width: 200px;" class="filter-item" placeholder="标题" >
+                    <el-input style="width: 200px;" class="filter-item" placeholder="标题">
                     </el-input>
-                    <el-input  style="width: 200px;" class="filter-item" placeholder="姓名" >
+                    <el-input style="width: 200px;" class="filter-item" placeholder="姓名">
                     </el-input>
-                    <el-button class="filter-item" type="primary"  icon="search" @click="">搜索</el-button>
+                    <el-button class="filter-item" type="primary" icon="search" @click="">搜索</el-button>
                     <el-button class="filter-item" type="primary" icon="document" @click="">导出</el-button>
-                    <el-checkbox class="filter-item"  >显示审核人</el-checkbox>
+                    <el-checkbox class="filter-item">显示审核人</el-checkbox>
                 </div>
             </el-collapse-item>
         </el-collapse>
         <el-table :data.sync="cards" style="width: 100%" @selection-change="handleSelectionChange">
-            <el-table-column type="selection"  width="55"></el-table-column>
+            <el-table-column type="selection" width="55"></el-table-column>
             <el-table-column type="expand">
                 <template scope="props">
                     <p>卡号: {{ props.row.cardId }}</p>
@@ -26,55 +26,55 @@
                     <p>可用余额: {{ props.row.balanceValue - props.row.frozenValue }}</p>
                 </template>
             </el-table-column>
-            <el-table-column label="卡号"  prop="cardId"></el-table-column>
+            <el-table-column label="卡号" prop="cardId"></el-table-column>
             <el-table-column label="发行面值" prop="issueValue"></el-table-column>
             <el-table-column label="冻结金额" prop="frozenValue"></el-table-column>
             <el-table-column label="余额" prop="balanceValue"></el-table-column>
 
             <el-table-column align="center" label="操作">
                 <template scope="scope">
-                    <el-button  size="small" type="success" @click="edit(scope.row)">编辑
+                    <el-button size="small" type="success" @click="edit(scope.row)">编辑
                     </el-button>
-                    <el-button  size="small" type="danger" @click="deleteRow(row)">删除
+                    <el-button size="small" type="danger" @click="deleteRow(row)">删除
                     </el-button>
                 </template>
             </el-table-column>
         </el-table>
         <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange"
-                :current-page="query.page" :page-sizes="[5, 10, 20, 40]" :page-size="query.size"
-                layout="total, sizes, prev, pager, next, jumper" :total="totalElements">
+                       :current-page="query.page" :page-sizes="[5, 10, 20, 40]" :page-size="query.size"
+                       layout="total, sizes, prev, pager, next, jumper" :total="totalElements">
         </el-pagination>
 
-        <el-dialog :title="新增卡片信息 ">
+        <el-dialog title="新增卡片信息 " :visible.sync="createVisible">
             <el-form>
-                <el-form-item label="发行面值" >
+                <el-form-item label="发行面值">
                     <el-input v-model="cardItem.issueValue" auto-complete="off"></el-input>
                 </el-form-item>
             </el-form>
             <div slot="footer" class="dialog-footer">
-                <el-button @click="createOrEditVisible = false">取 消</el-button>
+                <el-button @click="createVisible = false">取 消</el-button>
                 <el-button type="primary" @click="createCard">保 存</el-button>
             </div>
         </el-dialog>
 
-        <el-dialog :title="修改卡片信息 " :visible.sync="editVisible">
+        <el-dialog title="修改卡片信息 " :visible.sync="editVisible">
             <el-form>
-                <el-form-item label="卡号"  readonly="true">
+                <el-form-item label="卡号" readonly="true">
                     <el-input v-model="cardItem.cardId" auto-complete="off"></el-input>
                 </el-form-item>
-                <el-form-item label="发行面值"  readonly="true">
+                <el-form-item label="发行面值" readonly="true">
                     <el-input v-model="cardItem.issueValue" auto-complete="off"></el-input>
                 </el-form-item>
                 <el-form-item label="冻结金额">
                     <el-input v-model="cardItem.frozenValue" auto-complete="off"></el-input>
                 </el-form-item>
-                <el-form-item label="余额" >
+                <el-form-item label="余额">
                     <el-input v-model="cardItem.balanceValue" auto-complete="off"></el-input>
                 </el-form-item>
             </el-form>
 
             <div slot="footer" class="dialog-footer">
-                <el-button @click="createOrEditVisible = false">取 消</el-button>
+                <el-button @click="editVisible = false">取 消</el-button>
                 <el-button type="primary" @click="updateCard">保 存</el-button>
             </div>
         </el-dialog>
@@ -84,9 +84,9 @@
     <script>
         new Vue({
             el: '#app',
-            computed:{
+            computed: {
                 shouldDisableDelete() {
-                    if( this.selectedCards.length >0){
+                    if (this.selectedCards.length > 0) {
                         return false;
                     }
                     return true;
@@ -102,11 +102,11 @@
                     var self = this;
                     var item = row;
                     self.cardItem = JSON.parse(JSON.stringify(item));
-                    self.createOrEditVisible = true;
+                    self.editVisible = true;
                 },
                 createCard(){
                     var self = this;
-                    axios.post("${rc.contextPath}/cards",JSON.parse(JSON.stringify(self.cardItem)) ).then(response => {
+                    axios.post("${rc.contextPath}/cards", JSON.parse(JSON.stringify(self.cardItem))).then(response => {
                         console.log(response);
                         self.createVisible = false;
                         // save server side
@@ -119,7 +119,7 @@
                 },
                 updateCard(){
                     var self = this;
-                    axios.put("${rc.contextPath}/cards",JSON.parse(JSON.stringify(self.cardItem)) ).then(response => {
+                    axios.put("${rc.contextPath}/cards", JSON.parse(JSON.stringify(self.cardItem))).then(response => {
                         console.log(response);
                         self.editVisible = false;
                         // save server side
@@ -135,7 +135,7 @@
                     this.deleteBySelectedCards(row);
                 },
                 deleteSelected(){
-                  this.deleteBySelectedCards(this.selectedCards);
+                    this.deleteBySelectedCards(this.selectedCards);
                 },
                 deleteBySelectedCards(cards){
                     var self = this;
@@ -145,11 +145,11 @@
                         type: 'warning'
                     }).then(() => {
                         var ids = [];
-                        cards.forEach(function(val){
+                        cards.forEach(function (val) {
                             ids.push(val.id);
-                            self.cards.splice(self.cards.indexOf(val),1);
+                            self.cards.splice(self.cards.indexOf(val), 1);
                         });
-                       self.deleteCardsByIds(ids);
+                        self.deleteCardsByIds(ids);
                         this.$message({
                             type: 'success',
                             message: '删除成功！'
@@ -162,7 +162,7 @@
                     });
                 },
                 deleteCardsByIds(ids){
-                    axios.post("${rc.contextPath}/cards/delete",ids).then(response =>{
+                    axios.post("${rc.contextPath}/cards/delete", ids).then(response => {
                         console.log(response);
                     });
                 },
@@ -189,7 +189,6 @@
             created(){
                 this.queryCards();
             },
-
             data: function () {
                 return {
                     query: {
@@ -197,12 +196,12 @@
                         size: 10
                     },
                     totalPage: 0,
-                    totalElements:0,
+                    totalElements: 0,
                     cards: [],
                     selectedCards: [],
                     createVisible: false,
-                    updateVisible : false,
-                    cardItem:{}
+                    editVisible: false,
+                    cardItem: {}
                 }
             }
         })
