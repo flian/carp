@@ -57,8 +57,8 @@
         </el-pagination>
 
         <el-dialog title="新增卡片信息 " :visible.sync="createVisible">
-            <el-form>
-                <el-form-item label="发行面值" :label-width="formLabelWidth">
+            <el-form :rules="createCardRules" ref="createCardForm" :model="cardItem">
+                <el-form-item label="发行面值" :label-width="formLabelWidth" prop="issueValue">
                     <el-input v-model="cardItem.issueValue" auto-complete="off"></el-input>
                 </el-form-item>
             </el-form>
@@ -124,25 +124,33 @@
                 },
                 createCard(){
                     var self = this;
-                    axios.post("${rc.contextPath}/cards", JSON.parse(JSON.stringify(self.cardItem))).then(response => {
-                        if(response.data.procCode != 200){
-                            this.$message({
-                                type: 'success',
-                                message:  response.data.message
+                    self.$refs['createCardForm'].validate((valid) =>{
+                        if(valid){
+                            axios.post("${rc.contextPath}/cards", JSON.parse(JSON.stringify(self.cardItem))).then(response => {
+                                if(response.data.procCode != 200){
+                                    this.$message({
+                                        type: 'success',
+                                        message:  response.data.message
+                                    });
+                                    return;
+                                }
+                                self.createVisible = false;
+                                self.cards.unshift(response.data.payload);
+                                self.highlightRowIndex = self.highlightRowIndex + 1;
+                                // save server side
+                                this.$message({
+                                    type: 'success',
+                                    message: '保存成功！'
+                                });
+                            }).catch(error =>{
+                                console.log(error);
                             });
-                            return;
+                        }else{
+                            console.log("error submit!");
+                            return false;
                         }
-                        self.createVisible = false;
-                        self.cards.unshift(response.data.payload);
-                        self.highlightRowIndex = self.highlightRowIndex + 1;
-                        // save server side
-                        this.$message({
-                            type: 'success',
-                            message: '保存成功！'
-                        });
-                    }).catch(error =>{
-                        console.log(error);
                     });
+
                 },
                 updateCard(){
                     var self = this;
@@ -238,7 +246,15 @@
                     cardItem: {},
                     //从第0行，到第n行需要高亮（新增的行）
                     highlightRowIndex: -1,
-                    formLabelWidth: '120px'
+                    formLabelWidth: '120px',
+                    //表单验证
+                    createCardRules:{
+                        issueValue:[
+                            //FIXME 验证规则不对 文档地址：https://github.com/yiminghe/async-validator
+                            { type: "string", required:true, message:'请输入正确的金额',trigger:'blur'},
+                            {max:4,message:'卡面值需是在0到2w之间数字',trigger:'blur'}
+                            ]
+                    }
                 }
             }
         })
