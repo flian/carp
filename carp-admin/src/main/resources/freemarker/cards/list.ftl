@@ -17,7 +17,7 @@
             </el-collapse-item>
         </el-collapse>
         <el-table :data.sync="cards" style="width: 100%" @selection-change="handleSelectionChange"
-        :row-class-name="tableRowClassName">
+                  :row-class-name="tableRowClassName">
             <el-table-column type="selection" width="55"></el-table-column>
             <el-table-column type="expand">
                 <template scope="props">
@@ -59,7 +59,7 @@
         <el-dialog title="新增卡片信息 " :visible.sync="createVisible">
             <el-form :rules="createCardRules" ref="createCardForm" :model="cardItem">
                 <el-form-item label="发行面值" :label-width="formLabelWidth" prop="issueValue">
-                    <el-input v-model="cardItem.issueValue" auto-complete="off"></el-input>
+                    <el-input v-model.number="cardItem.issueValue" auto-complete="off"></el-input>
                 </el-form-item>
             </el-form>
             <div slot="footer" class="dialog-footer">
@@ -69,18 +69,18 @@
         </el-dialog>
 
         <el-dialog title="修改卡片信息 " :visible.sync="editVisible">
-            <el-form>
-                <el-form-item label="卡号"   :label-width="formLabelWidth">
+            <el-form ref="editCardForm" :model="cardItem" :rules="editCardRules">
+                <el-form-item label="卡号" :label-width="formLabelWidth">
                     <el-input v-model="cardItem.cardId" auto-complete="off" :disabled="true"></el-input>
                 </el-form-item>
-                <el-form-item label="发行面值"   :label-width="formLabelWidth">
+                <el-form-item label="发行面值" :label-width="formLabelWidth">
                     <el-input v-model="cardItem.issueValue" auto-complete="off" :disabled="true"></el-input>
                 </el-form-item>
-                <el-form-item label="冻结金额"  :label-width="formLabelWidth">
-                    <el-input v-model="cardItem.frozenValue" auto-complete="off"></el-input>
+                <el-form-item label="冻结金额" :label-width="formLabelWidth" prop="frozenValue">
+                    <el-input v-model.number="cardItem.frozenValue" auto-complete="off"></el-input>
                 </el-form-item>
-                <el-form-item label="余额"  :label-width="formLabelWidth">
-                    <el-input v-model="cardItem.balanceValue" auto-complete="off"></el-input>
+                <el-form-item label="余额" :label-width="formLabelWidth" prop="balanceValue">
+                    <el-input v-model.number="cardItem.balanceValue" auto-complete="off"></el-input>
                 </el-form-item>
             </el-form>
 
@@ -104,9 +104,9 @@
                 }
             },
             methods: {
-                tableRowClassName(row,rowIndex){
+                tableRowClassName(row, rowIndex){
                     var self = this;
-                    if(rowIndex <= self.highlightRowIndex){
+                    if (rowIndex <= self.highlightRowIndex) {
                         return "info-row"
                     }
                     return "";
@@ -124,13 +124,13 @@
                 },
                 createCard(){
                     var self = this;
-                    self.$refs['createCardForm'].validate((valid) =>{
-                        if(valid){
+                    self.$refs['createCardForm'].validate((valid) => {
+                        if (valid) {
                             axios.post("${rc.contextPath}/cards", JSON.parse(JSON.stringify(self.cardItem))).then(response => {
-                                if(response.data.procCode != 200){
+                                if (response.data.procCode != 200) {
                                     this.$message({
                                         type: 'success',
-                                        message:  response.data.message
+                                        message: response.data.message
                                     });
                                     return;
                                 }
@@ -142,10 +142,10 @@
                                     type: 'success',
                                     message: '保存成功！'
                                 });
-                            }).catch(error =>{
+                            }).catch(error => {
                                 console.log(error);
                             });
-                        }else{
+                        } else {
                             console.log("error submit!");
                             return false;
                         }
@@ -154,23 +154,31 @@
                 },
                 updateCard(){
                     var self = this;
-                    axios.put("${rc.contextPath}/cards", JSON.parse(JSON.stringify(self.cardItem))).then(response => {
-                        console.log(response);
-                        if(response.data.procCode != 200){
-                            this.$message({
-                                type: 'success',
-                                message:  response.data.message
-                            });
-                            return;
+                    self.$refs.editCardForm.validate((valid) => {
+                        if (valid) {
+                            axios.put("${rc.contextPath}/cards", JSON.parse(JSON.stringify(self.cardItem))).then(response => {
+                                console.log(response);
+                                if (response.data.procCode != 200) {
+                                    this.$message({
+                                        type: 'success',
+                                        message: response.data.message
+                                    });
+                                    return;
+                                }
+                                self.editVisible = false;
+                                // save server side
+                                this.$message({
+                                    type: 'success',
+                                    message: '保存成功！'
+                                });
+                                self.queryCards();
+                            })
+                        } else {
+                            console.log("error submit!");
+                            return false;
                         }
-                        self.editVisible = false;
-                        // save server side
-                        this.$message({
-                            type: 'success',
-                            message: '保存成功！'
-                        });
-                        self.queryCards();
-                    })
+                    });
+
                 },
 
                 deleteRow(row){
@@ -247,13 +255,21 @@
                     //从第0行，到第n行需要高亮（新增的行）
                     highlightRowIndex: -1,
                     formLabelWidth: '120px',
-                    //表单验证
-                    createCardRules:{
-                        issueValue:[
+                    //新增表单验证
+                    createCardRules: {
+                        issueValue: [
                             //FIXME 验证规则不对 文档地址：https://github.com/yiminghe/async-validator
-                            { type: "string", required:true, message:'请输入正确的金额',trigger:'blur'},
-                            {max:4,message:'卡面值需是在0到2w之间数字',trigger:'blur'}
-                            ]
+                            {type: "integer", required: true, message: '请输入正确的金额', trigger: 'blur'},
+                            {type: "integer", min: 0, max: 20000, message: '卡面值需是在0到2w之间数字', trigger: 'blur'}
+                        ]
+                    },
+                    editCardRules: {
+                        frozenValue: [
+                            {type: "integer", required: true, message: '请输入正确的冻结金额', trigger: 'blur'},
+                        ],
+                        balanceValue: [
+                            {type: "integer", required: true, message: '请输入正确的余额', trigger: 'blur'},
+                        ]
                     }
                 }
             }
