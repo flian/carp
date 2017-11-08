@@ -1,4 +1,4 @@
-<@layout.main>
+<@layout.main dashboard2=true>
 <!-- Main content -->
 <section class="content">
     <!-- Info boxes -->

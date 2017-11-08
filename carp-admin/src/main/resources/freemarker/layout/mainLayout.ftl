@@ -1,4 +1,4 @@
-<#macro main  pageJS=''>
+<#macro main  pageJS='' dashboard2=false>
 <!DOCTYPE html>
 <html>
 <head>
@@ -766,7 +766,9 @@
 <!-- ChartJS 1.0.1 -->
 <script src="${rc.contextPath}/webjars/AdminLTE/plugins/chartjs/Chart.min.js"></script>
 <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
+<#if dashboard2>
 <script src="${rc.contextPath}/webjars/AdminLTE/dist/js/pages/dashboard2.js"></script>
+</#if>
 <!-- AdminLTE for demo purposes -->
 <script src="${rc.contextPath}/webjars/AdminLTE/dist/js/demo.js"></script>
 <!-- vue and element-ui-->
