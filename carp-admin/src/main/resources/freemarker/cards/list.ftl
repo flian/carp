@@ -58,7 +58,7 @@
 
         <el-dialog title="新增卡片信息 " :visible.sync="createVisible">
             <el-form>
-                <el-form-item label="发行面值">
+                <el-form-item label="发行面值" :label-width="formLabelWidth">
                     <el-input v-model="cardItem.issueValue" auto-complete="off"></el-input>
                 </el-form-item>
             </el-form>
@@ -70,16 +70,16 @@
 
         <el-dialog title="修改卡片信息 " :visible.sync="editVisible">
             <el-form>
-                <el-form-item label="卡号" readonly="true">
-                    <el-input v-model="cardItem.cardId" auto-complete="off"></el-input>
+                <el-form-item label="卡号"   :label-width="formLabelWidth">
+                    <el-input v-model="cardItem.cardId" auto-complete="off" :disabled="true"></el-input>
                 </el-form-item>
-                <el-form-item label="发行面值" readonly="true">
-                    <el-input v-model="cardItem.issueValue" auto-complete="off"></el-input>
+                <el-form-item label="发行面值"   :label-width="formLabelWidth">
+                    <el-input v-model="cardItem.issueValue" auto-complete="off" :disabled="true"></el-input>
                 </el-form-item>
-                <el-form-item label="冻结金额">
+                <el-form-item label="冻结金额"  :label-width="formLabelWidth">
                     <el-input v-model="cardItem.frozenValue" auto-complete="off"></el-input>
                 </el-form-item>
-                <el-form-item label="余额">
+                <el-form-item label="余额"  :label-width="formLabelWidth">
                     <el-input v-model="cardItem.balanceValue" auto-complete="off"></el-input>
                 </el-form-item>
             </el-form>
@@ -106,7 +106,7 @@
             methods: {
                 tableRowClassName(row,rowIndex){
                     var self = this;
-                    if(rowIndex >= self.highlightRowIndex){
+                    if(rowIndex <= self.highlightRowIndex){
                         return "info-row"
                     }
                     return "";
@@ -230,7 +230,8 @@
                     editVisible: false,
                     cardItem: {},
                     //从第0行，到第n行需要高亮（新增的行）
-                    highlightRowIndex: -1
+                    highlightRowIndex: -1,
+                    formLabelWidth: '120px'
                 }
             }
         })

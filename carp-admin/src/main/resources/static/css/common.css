@@ -2,6 +2,9 @@
     display: none;
 }
 
+/**
+ element-ui table css 
+**/
 .demo-table-expand {
     font-size: 0;
 }
@@ -13,4 +16,12 @@
     margin-right: 0;
     margin-bottom: 0;
     width: 50%;
+}
+
+.el-table .info-row {
+    background: #c9e5f5;
+}
+
+.el-table .positive-row {
+    background: #e2f0e4;
 }
