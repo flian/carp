@@ -4,7 +4,7 @@
         <el-button class="filter-item" style="margin-left: 10px;" @click="add" type="primary" icon="edit">添加</el-button>
         <el-button type="primary" icon="delete" @click="deleteSelected" :disabled="shouldDisableDelete"></el-button>
         <el-collapse accordion>
-            <el-collapse-item title="More...">
+            <el-collapse-item title="更多功能...">
                 <div class="filter-container">
                     <el-input style="width: 200px;" class="filter-item" placeholder="标题">
                     </el-input>
