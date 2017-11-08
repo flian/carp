@@ -21,11 +21,4 @@ public class CardCreateDto {
     @Max(value = 2000, message = "卡面值最多2w")
     private BigDecimal issueValue;
 
-    public BigDecimal getIssueValue() {
-        return issueValue;
-    }
-
-    public void setIssueValue(BigDecimal issueValue) {
-        this.issueValue = issueValue;
-    }
 }

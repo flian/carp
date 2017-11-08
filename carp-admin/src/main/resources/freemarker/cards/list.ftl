@@ -16,14 +16,25 @@
                 </div>
             </el-collapse-item>
         </el-collapse>
-        <el-table :data.sync="cards" style="width: 100%" @selection-change="handleSelectionChange">
+        <el-table :data.sync="cards" style="width: 100%" @selection-change="handleSelectionChange"
+        :row-class-name="tableRowClassName">
             <el-table-column type="selection" width="55"></el-table-column>
             <el-table-column type="expand">
                 <template scope="props">
-                    <p>卡号: {{ props.row.cardId }}</p>
-                    <p>余额: {{ props.row.balanceValue }}</p>
-                    <p>冻结余额: {{ props.row.frozenValue }}</p>
-                    <p>可用余额: {{ props.row.balanceValue - props.row.frozenValue }}</p>
+                    <el-form label-position="left" inline class="demo-table-expand">
+                        <el-form-item label="卡号">
+                            <span> {{ props.row.cardId }}</span>
+                        </el-form-item>
+                        <el-form-item label="余额">
+                            <span> {{ props.row.balanceValue }}</span>
+                        </el-form-item>
+                        <el-form-item label="冻结余额">
+                            <span> {{ props.row.frozenValue }}</span>
+                        </el-form-item>
+                        <el-form-item label="可用余额">
+                            <span>  {{ props.row.balanceValue - props.row.frozenValue }}</span>
+                        </el-form-item>
+                    </el-form>
                 </template>
             </el-table-column>
             <el-table-column label="卡号" prop="cardId"></el-table-column>
@@ -93,6 +104,13 @@
                 }
             },
             methods: {
+                tableRowClassName(row,rowIndex){
+                    var self = this;
+                    if(rowIndex >= self.highlightRowIndex){
+                        return "info-row"
+                    }
+                    return "";
+                },
                 add(){
                     var self = this;
                     self.cardItem = {};
@@ -115,6 +133,8 @@
                             return;
                         }
                         self.createVisible = false;
+                        self.cards.unshift(response.data.payload);
+                        self.highlightRowIndex = self.highlightRowIndex + 1;
                         // save server side
                         this.$message({
                             type: 'success',
@@ -123,7 +143,6 @@
                     }).catch(error =>{
                         console.log(error);
                     });
-                    self.queryCards();
                 },
                 updateCard(){
                     var self = this;
@@ -209,7 +228,9 @@
                     selectedCards: [],
                     createVisible: false,
                     editVisible: false,
-                    cardItem: {}
+                    cardItem: {},
+                    //从第0行，到第n行需要高亮（新增的行）
+                    highlightRowIndex: -1
                 }
             }
         })
