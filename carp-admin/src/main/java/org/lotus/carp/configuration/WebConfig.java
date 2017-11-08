@@ -9,7 +9,7 @@ import java.util.List;
 
 /**
  * Created with IntelliJ IDEA.
- * User: Foy Lian
+ * @author : Foy Lian
  * Date: 8/18/2017
  * Time: 5:02 PM
  */
@@ -18,7 +18,8 @@ public class WebConfig extends WebMvcConfigurerAdapter {
     @Override
     public void addArgumentResolvers(List<HandlerMethodArgumentResolver> argumentResolvers) {
         PageableHandlerMethodArgumentResolver resolver = new PageableHandlerMethodArgumentResolver();
-        resolver.setOneIndexedParameters(true);//use 1 based page
+        //使用第一页pageNum = 1
+        resolver.setOneIndexedParameters(true);
         argumentResolvers.add(resolver);
         super.addArgumentResolvers(argumentResolvers);
     }

@@ -16,7 +16,7 @@ import java.math.BigDecimal;
  */
 @Data
 public class CardCreateDto {
-    @NotNull
+    @NotNull(message = "发行面值不能为空")
     @Min(value = 1, message = "卡面值最少为1")
     @Max(value = 2000, message = "卡面值最多2w")
     private BigDecimal issueValue;

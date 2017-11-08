@@ -148,14 +148,21 @@
                     var self = this;
                     axios.put("${rc.contextPath}/cards", JSON.parse(JSON.stringify(self.cardItem))).then(response => {
                         console.log(response);
+                        if(response.data.procCode != 200){
+                            this.$message({
+                                type: 'success',
+                                message:  response.data.message
+                            });
+                            return;
+                        }
                         self.editVisible = false;
                         // save server side
                         this.$message({
                             type: 'success',
                             message: '保存成功！'
                         });
+                        self.queryCards();
                     })
-                    self.queryCards();
                 },
 
                 deleteRow(row){
@@ -184,7 +191,7 @@
                     }).catch(() => {
                         this.$message({
                             type: 'info',
-                            message: '取消删除！'
+                            message: '删除失败！'
                         });
                     });
                 },
