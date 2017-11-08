@@ -1,5 +1,6 @@
 package org.lotus.carp.web.controller.cards;
 
+import com.google.common.base.Preconditions;
 import org.lotus.carp.base.vo.ResponseWrapper;
 import org.lotus.carp.showcase.card.service.CardService;
 import org.lotus.carp.showcase.card.vo.CardCreateDto;
@@ -10,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -53,6 +55,9 @@ public class CardController extends AdminBaseController {
     @PutMapping
     @ResponseBody
     public ResponseWrapper<CardResult> update(@Valid @RequestBody CardUpdateDto dto) {
+        CardResult card = cardService.get(dto.getCardId());
+        Preconditions.checkArgument(dto.getFrozenValue().compareTo(card.getIssueValue()) <= 0,"冻结金额不能大于卡面值");
+        Preconditions.checkArgument(dto.getBalanceValue().compareTo(card.getIssueValue()) <= 0,"卡余额不能大于卡面值");
         return response().execSuccess(cardService.update(dto));
     }
 

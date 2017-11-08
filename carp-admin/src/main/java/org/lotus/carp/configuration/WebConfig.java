@@ -1,7 +1,10 @@
 package org.lotus.carp.configuration;
 
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.web.PageableHandlerMethodArgumentResolver;
+import org.springframework.validation.SmartValidator;
+import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
@@ -22,5 +25,15 @@ public class WebConfig extends WebMvcConfigurerAdapter {
         resolver.setOneIndexedParameters(true);
         argumentResolvers.add(resolver);
         super.addArgumentResolvers(argumentResolvers);
+    }
+
+    /**
+     *  获取验证器
+     * @return
+     */
+    @Override
+    @Bean
+    public SmartValidator getValidator() {
+        return new LocalValidatorFactoryBean();
     }
 }
