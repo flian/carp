@@ -35,11 +35,6 @@ public class User implements Serializable {
 
     @Getter
     @Setter
-    @Transient
-    private String salt;
-
-    @Getter
-    @Setter
     @ManyToMany
     @JoinTable(name = "carp_user_role",
             joinColumns = {@JoinColumn(name = "user_name", referencedColumnName = "user_name")},
