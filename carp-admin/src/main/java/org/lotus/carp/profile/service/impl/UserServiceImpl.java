@@ -21,7 +21,7 @@ import java.util.Set;
 
 /**
  * Created with IntelliJ IDEA.
- * User: Foy Lian
+ * @author : Foy Lian
  * Date: 8/3/2017
  * Time: 6:02 PM
  */
@@ -31,7 +31,7 @@ public class UserServiceImpl implements UserDetailsService {
     private UserRepository userRepository;
 
     @Override
-    @Transactional(readOnly = true)
+    @Transactional(readOnly = true,rollbackFor = {Exception.class})
     public UserDetails loadUserByUsername(String userName) throws UsernameNotFoundException {
         User user = userRepository.findByUserName(userName);
         Preconditions.checkNotNull(user, "No user present with userName: " + userName);
@@ -42,7 +42,7 @@ public class UserServiceImpl implements UserDetailsService {
         return new org.springframework.security.core.userdetails.User(user.getUserName(), user.getPassword(), grantedAuthorities);
     }
 
-    @Transactional(readOnly = true)
+    @Transactional(readOnly = true,rollbackFor = {Exception.class})
     public Page<User> search(String q, Pageable page) {
         return userRepository.search(q, page);
     }

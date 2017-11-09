@@ -1,15 +1,15 @@
 CREATE TABLE carp_user (
-  id        BIGINT NOT NULL AUTO_INCREMENT,
-  password  VARCHAR(255),
-  user_name VARCHAR(20),
+  id        BIGINT NOT NULL AUTO_INCREMENT COMMENT '逻辑主键',
+  password  VARCHAR(255) NOT NULL COMMENT '密码',
+  user_name VARCHAR(20)  NOT NULL COMMENT '用户名',
   PRIMARY KEY (id)
 );
 ALTER TABLE carp_user ADD CONSTRAINT UK_user_name UNIQUE (user_name);
 
 CREATE TABLE carp_role (
-  id        BIGINT NOT NULL AUTO_INCREMENT,
-  role_code VARCHAR(30),
-  role_name VARCHAR(50),
+  id        BIGINT NOT NULL AUTO_INCREMENT COMMENT '逻辑主键',
+  role_code VARCHAR(30) NOT NULL COMMENT '角色编码，业务主键。',
+  role_name VARCHAR(50) NOT NULL COMMENT '角色名称。',
   PRIMARY KEY (id)
 );
 ALTER TABLE carp_role ADD CONSTRAINT UK_role_code UNIQUE (role_code);
