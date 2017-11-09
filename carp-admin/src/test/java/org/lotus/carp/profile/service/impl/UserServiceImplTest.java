@@ -16,11 +16,10 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Arrays;
-import java.util.List;
 
 /**
  * Created with IntelliJ IDEA.
- * User: Foy Lian
+ * @author : Foy Lian
  * Date: 8/4/2017
  * Time: 4:48 PM
  */
@@ -69,8 +68,8 @@ public class UserServiceImplTest {
                         UserResult result = userConvter.toResult(user);
                         Assert.that(result.getUserName().startsWith(q));
                     });
-                    List<UserResult> list = userConvter.toList(users);
-                    Assert.that(list.size() > 0);
+                    Page<UserResult> list = users.map(userConvter);
+                    Assert.that(list.getSize() > 0);
                 }
         );
 

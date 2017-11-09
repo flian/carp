@@ -4,10 +4,8 @@ import com.google.common.base.Joiner;
 import com.google.common.collect.Iterables;
 import org.lotus.carp.profile.domain.User;
 import org.lotus.carp.profile.vo.UserResult;
+import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created with IntelliJ IDEA.
@@ -16,7 +14,7 @@ import java.util.List;
  * Time: 4:24 PM
  */
 @Component
-public class UserConvter {
+public class UserConvter implements Converter<User,UserResult> {
     public UserResult toResult(User source) {
         UserResult result = new UserResult();
         result.setUserName(source.getUserName());
@@ -24,9 +22,15 @@ public class UserConvter {
         return result;
     }
 
-    public List<UserResult> toList(Iterable<User> source) {
-        List<UserResult> list = new ArrayList<>();
-        source.forEach(u -> list.add(toResult(u)));
-        return list;
+    /**
+     * Convert the source object of type {@code S} to target type {@code T}.
+     *
+     * @param source the source object to convert, which must be an instance of {@code S} (never {@code null})
+     * @return the converted object, which must be an instance of {@code T} (potentially {@code null})
+     * @throws IllegalArgumentException if the source cannot be converted to the desired target type
+     */
+    @Override
+    public UserResult convert(User source) {
+        return toResult(source);
     }
 }
