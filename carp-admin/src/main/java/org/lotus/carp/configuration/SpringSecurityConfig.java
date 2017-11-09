@@ -14,7 +14,7 @@ import org.springframework.security.web.access.AccessDeniedHandler;
 
 /**
  * Created with IntelliJ IDEA.
- * User: Foy Lian
+ * @author : Foy Lian
  * Date: 8/3/2017
  * Time: 10:47 AM
  */
@@ -32,6 +32,7 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
         http.csrf().disable()
                 .authorizeRequests()
                 .antMatchers("/","/webjars/**").permitAll()
+                .antMatchers("/","/css/**").permitAll()
                 .antMatchers("/admin/**").hasAnyRole("ROLE_ADMIN")
                 .antMatchers("/user/**").hasAnyRole("ROLE_USER")
                 .anyRequest().authenticated()
