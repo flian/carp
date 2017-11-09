@@ -349,7 +349,7 @@
                     <ul class="treeview-menu">
                         <li><a href="${rc.contextPath}/cards"><i class="fa fa-circle-o"></i> show case</a></li>
                         <li><a href="${rc.contextPath}/profile"><i class="fa fa-circle-o"></i> 用户管理</a></li>
-                        <li class=""><a href="#"><i class="fa fa-circle-o"></i> 角色管理</a></li>
+                        <li class=""><a href="${rc.contextPath}/roles"><i class="fa fa-circle-o"></i> 角色管理</a></li>
                         <li class=""><a href="#"><i class="fa fa-circle-o"></i> 菜单管理</a></li>
                         <li class="active"><a href="#"><i class="fa fa-circle-o"></i> 功能管理</a></li>
                     </ul>

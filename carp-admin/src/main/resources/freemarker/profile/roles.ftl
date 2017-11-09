@@ -21,19 +21,27 @@
             <el-table-column type="expand">
                 <template scope="props">
                     <el-form label-position="left" inline class="demo-table-expand">
-                        <el-form-item label="用户名">
-                            <span> {{ props.row.userName }}</span>
+                        <el-form-item label="ID">
+                            <span> {{ props.row.id }}</span>
                         </el-form-item>
-                        <el-form-item label="角色">
-                            <span> {{ props.row.roles }}</span>
+                        <el-form-item label="编码">
+                            <span> {{ props.row.code }}</span>
+                        </el-form-item>
+                        <el-form-item label="名称">
+                            <span> {{ props.row.name }}</span>
+                        </el-form-item>
+                        <el-form-item label="授予用户">
+                            <span> {{ props.row.users }}</span>
                         </el-form-item>
                     </el-form>
                 </template>
             </el-table-column>
-            <el-table-column label="用户名" prop="userName"></el-table-column>
-            <el-table-column label="角色" prop="roles"></el-table-column>
+            <el-table-column label="ID" prop="id"></el-table-column>
+            <el-table-column label="编码" prop="code"></el-table-column>
+            <el-table-column label="名称" prop="name"></el-table-column>
 
-            <el-table-column align="center" label="操作">
+
+            <el-table-column align="center" label="操作" >
                 <template scope="scope">
                     <el-button size="small" type="success" @click="">分配角色
                     </el-button>
@@ -69,11 +77,11 @@
                     this.selectedItems = val;
                 },
                 queryItems(){
-                    axios.get("${rc.contextPath}/profile/data", {params: this.query}).then(response => {
+                    axios.get("${rc.contextPath}/roles/data", {params: this.query}).then(response => {
                         console.log(response);
-                        this.items = response.data.payload.content;
-                        this.totalPage = response.data.payload.totalPages;
-                        this.totalElements = response.data.payload.totalElements;
+                        this.items = response.data.content;
+                        this.totalPage = response.data.totalPages;
+                        this.totalElements = response.data.totalElements;
                     })
                 }
             },
