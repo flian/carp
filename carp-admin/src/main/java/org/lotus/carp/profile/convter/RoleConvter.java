@@ -1,5 +1,7 @@
 package org.lotus.carp.profile.convter;
 
+import com.google.common.base.Joiner;
+import com.google.common.collect.Iterables;
 import org.lotus.carp.profile.domain.Role;
 import org.lotus.carp.profile.vo.RoleResult;
 import org.springframework.beans.BeanUtils;
@@ -26,6 +28,7 @@ public class RoleConvter implements Converter<Role, RoleResult> {
     public RoleResult convert(Role source) {
         RoleResult result = new RoleResult();
         BeanUtils.copyProperties(source, result);
+        result.setUsers(Joiner.on(",").join(Iterables.transform(source.getUsers(),u->u.getUserName())));
         return result;
     }
 }

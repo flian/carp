@@ -14,4 +14,5 @@ public class RoleResult {
     private Long id;
     private String code;
     private String name;
+    private String users;
 }
