@@ -26,11 +26,12 @@ public class User implements Serializable {
 
     @Getter
     @Setter
-    @Column(name="user_name",unique = true,length = 20)
+    @Column(name="user_name",unique = true, nullable = false,length = 20)
     private String userName;
 
     @Getter
     @Setter
+    @Column(nullable = false)
     private String password;
 
     @Getter

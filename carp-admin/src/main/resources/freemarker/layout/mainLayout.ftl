@@ -341,17 +341,27 @@
                 <li class="header"></li>
                 <li class="active treeview">
                     <a href="#">
-                        <i class="fa fa-dashboard"></i> <span>权限中心</span>
+                        <i class="fa fa-folder"></i> <span>示例中心</span>
                         <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>
             </span>
                     </a>
                     <ul class="treeview-menu">
                         <li><a href="${rc.contextPath}/cards"><i class="fa fa-circle-o"></i> show case</a></li>
+                    </ul>
+                </li>
+                <li class="active treeview">
+                    <a href="#">
+                        <i class="fa fa-dashboard"></i> <span>权限中心</span>
+                        <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+                    </a>
+                    <ul class="treeview-menu">
                         <li><a href="${rc.contextPath}/profile"><i class="fa fa-circle-o"></i> 用户管理</a></li>
                         <li class=""><a href="${rc.contextPath}/roles"><i class="fa fa-circle-o"></i> 角色管理</a></li>
-                        <li class=""><a href="#"><i class="fa fa-circle-o"></i> 菜单管理</a></li>
-                        <li class="active"><a href="#"><i class="fa fa-circle-o"></i> 功能管理</a></li>
+                        <li class=""><a href="${rc.contextPath}/menus"><i class="fa fa-circle-o"></i> 菜单管理</a></li>
+                        <li class="active"><a href="${rc.contextPath}/actions"><i class="fa fa-circle-o"></i> 功能管理</a></li>
                     </ul>
                 </li>
                 <li class="active treeview">
