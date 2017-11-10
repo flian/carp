@@ -19,6 +19,21 @@ import java.util.List;
  */
 public interface BaseController {
      Logger baseLogger = LoggerFactory.getLogger(BaseController.class);
+
+    /**
+     *  参数校验失败错误统一显示
+     * @param e exception
+     * @return message
+     */
+     @ExceptionHandler
+     @ResponseBody
+     default Object exceptionHandle(MethodArgumentNotValidException e){
+         List<String> messages = new ArrayList();
+         e.getBindingResult().getAllErrors().forEach( error -> messages.add(error.getDefaultMessage()));
+         return response().execFailue().addMessage(Joiner.on("\n").join(messages));
+     }
+
+
     /**
      *  global exception handler
      * @param e exception
@@ -30,13 +45,6 @@ public interface BaseController {
         baseLogger.error("接口调用异常",e);
         if(null == e){
             return  response().addMessage("系统错误!").execFailue();
-        }
-        //参数验证错误
-        if( e instanceof MethodArgumentNotValidException){
-            MethodArgumentNotValidException me = (MethodArgumentNotValidException) e ;
-            List<String> messages = new ArrayList();
-            me.getBindingResult().getAllErrors().forEach( error -> messages.add(error.getDefaultMessage()));
-            return response().execFailue().addMessage(Joiner.on("\n").join(messages));
         }
         return response().execFailue().addMessage(e.getMessage());
     }

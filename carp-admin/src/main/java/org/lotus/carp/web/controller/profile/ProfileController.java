@@ -23,7 +23,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
  */
 @Controller
 @RequestMapping("/profile")
-public class ProfileManagementController extends AdminBaseController {
+public class ProfileController extends AdminBaseController {
     @Autowired
     private UserConvter userConvter;
 

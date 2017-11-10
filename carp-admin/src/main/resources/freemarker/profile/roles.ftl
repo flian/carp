@@ -79,9 +79,9 @@
                 queryItems(){
                     axios.get("${rc.contextPath}/roles/data", {params: this.query}).then(response => {
                         console.log(response);
-                        this.items = response.data.content;
-                        this.totalPage = response.data.totalPages;
-                        this.totalElements = response.data.totalElements;
+                        this.items = response.data.payload.content;
+                        this.totalPage = response.data.payload.totalPages;
+                        this.totalElements = response.data.payload.totalElements;
                     })
                 }
             },
