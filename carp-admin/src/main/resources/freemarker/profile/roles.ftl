@@ -39,8 +39,7 @@
             <el-table-column label="ID" prop="id"></el-table-column>
             <el-table-column label="编码" prop="code"></el-table-column>
             <el-table-column label="名称" prop="name"></el-table-column>
-
-
+            <el-table-column label="授予用户" prop="users"></el-table-column>
             <el-table-column align="center" label="操作" >
                 <template scope="scope">
                     <el-button size="small" type="success" @click="">分配菜单
