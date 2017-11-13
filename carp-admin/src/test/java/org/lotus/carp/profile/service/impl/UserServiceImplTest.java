@@ -3,7 +3,7 @@ package org.lotus.carp.profile.service.impl;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.lotus.carp.AdminApplication;
-import org.lotus.carp.profile.convter.UserConvter;
+import org.lotus.carp.profile.convter.UserConverter;
 import org.lotus.carp.profile.domain.User;
 import org.lotus.carp.profile.vo.UserResult;
 import org.spockframework.util.Assert;
@@ -31,7 +31,7 @@ public class UserServiceImplTest {
     @Autowired
     private UserServiceImpl userService;
     @Autowired
-    private UserConvter userConvter;
+    private UserConverter userConvter;
 
     private String[] userExist = {"admin", "user"};
     ;

@@ -1,7 +1,7 @@
 package org.lotus.carp.web.controller.profile;
 
 import org.lotus.carp.base.vo.ResponseWrapper;
-import org.lotus.carp.profile.convter.RoleConvter;
+import org.lotus.carp.profile.convter.RoleConverter;
 import org.lotus.carp.profile.service.impl.RoleServiceImpl;
 import org.lotus.carp.profile.vo.RoleResult;
 import org.lotus.carp.web.controller.AdminBaseController;
@@ -27,7 +27,7 @@ public class RoleController extends AdminBaseController {
     @Autowired
     private RoleServiceImpl roleService;
     @Autowired
-    private RoleConvter roleConvter;
+    private RoleConverter roleConvter;
 
     @GetMapping
     public String list() {

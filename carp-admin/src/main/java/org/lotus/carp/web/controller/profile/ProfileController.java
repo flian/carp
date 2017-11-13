@@ -1,7 +1,7 @@
 package org.lotus.carp.web.controller.profile;
 
 import org.lotus.carp.base.vo.ResponseWrapper;
-import org.lotus.carp.profile.convter.UserConvter;
+import org.lotus.carp.profile.convter.UserConverter;
 import org.lotus.carp.profile.service.impl.UserServiceImpl;
 import org.lotus.carp.profile.vo.UserResult;
 import org.lotus.carp.web.controller.AdminBaseController;
@@ -25,7 +25,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @RequestMapping("/profile")
 public class ProfileController extends AdminBaseController {
     @Autowired
-    private UserConvter userConvter;
+    private UserConverter userConvter;
 
     @Autowired
     private UserServiceImpl userService;

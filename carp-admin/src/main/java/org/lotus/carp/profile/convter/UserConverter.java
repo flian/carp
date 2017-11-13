@@ -2,21 +2,26 @@ package org.lotus.carp.profile.convter;
 
 import com.google.common.base.Joiner;
 import com.google.common.collect.Iterables;
-import org.lotus.carp.profile.domain.Role;
-import org.lotus.carp.profile.vo.RoleResult;
-import org.springframework.beans.BeanUtils;
+import org.lotus.carp.profile.domain.User;
+import org.lotus.carp.profile.vo.UserResult;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;
 
 /**
  * Created with IntelliJ IDEA.
- *
- * @author: Foy Lian
- * Date: 11/9/2017
- * Time: 5:28 PM
+ * @author : Foy Lian
+ * Date: 8/4/2017
+ * Time: 4:24 PM
  */
 @Component
-public class RoleConvter implements Converter<Role, RoleResult> {
+public class UserConverter implements Converter<User,UserResult> {
+    public UserResult toResult(User source) {
+        UserResult result = new UserResult();
+        result.setUserName(source.getUserName());
+        result.setRoles(Joiner.on(",").join(Iterables.transform(source.getRoles(), r -> r.getCode())));
+        return result;
+    }
+
     /**
      * Convert the source object of type {@code S} to target type {@code T}.
      *
@@ -25,11 +30,7 @@ public class RoleConvter implements Converter<Role, RoleResult> {
      * @throws IllegalArgumentException if the source cannot be converted to the desired target type
      */
     @Override
-    public RoleResult convert(Role source) {
-        RoleResult result = new RoleResult();
-        BeanUtils.copyProperties(source, result);
-        result.setUsers(Joiner.on(",").join(Iterables.transform(source.getUsers(),u->u.getUserName())));
-        return result;
+    public UserResult convert(User source) {
+        return toResult(source);
     }
 }
-
