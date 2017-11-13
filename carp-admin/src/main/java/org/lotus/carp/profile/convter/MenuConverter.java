@@ -1,21 +1,24 @@
 package org.lotus.carp.profile.convter;
 
-import org.lotus.carp.profile.domain.Action;
-import org.lotus.carp.profile.vo.ActionResult;
+import org.lotus.carp.profile.domain.Menu;
+import org.lotus.carp.profile.vo.MenuResult;
 import org.springframework.beans.BeanUtils;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;
+
+import javax.persistence.Column;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created with IntelliJ IDEA.
  *
  * @author: Foy Lian
  * Date: 11/10/2017
- * Time: 4:30 PM
+ * Time: 4:29 PM
  */
 @Component
-public class ActionConvter implements Converter<Action, ActionResult> {
-
+public class MenuConverter implements Converter<Menu, MenuResult> {
     /**
      * Convert the source object of type {@code S} to target type {@code T}.
      *
@@ -24,9 +27,19 @@ public class ActionConvter implements Converter<Action, ActionResult> {
      * @throws IllegalArgumentException if the source cannot be converted to the desired target type
      */
     @Override
-    public ActionResult convert(Action source) {
-        ActionResult result = new ActionResult();
-        BeanUtils.copyProperties(source,result);
+    public MenuResult convert(Menu source) {
+        MenuResult result = new MenuResult();
+        BeanUtils.copyProperties(source, result);
         return result;
+    }
+
+    public List<MenuResult> map(List<Menu> list){
+        List<MenuResult> result = new ArrayList<>();
+        list.forEach( item -> result.add(convert(item)));
+        return result;
+    }
+    public MenuResult buildTree(List<Menu> list){
+        List<MenuResult> resultList = map(list);
+        return MenuResult.buildTree(resultList);
     }
 }

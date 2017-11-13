@@ -1,62 +1,38 @@
 <@layout.main pageJS=myPageJS>
 <section class="content">
     <div id="app" v-cloak>
-        <el-button class="filter-item" style="margin-left: 10px;" @click="" type="primary" icon="edit">添加</el-button>
 
-        <el-collapse accordion>
-            <el-collapse-item title="更多功能...">
-                <div class="filter-container">
-                    <el-input style="width: 200px;" class="filter-item" placeholder="标题">
-                    </el-input>
-                    <el-input style="width: 200px;" class="filter-item" placeholder="姓名">
-                    </el-input>
-                    <el-button class="filter-item" type="primary" icon="search" @click="">搜索</el-button>
-                    <el-button class="filter-item" type="primary" icon="document" @click="">导出</el-button>
-                    <el-checkbox class="filter-item">显示审核人</el-checkbox>
-                </div>
-            </el-collapse-item>
-        </el-collapse>
-        <el-table :data.sync="items" style="width: 100%" @selection-change="handleSelectionChange">
-            <el-table-column type="selection" width="55"></el-table-column>
-            <el-table-column type="expand">
-                <template scope="props">
-                    <el-form label-position="left" inline class="demo-table-expand">
-                        <el-form-item label="ID">
-                            <span> {{ props.row.id }}</span>
-                        </el-form-item>
-                        <el-form-item label="父菜单">
-                            <span> {{ props.row.parentId }}</span>
-                        </el-form-item>
-                        <el-form-item label="名称">
-                            <span> {{ props.row.name }}</span>
-                        </el-form-item>
-                        <el-form-item label="url">
-                            <span> {{ props.row.url }}</span>
-                        </el-form-item>
-                        <el-form-item label="显示顺序">
-                            <span> {{ props.row.priority }}</span>
-                        </el-form-item>
-                    </el-form>
-                </template>
-            </el-table-column>
-            <el-table-column label="ID" prop="id"></el-table-column>
-            <el-table-column label="名称" prop="name"></el-table-column>
 
-            <el-table-column align="center" label="操作" >
-                <template scope="scope">
-                    <el-button size="small" type="success" @click="">分配角色
-                    </el-button>
-                    <el-button size="small" type="warning" @click="">改密
-                    </el-button>
-                    <el-button size="small" type="danger" @click="">禁用
-                    </el-button>
-                </template>
-            </el-table-column>
-        </el-table>
-        <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange"
-                       :current-page="query.page" :page-sizes="[5, 10, 20, 40]" :page-size="query.size"
-                       layout="total, sizes, prev, pager, next, jumper" :total="totalElements">
-        </el-pagination>
+                <el-tree :data="items" :props="defaultProps" node-key="id" default-expand-all="true"
+                 :render-content="renderContent">
+                </el-tree>
+<#-- ref : http://blog.csdn.net/x_lord/article/details/70161195 -->
+            <#--
+                <el-form ref="form" :model="item" label-width="80px" label-position="right">
+                    <el-form-item label="ID">
+                        <el-input v-model="item.id"></el-input>
+                    </el-form-item>
+                    <el-form-item label="所属父类">
+                        <el-input v-model="item.parentId"></el-input>
+                    </el-form-item>
+                    <el-form-item label="名称">
+                        <el-input v-model="item.name"></el-input>
+                    </el-form-item>
+                    <el-form-item label="URL">
+                        <el-input v-model="item.url"></el-input>
+                    </el-form-item>
+                    <el-form-item label="显示顺序">
+                        <el-input v-model="item.priority"></el-input>
+                    </el-form-item>
+                    <el-form-item>
+                        <el-button type="primary">立即保存</el-button>
+                        <el-button>取消</el-button>
+                    </el-form-item>
+                </el-form>
+            -->
+
+
+
     </div>
 </@layout.main>
 <#macro myPageJS>
@@ -66,23 +42,47 @@
             computed: {
             },
             methods: {
-                handleSizeChange(newSize) {
-                    this.query.size = newSize;
-                    this.queryItems();
+                append:function(store, data) {
+                    store.append({ key: "1212", name: '新节点', children: [] }, data);
                 },
-                handleCurrentChange(newPage) {
-                    this.query.page = newPage;
-                    this.queryItems();
+                remove:function(store, data) {
+                    store.remove(data);
                 },
-                handleSelectionChange(val) {
-                    this.selectedItems = val;
+                renderContent:function(createElement, { node, data, store }) {
+                    var self = this;
+                    return createElement('span', [
+                        createElement('span', node.label),
+                        createElement('span', {attrs:{
+                            style:"float: right; margin-right: 20px"
+                        }},[
+                            createElement('el-button',{attrs:{
+                                size:"mini",type:"success"
+                            },on:{
+                                click:function() {
+
+                                }
+                            }},"详情"),
+                            createElement('el-button',{attrs:{
+                                size:"mini",type:"warning"
+                            },on:{
+                                click:function() {
+
+                                }
+                            }},"添加子节点"),
+                            createElement('el-button',{attrs:{
+                                size:"mini",type:"danger"
+                            },on:{
+                                click:function() {
+
+                                }
+                            }},"删除"),
+                        ]),
+                    ]);
                 },
-                queryItems(){
-                    axios.get("${rc.contextPath}/menus/data", {params: this.query}).then(response => {
-                        console.log(response);
-                        this.items = response.data.payload.content;
-                        this.totalPage = response.data.payload.totalPages;
-                        this.totalElements = response.data.payload.totalElements;
+                    queryItems(){
+                    var self = this;
+                    axios.get("${rc.contextPath}/menus/data").then(response =>{
+                        self.items = response.data.payload;
                     })
                 }
             },
@@ -91,15 +91,13 @@
             },
             data: function () {
                 return {
-                    query: {
-                        page: 1,
-                        size: 10,
-                        keyword:''
+                    items:[],
+                    item:{},
+                    defaultProps: {
+                        children: 'children',
+                        label: 'name'
                     },
-                    totalPage: 0,
-                    totalElements: 0,
-                    items: [],
-                    selectedItems:[]
+                    labelPosition: 'left'
                 }
             }
         })

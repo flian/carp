@@ -1,7 +1,7 @@
 package org.lotus.carp.web.controller.profile;
 
 import org.lotus.carp.base.vo.ResponseWrapper;
-import org.lotus.carp.profile.convter.ActionConvter;
+import org.lotus.carp.profile.convter.ActionConverter;
 import org.lotus.carp.profile.service.impl.ActionServiceImpl;
 import org.lotus.carp.profile.vo.UserResult;
 import org.lotus.carp.web.controller.AdminBaseController;
@@ -24,7 +24,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @RequestMapping("/actions")
 public class ActionController extends AdminBaseController {
     @Autowired
-    private ActionConvter actionConvter;
+    private ActionConverter actionConvter;
     @Autowired
     private ActionServiceImpl actionService;
 
@@ -35,7 +35,7 @@ public class ActionController extends AdminBaseController {
 
     @GetMapping("/data")
     @ResponseBody
-    public ResponseWrapper<UserResult> queryUsers(@RequestParam("keyword") String q, Pageable page) {
+    public ResponseWrapper<UserResult> findAll(@RequestParam("keyword") String q, Pageable page) {
         return response().execSuccess(actionService.search(q, page).map(actionConvter));
     }
 }

@@ -35,11 +35,22 @@ public class MenuResult implements TreeNode<MenuResult, Integer> {
     public MenuResult root() {
         MenuResult root = new MenuResult();
         root.setId(-1);
+        root.setParentId(0);
+        root.setPriority(1);
+        root.setUrl("");
         root.setName("root");
         return root;
     }
     @Override
     public List<MenuResult> getChildren(){
         return children;
+    }
+    //TODO fix me ..好奇怪的用法
+    public static MenuResult buildTree(List<MenuResult> items){
+        MenuResult menuResult = new MenuResult();
+        MenuResult root = menuResult.build(items,-1);
+        MenuResult result = new MenuResult();
+        result.getChildren().add(root);
+        return result;
     }
 }
