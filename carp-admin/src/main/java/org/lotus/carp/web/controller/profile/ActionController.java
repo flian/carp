@@ -3,7 +3,7 @@ package org.lotus.carp.web.controller.profile;
 import org.lotus.carp.base.vo.ResponseWrapper;
 import org.lotus.carp.profile.convter.ActionConverter;
 import org.lotus.carp.profile.service.impl.ActionServiceImpl;
-import org.lotus.carp.profile.vo.UserResult;
+import org.lotus.carp.profile.vo.ActionResult;
 import org.lotus.carp.web.controller.AdminBaseController;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import java.util.List;
 
 /**
  *  功能授权管理
@@ -35,7 +37,7 @@ public class ActionController extends AdminBaseController {
 
     @GetMapping("/data")
     @ResponseBody
-    public ResponseWrapper<UserResult> findAll(@RequestParam("keyword") String q, Pageable page) {
+    public ResponseWrapper<List<ActionResult>> findAll(@RequestParam("keyword") String q, Pageable page) {
         return response().execSuccess(actionService.search(q, page).map(actionConvter));
     }
 }

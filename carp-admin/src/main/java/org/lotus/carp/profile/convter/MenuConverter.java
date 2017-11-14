@@ -6,7 +6,6 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;
 
-import javax.persistence.Column;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -38,8 +37,9 @@ public class MenuConverter implements Converter<Menu, MenuResult> {
         list.forEach( item -> result.add(convert(item)));
         return result;
     }
-    public MenuResult buildTree(List<Menu> list){
-        List<MenuResult> resultList = map(list);
-        return MenuResult.buildTree(resultList);
+    public List<MenuResult> buildTree(List<Menu> list){
+        List<MenuResult> result = new ArrayList<>();
+        result.add(MenuResult.buildTree(map(list)));
+        return result;
     }
 }

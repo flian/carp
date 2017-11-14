@@ -19,6 +19,7 @@ public class MenuResult implements TreeNode<MenuResult, Integer> {
     private String name;
     private String url;
     private Integer priority;
+    private boolean deleteAble = true;
 
     private List<MenuResult> children = new ArrayList<>();
 
@@ -38,19 +39,16 @@ public class MenuResult implements TreeNode<MenuResult, Integer> {
         root.setParentId(0);
         root.setPriority(1);
         root.setUrl("");
-        root.setName("root");
+        root.setName("ROOT");
+        root.deleteAble = false;
         return root;
     }
     @Override
     public List<MenuResult> getChildren(){
         return children;
     }
-    //TODO fix me ..好奇怪的用法
+
     public static MenuResult buildTree(List<MenuResult> items){
-        MenuResult menuResult = new MenuResult();
-        MenuResult root = menuResult.build(items,-1);
-        MenuResult result = new MenuResult();
-        result.getChildren().add(root);
-        return result;
+        return (new MenuResult()).build(items,-1);
     }
 }

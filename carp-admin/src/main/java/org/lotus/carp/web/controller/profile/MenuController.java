@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.util.List;
+
 /**
  *  菜单授权管理
  *
@@ -35,7 +37,7 @@ public class MenuController extends AdminBaseController {
 
     @GetMapping("/data")
     @ResponseBody
-    public ResponseWrapper<MenuResult> findAll() {
+    public ResponseWrapper<List<MenuResult>> findAll() {
         return response().execSuccess(menuConverter.buildTree(menuService.findAll()));
     }
 }
