@@ -68,7 +68,7 @@
                             attrs: {
                                 style: "float: right; margin-right: 20px"
                             }
-                        }, [
+                        }, node.data.root?[]:[
                             createElement('el-button', {
                                 attrs: {
                                     size: "mini", type: "success"
@@ -80,7 +80,8 @@
                             }, "详情"),
                             createElement('el-button', {
                                 attrs: {
-                                    size: "mini", type: "warning"
+                                    size: "mini", type: "warning",
+                                    disabled: (data.leaf)
                                 }, on: {
                                     click: function () {
 
@@ -89,13 +90,10 @@
                             }, "添加子节点"),
                             createElement('el-button', {
                                 attrs: {
-                                    size: "mini", type: "danger"
+                                    size: "mini", type: "danger",
+                                    disabled: (data.children.length>0)
                                 }, on: {
                                     click: function () {
-                                            if(!node.data.deleteAble){
-                                                alert("不允许删除");
-                                            }
-
                                     }
                                 }
                             }, "删除"),

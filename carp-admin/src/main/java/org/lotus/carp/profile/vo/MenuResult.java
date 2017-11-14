@@ -19,7 +19,8 @@ public class MenuResult implements TreeNode<MenuResult, Integer> {
     private String name;
     private String url;
     private Integer priority;
-    private boolean deleteAble = true;
+    private boolean leaf;
+    private boolean root = false;
 
     private List<MenuResult> children = new ArrayList<>();
 
@@ -40,7 +41,7 @@ public class MenuResult implements TreeNode<MenuResult, Integer> {
         root.setPriority(1);
         root.setUrl("");
         root.setName("ROOT");
-        root.deleteAble = false;
+        root.root = true;
         return root;
     }
     @Override

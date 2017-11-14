@@ -44,4 +44,8 @@ public class Menu implements Serializable {
     @Column(columnDefinition ="int default 100")
     private Integer priority;
 
+    @Getter
+    @Setter
+    private boolean leaf;
+
 }

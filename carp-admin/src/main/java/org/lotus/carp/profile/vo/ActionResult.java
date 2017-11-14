@@ -21,7 +21,7 @@ public class ActionResult implements TreeNode<ActionResult,Integer>{
     private String actionMethod;
     private Integer priority;
     private boolean leaf;
-    private boolean deleteAble = true;
+    private boolean root = false;
     private List<ActionResult> children = new ArrayList<>();
     @Override
     public Integer getKey() {
@@ -38,7 +38,7 @@ public class ActionResult implements TreeNode<ActionResult,Integer>{
         ActionResult root = new ActionResult();
         root.setId(-1);
         root.setName("ROOT");
-        root.deleteAble =false;
+        root.root =true;
         return root;
     }
     @Override
