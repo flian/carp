@@ -15,13 +15,13 @@
                     <el-input v-model="item.parentId" :disabled="true"></el-input>
                 </el-form-item>
                 <el-form-item label="名称">
-                    <el-input v-model="item.name" :disabled=" showType==1"></el-input>
+                    <el-input v-model="item.name" :disabled="(showType==1)"></el-input>
                 </el-form-item>
                 <el-form-item label="URL">
-                    <el-input v-model="item.url" :disabled=" showType==1"></el-input>
+                    <el-input v-model="item.url" :disabled="(showType==1)"></el-input>
                 </el-form-item>
                 <el-form-item label="显示顺序">
-                    <el-input v-model="item.priority" :disabled=" showType==1"></el-input>
+                    <el-input v-model="item.priority" :disabled="(showType==1)"></el-input>
                 </el-form-item>
                 <el-form-item>
                     <el-button @click="showForm=false">取消</el-button>
