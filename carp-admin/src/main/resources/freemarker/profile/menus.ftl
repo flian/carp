@@ -21,7 +21,7 @@
                     <el-input v-model="item.url" :disabled="(showType==1)" placeholder="末级节点请填入url地址"></el-input>
                 </el-form-item>
                 <el-form-item label="显示顺序" prop="priority" >
-                    <el-input v-model.number="item.priority" :disabled="(showType==1)" placeholder="请填入显示顺序"></el-input>
+                    <el-input-number v-model="item.priority" :disabled="(showType==1)" placeholder="请填入显示顺序" :min="1" :max="9999"></el-input-number>
                 </el-form-item>
                 <el-form-item label="叶节点" prop="leaf">
                     <el-select v-model="item.leaf" placeholder="请选择" :disabled="(showType==1 || showType == 3)">
@@ -86,9 +86,6 @@
                     url:[
                         {type:"string",required:true,message:"必填字段",trigger:"blur"}
                     ],
-                    priority:[
-                        {type:"integer",required:true,message:"必填字段",trigger:"blur"}
-                    ],
                     leaf:[
                         {type:"boolean",required:true,message:"请选择",trigger:"blur"}
                     ]
@@ -138,7 +135,17 @@
                     });
                 },
                 remove: function (store, data) {
-                    store.remove(data);
+                    axios.delete("${rc.contextPath}/menus/"+data.id)
+                            .then(response=>{
+                                if (response.data.procCode != 200) {
+                                    this.$message({
+                                        type: 'success',
+                                        message: response.data.message
+                                    });
+                                    return;
+                                }
+                                store.remove(data);
+                            });
                 },
             <#-- ref : http://blog.csdn.net/x_lord/article/details/70161195 -->
                 renderContent: function (createElement, {node, data, store}) {
@@ -177,7 +184,8 @@
                                             parentId: data.id,
                                             name:"",
                                             children:[],
-                                            url:"TBD",
+                                            url:"NONE",
+                                            priority: data.children[data.children.length-1].priority+1,
                                             leaf:true
                                         }
                                         self.showForm = true;
