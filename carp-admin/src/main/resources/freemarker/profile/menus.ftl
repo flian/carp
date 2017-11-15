@@ -109,10 +109,13 @@
                                 }
                                 case 2: {
                                     //新增
-                                    let obj = JSON.parse(JSON.stringify(self.item));
-                                    self.storeRef.append(obj, self.dataRef);
-                                    self.storeRef.data.push(obj);
-                                    self.dataRef.children.push(obj);
+                                    axios.post("${rc.contextPath}/menus",JSON.parse(JSON.stringify(self.item)))
+                                            .then(response=>{
+                                        let createdItem = response.data.payload;
+                                        self.storeRef.append(createdItem, self.dataRef);
+                                        self.storeRef.data.push(createdItem);
+                                        self.dataRef.children.push(createdItem);
+                                    });
                                     break;
                                 }
                                 case 3: {
@@ -163,7 +166,7 @@
                                         self.storeRef = store;
                                         self.dataRef = data;
                                         self.item = {
-                                            id: "-9999",
+                                            id: "0",
                                             parentId: data.id,
                                             name:"",
                                             children:[],

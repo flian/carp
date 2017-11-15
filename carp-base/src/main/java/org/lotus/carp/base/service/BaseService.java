@@ -46,4 +46,8 @@ public abstract class BaseService<T extends JpaRepository, E, ID extends Seriali
      * @return example
      */
     public abstract Example<E> createExampleQuery(String q);
+
+    public T getRepository(){
+        return repository;
+    }
 }
