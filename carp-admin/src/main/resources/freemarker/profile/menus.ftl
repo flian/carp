@@ -109,7 +109,10 @@
                                 }
                                 case 2: {
                                     //新增
-                                    self.storeRef.append(JSON.parse(JSON.stringify(self.item)), self.dataRef);
+                                    let obj = JSON.parse(JSON.stringify(self.item));
+                                    self.storeRef.append(obj, self.dataRef);
+                                    self.storeRef.data.push(obj);
+                                    self.dataRef.children.push(obj);
                                     break;
                                 }
                                 case 3: {
