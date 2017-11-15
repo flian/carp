@@ -7,21 +7,27 @@
                  :render-content="renderContent">
         </el-tree>
         <el-dialog :title="formTitle" :visible.sync="showForm">
-            <el-form ref="form" :model="item" label-width="80px" label-position="right">
-                <el-form-item label="ID">
+            <el-form ref="menuForm" :rules="menuFormRules" :model="item" label-width="90px" label-position="right">
+                <el-form-item label="ID" prop="id">
                     <el-input v-model="item.id" :disabled="true"></el-input>
                 </el-form-item>
-                <el-form-item label="所属父类">
-                    <el-input v-model="item.parentId" :disabled="true"></el-input>
+                <el-form-item label="所属父类" prop="parentId">
+                    <el-input v-model.number="item.parentId" :disabled="true"></el-input>
                 </el-form-item>
-                <el-form-item label="名称">
-                    <el-input v-model="item.name" :disabled="(showType==1)"></el-input>
+                <el-form-item label="名称" prop="name" >
+                    <el-input v-model="item.name" :disabled="(showType==1)" placeholder="请填入名称"></el-input>
                 </el-form-item>
-                <el-form-item label="URL">
-                    <el-input v-model="item.url" :disabled="(showType==1)"></el-input>
+                <el-form-item label="URL" prop="url" >
+                    <el-input v-model="item.url" :disabled="(showType==1)" placeholder="末级节点请填入url地址"></el-input>
                 </el-form-item>
-                <el-form-item label="显示顺序">
-                    <el-input v-model="item.priority" :disabled="(showType==1)"></el-input>
+                <el-form-item label="显示顺序" prop="priority" >
+                    <el-input v-model.number="item.priority" :disabled="(showType==1)" placeholder="请填入显示顺序"></el-input>
+                </el-form-item>
+                <el-form-item label="叶节点" prop="leaf">
+                    <el-select v-model="item.leaf" placeholder="请选择" :disabled="(showType==1 || showType == 3)">
+                        <el-option v-for="option in options" :key="option.value" :label="option.label" :value="option.value">
+                        </el-option>
+                    </el-select>
                 </el-form-item>
                 <el-form-item>
                     <el-button @click="showForm=false">取消</el-button>
@@ -68,27 +74,55 @@
                     children: 'children',
                     label: 'name'
                 },
-                labelPosition: 'left'
+                labelPosition: 'left',
+                options:[{value:true,label:"叶节点"},{value:false,label:"非叶子节点"}],
+                menuFormRules:{
+                    id:[
+                        {type:"string",required:true,message:"必填字段",trigger:"blur"}
+                    ],
+                    parentId:[
+                        {type:"integer",required:true,message:"必填字段",trigger:"blur"}
+                    ],
+                    name:[
+                        {type:"string",required:true,message:"必填字段",trigger:"blur"}
+                    ],
+                    url:[
+                        {type:"string",required:true,message:"必填字段",trigger:"blur"}
+                    ],
+                    priority:[
+                        {type:"integer",required:true,message:"必填字段",trigger:"blur"}
+                    ],
+                    leaf:[
+                        {type:"boolean",required:true,message:"请选择",trigger:"blur"}
+                    ]
+                }
             },
             methods: {
                 save: function () {
                     var self = this;
-                    switch (self.showType) {
-                        case 1: {
-                            //详情
-                            break;
+                    self.$refs.menuForm.validate((valid) => {
+                        if(valid){
+                            switch (self.showType) {
+                                case 1: {
+                                    //详情
+                                    break;
+                                }
+                                case 2: {
+                                    //新增
+                                    self.storeRef.append(JSON.parse(JSON.stringify(self.item)), self.dataRef);
+                                    break;
+                                }
+                                case 3: {
+                                    //编辑
+                                    break;
+                                }
+                            }
+                            self.showForm = false;
+                        }else{
+                            console.log("error submit!");
+                            return false;
                         }
-                        case 2: {
-                            //新增
-                            self.storeRef.append(JSON.parse(JSON.stringify(self.item)), self.dataRef);
-                            break;
-                        }
-                        case 3: {
-                            //编辑
-                            break;
-                        }
-                    }
-                    self.showForm = false;
+                    });
                 },
                 remove: function (store, data) {
                     store.remove(data);
@@ -129,7 +163,9 @@
                                             id: "-9999",
                                             parentId: data.id,
                                             name:"",
-                                            children:[]
+                                            children:[],
+                                            url:"TBD",
+                                            leaf:true
                                         }
                                         self.showForm = true;
                                     }
