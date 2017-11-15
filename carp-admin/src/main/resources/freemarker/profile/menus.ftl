@@ -77,9 +77,6 @@
                 labelPosition: 'left',
                 options:[{value:true,label:"叶节点"},{value:false,label:"非叶子节点"}],
                 menuFormRules:{
-                    id:[
-                        {type:"string",required:true,message:"必填字段",trigger:"blur"}
-                    ],
                     parentId:[
                         {type:"integer",required:true,message:"必填字段",trigger:"blur"}
                     ],
@@ -120,6 +117,16 @@
                                 }
                                 case 3: {
                                     //编辑
+                                    axios.put("${rc.contextPath}/menus",JSON.parse(JSON.stringify(self.item)))
+                                            .then(response=>{
+                                                if (response.data.procCode != 200) {
+                                                    this.$message({
+                                                        type: 'success',
+                                                        message: response.data.message
+                                                    });
+                                                    return;
+                                                }
+                                            });
                                     break;
                                 }
                             }
