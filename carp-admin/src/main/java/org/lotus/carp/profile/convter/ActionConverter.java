@@ -6,6 +6,9 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Created with IntelliJ IDEA.
  *
@@ -27,6 +30,16 @@ public class ActionConverter implements Converter<Action, ActionResult> {
     public ActionResult convert(Action source) {
         ActionResult result = new ActionResult();
         BeanUtils.copyProperties(source,result);
+        return result;
+    }
+    public List<ActionResult> map(List<Action> list){
+        List<ActionResult> result = new ArrayList<>();
+        list.forEach( item -> result.add(convert(item)));
+        return result;
+    }
+    public List<ActionResult> buildTree(List<Action> list){
+        List<ActionResult> result = new ArrayList<>();
+        result.add(ActionResult.buildTree(map(list)));
         return result;
     }
 }

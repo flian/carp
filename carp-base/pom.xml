@@ -38,5 +38,10 @@
             <artifactId>spring-data-jpa</artifactId>
             <scope>compile</scope>
         </dependency>
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>druid</artifactId>
+            <scope>compile</scope>
+        </dependency>
     </dependencies>
 </project>

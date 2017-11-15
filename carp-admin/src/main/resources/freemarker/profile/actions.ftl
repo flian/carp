@@ -1,69 +1,50 @@
 <@layout.main pageJS=myPageJS>
 <section class="content">
     <div id="app" v-cloak>
-        <el-button class="filter-item" style="margin-left: 10px;" @click="" type="primary" icon="edit">添加</el-button>
-
-        <el-collapse accordion>
-            <el-collapse-item title="更多功能...">
-                <div class="filter-container">
-                    <el-input style="width: 200px;" class="filter-item" placeholder="标题">
-                    </el-input>
-                    <el-input style="width: 200px;" class="filter-item" placeholder="姓名">
-                    </el-input>
-                    <el-button class="filter-item" type="primary" icon="search" @click="">搜索</el-button>
-                    <el-button class="filter-item" type="primary" icon="document" @click="">导出</el-button>
-                    <el-checkbox class="filter-item">显示审核人</el-checkbox>
-                </div>
-            </el-collapse-item>
-        </el-collapse>
-        <el-table :data.sync="items" style="width: 100%" @selection-change="handleSelectionChange">
-            <el-table-column type="selection" width="55"></el-table-column>
-            <el-table-column type="expand">
-                <template scope="props">
-                    <el-form label-position="left" inline class="demo-table-expand">
-                        <el-form-item label="ID">
-                            <span> {{ props.row.id }}</span>
-                        </el-form-item>
-                        <el-form-item label="父功能ID">
-                            <span> {{ props.row.parentId }}</span>
-                        </el-form-item>
-                        <el-form-item label="名称">
-                            <span> {{ props.row.name }}</span>
-                        </el-form-item>
-                        <el-form-item label="功能url">
-                            <span> {{ props.row.actionUrl }}</span>
-                        </el-form-item>
-                        <el-form-item label="功能方法">
-                            <span> {{ props.row.actionMethod }}</span>
-                        </el-form-item>
-                        <el-form-item label="显示顺序">
-                            <span> {{ props.row.priority }}</span>
-                        </el-form-item>
-                        <el-form-item label="是否叶节点">
-                            <span> {{ props.row.leaf }}</span>
-                        </el-form-item>
-                    </el-form>
-                </template>
-            </el-table-column>
-            <el-table-column label="ID" prop="id"></el-table-column>
-            <el-table-column label="名称" prop="name"></el-table-column>
-
-
-            <el-table-column align="center" label="操作" >
-                <template scope="scope">
-                    <el-button size="small" type="success" @click="">分配角色
-                    </el-button>
-                    <el-button size="small" type="warning" @click="">改密
-                    </el-button>
-                    <el-button size="small" type="danger" @click="">禁用
-                    </el-button>
-                </template>
-            </el-table-column>
-        </el-table>
-        <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange"
-                       :current-page="query.page" :page-sizes="[5, 10, 20, 40]" :page-size="query.size"
-                       layout="total, sizes, prev, pager, next, jumper" :total="totalElements">
-        </el-pagination>
+        <el-tree :data="items" :props="defaultProps" node-key="id" default-expand-all
+                 :expand-on-click-node="false"
+                 :highlight-current="true"
+                 :render-content="renderContent">
+        </el-tree>
+        <el-dialog :title="formTitle" :visible.sync="showForm">
+            <el-form ref="actionForm" :rules="actionFormRules" :model="item" label-width="90px" label-position="right">
+                <el-form-item label="ID" prop="id">
+                    <el-input v-model="item.id" :disabled="true"></el-input>
+                </el-form-item>
+                <el-form-item label="所属父类" prop="parentId">
+                    <el-input v-model.number="item.parentId" :disabled="true"></el-input>
+                </el-form-item>
+                <el-form-item label="名称" prop="name" >
+                    <el-input v-model="item.name" :disabled="(showType==1)" placeholder="请填入名称"></el-input>
+                </el-form-item>
+                <el-form-item label="http请求" prop="actionMethod" >
+                    <el-select v-model="item.actionMethod" :disabled="(showType==1)" placeholder="请选择">
+                        <el-option v-for="option in actionMethodOptions"
+                                   :key="option.value"
+                                   :label="option.label"
+                                   :value="option.value">
+                        </el-option>
+                    </el-select>
+                </el-form-item>
+                <el-form-item label="URL" prop="actionUrl" >
+                    <el-input v-model="item.actionUrl" :disabled="(showType==1)" placeholder="末级节点请填入url地址"></el-input>
+                </el-form-item>
+                <el-form-item label="显示顺序" prop="priority" >
+                    <el-input v-model.number="item.priority" :disabled="(showType==1)" placeholder="请填入显示顺序"></el-input>
+                </el-form-item>
+                <el-form-item label="叶节点" prop="leaf">
+                    <el-select v-model="item.leaf" placeholder="请选择" :disabled="(showType==1 || showType == 3)">
+                        <el-option v-for="option in options" :key="option.value" :label="option.label" :value="option.value">
+                        </el-option>
+                    </el-select>
+                </el-form-item>
+                <el-form-item>
+                    <el-button @click="showForm=false">取消</el-button>
+                    <el-button v-if="showType==1 && !item.root" @click="showType=3">编辑</el-button>
+                    <el-button v-if="showType>1" type="primary" :disable=" showType==1" @click="save">保存</el-button>
+                </el-form-item>
+            </el-form>
+        </el-dialog>
     </div>
 </@layout.main>
 <#macro myPageJS>
@@ -71,42 +52,171 @@
         new Vue({
             el: '#app',
             computed: {
-            },
-            methods: {
-                handleSizeChange(newSize) {
-                    this.query.size = newSize;
-                    this.queryItems();
-                },
-                handleCurrentChange(newPage) {
-                    this.query.page = newPage;
-                    this.queryItems();
-                },
-                handleSelectionChange(val) {
-                    this.selectedItems = val;
-                },
-                queryItems(){
-                    axios.get("${rc.contextPath}/actions/data", {params: this.query}).then(response => {
-                        console.log(response);
-                        this.items = response.data.payload.content;
-                        this.totalPage = response.data.payload.totalPages;
-                        this.totalElements = response.data.payload.totalElements;
-                    })
+                formTitle: function () {
+                    var self = this;
+                    switch (self.showType) {
+                        case 1: {
+                            return "菜单详情";
+                        }
+                        case 2: {
+                            return "新增菜单";
+                        }
+                        case 3: {
+                            return "编辑菜单";
+                        }
+                    }
                 }
             },
-            created(){
+            created: function () {
                 this.queryItems();
             },
-            data: function () {
-                return {
-                    query: {
-                        page: 1,
-                        size: 10,
-                        keyword:''
-                    },
-                    totalPage: 0,
-                    totalElements: 0,
-                    items: [],
-                    selectedItems:[]
+            data: {
+                items: [],
+                item: {},
+                showForm: false,
+                showType: 1,//1:查看详情，2:新增，3：编辑,
+                storeRef: {},
+                dataRef: {},
+                defaultProps: {
+                    children: 'children',
+                    label: 'name'
+                },
+                labelPosition: 'left',
+                options:[{value:true,label:"叶节点"},{value:false,label:"非叶子节点"}],
+                actionMethodOptions:[
+                    {value:"ALL",label:"ALL"},
+                    {value:"POST",label:"POST"},
+                    {value:"GET",label:"GET"},
+                    {value:"PUT",label:"PUT"},
+                    {value:"DELETE",label:"DELETE"}
+                    ],
+                actionFormRules:{
+                    id:[
+                        {type:"string",required:true,message:"必填字段",trigger:"blur"}
+                    ],
+                    parentId:[
+                        {type:"integer",required:true,message:"必填字段",trigger:"blur"}
+                    ],
+                    name:[
+                        {type:"string",required:true,message:"必填字段",trigger:"blur"}
+                    ],
+                    actionMethod:[
+                        {type:"string",required:true,message:"必填字段",trigger:"blur"}
+                    ],
+                    actionUrl:[
+                        {type:"string",required:true,message:"必填字段",trigger:"blur"}
+                    ],
+                    priority:[
+                        {type:"integer",required:true,message:"必填字段",trigger:"blur"}
+                    ],
+                    leaf:[
+                        {type:"boolean",required:true,message:"请选择",trigger:"blur"}
+                    ]
+                }
+            },
+            methods: {
+                save: function () {
+                    var self = this;
+                    self.$refs.actionForm.validate((valid) => {
+                        if(valid){
+                            switch (self.showType) {
+                                case 1: {
+                                    //详情
+                                    break;
+                                }
+                                case 2: {
+                                    //新增
+                                    self.storeRef.append(JSON.parse(JSON.stringify(self.item)), self.dataRef);
+                                    break;
+                                }
+                                case 3: {
+                                    //编辑
+                                    break;
+                                }
+                            }
+                            self.showForm = false;
+                        }else{
+                            console.log("error submit!");
+                            return false;
+                        }
+                    });
+                },
+                remove: function (store, data) {
+                    store.remove(data);
+                },
+            <#-- ref : http://blog.csdn.net/x_lord/article/details/70161195 -->
+                renderContent: function (createElement, {node, data, store}) {
+                    var self = this;
+                    return createElement('span', [
+                        createElement('span', node.label),
+                        createElement('span', {
+                            attrs: {
+                                style: "float: right; margin-right: 20px"
+                            }
+                        }, [
+                            createElement('el-button', {
+                                attrs: {
+                                    size: "mini", type: "success"
+                                }, on: {
+                                    click: function () {
+                                        self.showType = 1;
+                                        self.storeRef = store;
+                                        self.dataRef = data;
+                                        self.item = data;
+                                        self.showForm = true;
+                                    }
+                                }
+                            }, "详情"),
+                            createElement('el-button', {
+                                attrs: {
+                                    size: "mini", type: "warning",
+                                    disabled: (data.leaf)
+                                }, on: {
+                                    click: function () {
+                                        self.showType = 2;
+                                        self.storeRef = store;
+                                        self.dataRef = data;
+                                        self.item = {
+                                            id: "-9999",
+                                            parentId: data.id,
+                                            name:"",
+                                            children:[],
+                                            actionMethod:"ALL",
+                                            actionUrl:"TBD",
+                                            leaf:true
+                                        }
+                                        self.showForm = true;
+                                    }
+                                }
+                            }, "添加子节点"),
+                            createElement('el-button', {
+                                attrs: {
+                                    size: "mini", type: "danger",
+                                    disabled: (data.children.length > 0 || node.data.root)
+                                }, on: {
+                                    click: function () {
+
+                                        self.$confirm('永久删除选中行?', '确认删除', {
+                                            confirmButtonText: '确认删除',
+                                            cancelButtonText: '取消',
+                                            type: 'warning'
+                                        }).then(() => {
+                                            //TODO 后台删除
+                                            self.remove(store, data);
+                                        }).catch(()=>{
+                                            console.log("取消删除")
+                                        });
+                                    }
+                                }
+                            }, "删除"),
+                        ]),
+                    ]);
+                },
+                queryItems: function () {
+                    var self = this;
+                    axios.get("${rc.contextPath}/actions/data").then(response => {
+                        self.items = response.data.payload;
+                    })
                 }
             }
         })

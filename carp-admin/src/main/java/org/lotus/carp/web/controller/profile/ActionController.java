@@ -26,7 +26,7 @@ import java.util.List;
 @RequestMapping("/actions")
 public class ActionController extends AdminBaseController {
     @Autowired
-    private ActionConverter actionConvter;
+    private ActionConverter actionConverter;
     @Autowired
     private ActionServiceImpl actionService;
 
@@ -37,7 +37,7 @@ public class ActionController extends AdminBaseController {
 
     @GetMapping("/data")
     @ResponseBody
-    public ResponseWrapper<List<ActionResult>> findAll(@RequestParam("keyword") String q, Pageable page) {
-        return response().execSuccess(actionService.search(q, page).map(actionConvter));
+    public ResponseWrapper<List<ActionResult>> findAll() {
+        return response().execSuccess(actionConverter.buildTree(actionService.findAll()));
     }
 }

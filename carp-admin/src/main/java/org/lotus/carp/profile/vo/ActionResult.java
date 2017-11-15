@@ -13,7 +13,7 @@ import java.util.List;
  * Time: 4:25 PM
  */
 @Data
-public class ActionResult implements TreeNode<ActionResult,Integer>{
+public class ActionResult implements TreeNode<ActionResult, Integer> {
     private Integer id;
     private Integer parentId;
     private String name;
@@ -23,6 +23,7 @@ public class ActionResult implements TreeNode<ActionResult,Integer>{
     private boolean leaf;
     private boolean root = false;
     private List<ActionResult> children = new ArrayList<>();
+
     @Override
     public Integer getKey() {
         return id;
@@ -36,13 +37,22 @@ public class ActionResult implements TreeNode<ActionResult,Integer>{
     @Override
     public ActionResult root() {
         ActionResult root = new ActionResult();
-        root.setId(-1);
-        root.setName("ROOT");
-        root.root =true;
+        root.id = -1;
+        root.name = "ROOT";
+        root.parentId = 0;
+        root.priority = 1;
+        root.actionMethod = "ALL";
+        root.actionUrl = "";
+        root.root = true;
         return root;
     }
+
     @Override
-    public List<ActionResult> getChildren(){
+    public List<ActionResult> getChildren() {
         return children;
+    }
+
+    public static ActionResult buildTree(List<ActionResult> items) {
+        return (new ActionResult()).build(items, -1);
     }
 }
