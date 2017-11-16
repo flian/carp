@@ -8,6 +8,9 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Created with IntelliJ IDEA.
  *
@@ -28,7 +31,13 @@ public class RoleConverter implements Converter<Role, RoleResult> {
     public RoleResult convert(Role source) {
         RoleResult result = new RoleResult();
         BeanUtils.copyProperties(source, result);
-        result.setUsers(Joiner.on(",").join(Iterables.transform(source.getUsers(),u->u.getUserName())));
+        result.setUsers(Joiner.on(",").join(Iterables.transform(source.getUsers(), u -> u.getUserName())));
+        return result;
+    }
+
+    public List<RoleResult> map(List<Role> list) {
+        List<RoleResult> result = new ArrayList<>();
+        list.forEach(role -> result.add(convert(role)));
         return result;
     }
 }

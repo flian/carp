@@ -9,6 +9,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 /**
  * Created with IntelliJ IDEA.
  *
@@ -30,5 +32,9 @@ public class RoleServiceImpl {
                 .withMatcher("name",ExampleMatcher.GenericPropertyMatchers.contains());
         Example<Role> query = Example.of(queryParams, matcher);
         return roleRepository.findAll(query, page);
+    }
+
+    public List<Role> all(){
+        return roleRepository.findAll();
     }
 }

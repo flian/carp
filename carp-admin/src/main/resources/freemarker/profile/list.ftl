@@ -35,7 +35,7 @@
 
             <el-table-column align="center" label="操作">
                 <template scope="scope">
-                    <el-button size="small" type="success" @click="">分配角色
+                    <el-button size="small" type="success" @click="popChangeRole(scope.row)">分配角色
                     </el-button>
                     <el-button size="small" type="warning" @click="">改密
                     </el-button>
@@ -48,6 +48,18 @@
                        :current-page="query.page" :page-sizes="[5, 10, 20, 40]" :page-size="query.size"
                        layout="total, sizes, prev, pager, next, jumper" :total="totalElements">
         </el-pagination>
+
+        <el-dialog title="分配用户角色" :visible.sync="showAssignRoleForm">
+            <el-form>
+                <el-form-item label="分配角色">
+                    <el-checkbox-group v-model="assignedRoles">
+                            <el-checkbox v-for="r in allRoles" :label="r.code"></el-checkbox>
+                    </el-checkbox-group>
+                </el-form-item>
+                <el-button @click="showAssignRoleForm=false">取消</el-button>
+                <el-button @click="handleChangeUserRole"  type="primary">保存</el-button>
+            </el-form>
+        </el-dialog>
     </div>
 </@layout.main>
 <#macro myPageJS>
@@ -68,17 +80,36 @@
                 handleSelectionChange(val) {
                     this.selectedItems = val;
                 },
+                popChangeRole(row){
+                    this.showAssignRoleForm = true;
+                    this.currentRow = row;
+                    this.assignedRoles = row.roleCodes;
+                },
+                handleChangeUserRole(){
+                    var self = this;
+                    axios.put("${rc.contextPath}/profile/roles",{userId: self.currentRow.id,roles:JSON.parse(JSON.stringify(this.assignedRoles))})
+                            .then(response=>{
+                                self.queryItems();
+                                self.showAssignRoleForm = false;
+                            })
+                },
                 queryItems(){
                     axios.get("${rc.contextPath}/profile/data", {params: this.query}).then(response => {
-                        console.log(response);
                         this.items = response.data.payload.content;
                         this.totalPage = response.data.payload.totalPages;
                         this.totalElements = response.data.payload.totalElements;
                     })
+                },
+                getAllRoles(){
+                    axios.get("${rc.contextPath}/roles/all")
+                            .then(response =>{
+                                this.allRoles = response.data.payload;
+                            })
                 }
             },
             created(){
                 this.queryItems();
+                this.getAllRoles();
             },
             data: function () {
                 return {
@@ -90,7 +121,12 @@
                     totalPage: 0,
                     totalElements: 0,
                     items: [],
-                    selectedItems:[]
+                    selectedItems:[],
+                    showAssignRoleForm:false,
+                    currentRow:{},
+                    allRoles:[],
+                    userRoleCodes:[],
+                    assignedRoles:[]
                 }
             }
         })

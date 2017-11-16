@@ -4,14 +4,14 @@ import org.lotus.carp.base.vo.ResponseWrapper;
 import org.lotus.carp.profile.convter.UserConverter;
 import org.lotus.carp.profile.service.impl.UserServiceImpl;
 import org.lotus.carp.profile.vo.UserResult;
+import org.lotus.carp.profile.vo.UserRoleUpdateDto;
 import org.lotus.carp.web.controller.AdminBaseController;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
 
 
 /**
@@ -25,7 +25,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @RequestMapping("/profile")
 public class ProfileController extends AdminBaseController {
     @Autowired
-    private UserConverter userConvter;
+    private UserConverter userConverter;
 
     @Autowired
     private UserServiceImpl userService;
@@ -38,6 +38,11 @@ public class ProfileController extends AdminBaseController {
     @GetMapping("/data")
     @ResponseBody
     public ResponseWrapper<UserResult> queryUsers(@RequestParam("keyword") String q, Pageable page) {
-        return response().execSuccess(userService.search(q, page).map(userConvter));
+        return response().execSuccess(userService.search(q, page).map(userConverter));
+    }
+    @PutMapping("/roles")
+    @ResponseBody
+    public ResponseWrapper<UserResult> updateUserRoles(@Valid @RequestBody UserRoleUpdateDto userRoleUpdateDto){
+        return response().execSuccess(userConverter.convert(userService.updateUserRole(userRoleUpdateDto)));
     }
 }

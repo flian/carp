@@ -2,6 +2,9 @@ package org.lotus.carp.profile.vo;
 
 import lombok.Data;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Created with IntelliJ IDEA.
  * @author : Foy Lian
@@ -10,6 +13,8 @@ import lombok.Data;
  */
 @Data
 public class UserResult {
+    private Long id;
     private String userName;
     private String roles;
+    private List<String> roleCodes = new ArrayList<>();
 }

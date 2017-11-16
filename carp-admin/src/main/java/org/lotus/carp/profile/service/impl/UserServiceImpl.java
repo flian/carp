@@ -3,7 +3,9 @@ package org.lotus.carp.profile.service.impl;
 import com.google.common.base.Preconditions;
 import org.lotus.carp.profile.domain.Role;
 import org.lotus.carp.profile.domain.User;
+import org.lotus.carp.profile.repository.RoleRepository;
 import org.lotus.carp.profile.repository.UserRepository;
+import org.lotus.carp.profile.vo.UserRoleUpdateDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -16,7 +18,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.HashSet;
-
 import java.util.Set;
 
 /**
@@ -29,6 +30,9 @@ import java.util.Set;
 public class UserServiceImpl implements UserDetailsService {
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private RoleRepository roleRepository;
 
     @Override
     @Transactional(readOnly = true,rollbackFor = {Exception.class})
@@ -45,5 +49,13 @@ public class UserServiceImpl implements UserDetailsService {
     @Transactional(readOnly = true,rollbackFor = {Exception.class})
     public Page<User> search(String q, Pageable page) {
         return userRepository.search(q, page);
+    }
+    @Transactional(rollbackFor = {Exception.class})
+    public User updateUserRole(UserRoleUpdateDto userRoleUpdateDto){
+        User user = userRepository.findOne(userRoleUpdateDto.getUserId());
+        Set<Role> roles = new HashSet<>();
+        user.setRoles(roles);
+        userRoleUpdateDto.getRoles().forEach( code->roles.add(roleRepository.findByCode(code)));
+        return userRepository.save(user);
     }
 }

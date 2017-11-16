@@ -11,5 +11,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
  * Time: 5:22 PM
  */
 public interface RoleRepository extends JpaRepository<Role,Long> {
+     Role findByCode(String code);
 
 }

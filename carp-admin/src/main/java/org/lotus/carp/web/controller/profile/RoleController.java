@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.util.List;
+
 /**
  *  系统角色管理
  *
@@ -27,7 +29,7 @@ public class RoleController extends AdminBaseController {
     @Autowired
     private RoleServiceImpl roleService;
     @Autowired
-    private RoleConverter roleConvter;
+    private RoleConverter roleConverter;
 
     @GetMapping
     public String list() {
@@ -37,6 +39,12 @@ public class RoleController extends AdminBaseController {
     @GetMapping(value = "/data")
     @ResponseBody
     public ResponseWrapper<Page<RoleResult>> queryRoles(@RequestParam("keyword") String q, Pageable page) {
-        return response().execSuccess(roleService.search(q, page).map(roleConvter));
+        return response().execSuccess(roleService.search(q, page).map(roleConverter));
+    }
+
+    @GetMapping(value = "/all")
+    @ResponseBody
+    public ResponseWrapper<List<RoleResult>> allRoles(){
+        return response().execSuccess(roleConverter.map(roleService.all()));
     }
 }
