@@ -30,7 +30,7 @@
                     <el-input v-model="item.actionUrl" :disabled="(showType==1)" placeholder="末级节点请填入url地址"></el-input>
                 </el-form-item>
                 <el-form-item label="显示顺序" prop="priority" >
-                    <el-input v-model.number="item.priority" :disabled="(showType==1)" placeholder="请填入显示顺序"></el-input>
+                    <el-input-number v-model="item.priority" :disabled="(showType==1)" placeholder="请填入显示顺序"></el-input-number>
                 </el-form-item>
                 <el-form-item label="叶节点" prop="leaf">
                     <el-select v-model="item.leaf" placeholder="请选择" :disabled="(showType==1 || showType == 3)">
@@ -91,9 +91,6 @@
                     {value:"DELETE",label:"DELETE"}
                     ],
                 actionFormRules:{
-                    id:[
-                        {type:"string",required:true,message:"必填字段",trigger:"blur"}
-                    ],
                     parentId:[
                         {type:"integer",required:true,message:"必填字段",trigger:"blur"}
                     ],
@@ -105,9 +102,6 @@
                     ],
                     actionUrl:[
                         {type:"string",required:true,message:"必填字段",trigger:"blur"}
-                    ],
-                    priority:[
-                        {type:"integer",required:true,message:"必填字段",trigger:"blur"}
                     ],
                     leaf:[
                         {type:"boolean",required:true,message:"请选择",trigger:"blur"}
@@ -126,11 +120,27 @@
                                 }
                                 case 2: {
                                     //新增
-                                    self.storeRef.append(JSON.parse(JSON.stringify(self.item)), self.dataRef);
+                                    axios.post("${rc.contextPath}/actions",JSON.parse(JSON.stringify(self.item)))
+                                            .then(response=>{
+                                                let createdItem = response.data.payload;
+                                                self.storeRef.append(createdItem, self.dataRef);
+                                                self.storeRef.data.push(createdItem);
+                                                self.dataRef.children.push(createdItem);
+                                            });
                                     break;
                                 }
                                 case 3: {
                                     //编辑
+                                    axios.put("${rc.contextPath}/actions",JSON.parse(JSON.stringify(self.item)))
+                                            .then(response=>{
+                                                if (response.data.procCode != 200) {
+                                                    this.$message({
+                                                        type: 'success',
+                                                        message: response.data.message
+                                                    });
+                                                    return;
+                                                }
+                                            });
                                     break;
                                 }
                             }
@@ -142,7 +152,17 @@
                     });
                 },
                 remove: function (store, data) {
-                    store.remove(data);
+                    axios.delete("${rc.contextPath}/actions/"+data.id)
+                            .then(response=>{
+                                if (response.data.procCode != 200) {
+                                    this.$message({
+                                        type: 'success',
+                                        message: response.data.message
+                                    });
+                                    return;
+                                }
+                                store.remove(data);
+                            });
                 },
             <#-- ref : http://blog.csdn.net/x_lord/article/details/70161195 -->
                 renderContent: function (createElement, {node, data, store}) {
@@ -177,12 +197,13 @@
                                         self.storeRef = store;
                                         self.dataRef = data;
                                         self.item = {
-                                            id: "-9999",
+                                            id: "-0",
                                             parentId: data.id,
                                             name:"",
                                             children:[],
                                             actionMethod:"ALL",
-                                            actionUrl:"TBD",
+                                            actionUrl:"UNKNOWN",
+                                            priority: (data.children.length-1)>0?(data.children[data.children.length-1].priority+1):1,
                                             leaf:true
                                         }
                                         self.showForm = true;

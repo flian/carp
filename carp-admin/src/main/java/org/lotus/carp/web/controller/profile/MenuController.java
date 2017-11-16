@@ -39,7 +39,7 @@ public class MenuController extends AdminBaseController {
     @PostMapping
     @ResponseBody
     public ResponseWrapper<MenuResult> add(@Valid @RequestBody MenuCreateDto createDto) {
-        return response().execSuccess(menuConverter.convert(menuService.createMenu(createDto)));
+        return response().execSuccess(menuConverter.convert(menuService.create(createDto)));
     }
 
     @PutMapping
@@ -51,7 +51,7 @@ public class MenuController extends AdminBaseController {
     @DeleteMapping(value = "/{id}")
     @ResponseBody
     public ResponseWrapper<MenuResult> delete(@PathVariable Integer id) {
-        return response().execSuccess(menuConverter.convert(menuService.deleteById(id)));
+        return response().execSuccess(menuConverter.convert(menuService.delete(id)));
     }
 
     @GetMapping("/data")

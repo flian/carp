@@ -24,6 +24,7 @@ spring:
         poolPreparedStatements: true
         maxOpenPreparedStatements: 20
         logSlowSql: true
+        allow: 127.0.0.1
     freemarker:
         template-loader-path: classpath:/freemarker/
         suffix: .ftl

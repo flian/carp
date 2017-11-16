@@ -185,7 +185,7 @@
                                             name:"",
                                             children:[],
                                             url:"NONE",
-                                            priority: data.children[data.children.length-1].priority+1,
+                                            priority: (data.children.length-1)>0?(data.children[data.children.length-1].priority+1):1,
                                             leaf:true
                                         }
                                         self.showForm = true;

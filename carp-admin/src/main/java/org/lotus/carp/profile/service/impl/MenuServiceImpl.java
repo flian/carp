@@ -5,7 +5,6 @@ import org.lotus.carp.profile.domain.Menu;
 import org.lotus.carp.profile.repository.MenuRepository;
 import org.lotus.carp.profile.vo.MenuCreateDto;
 import org.lotus.carp.profile.vo.MenuUpdateDto;
-import org.springframework.beans.BeanUtils;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.ExampleMatcher;
 import org.springframework.stereotype.Service;
@@ -18,7 +17,7 @@ import org.springframework.stereotype.Service;
  * Time: 3:52 PM
  */
 @Service
-public class MenuServiceImpl extends BaseService<MenuRepository, Menu, Integer> {
+public class MenuServiceImpl extends BaseService<MenuRepository, Menu, Integer, MenuCreateDto, MenuUpdateDto> {
 
     @Override
     public Example<Menu> createExampleQuery(String q) {
@@ -30,19 +29,15 @@ public class MenuServiceImpl extends BaseService<MenuRepository, Menu, Integer> 
                 .withMatcher("url", ExampleMatcher.GenericPropertyMatchers.contains());
         return Example.of(menuQuery, matcher);
     }
-    public Menu createMenu(MenuCreateDto dto){
-        Menu menu = new Menu();
-        BeanUtils.copyProperties(dto,menu);
-        return getRepository().save(menu);
+
+
+    @Override
+    public Integer getUpdateDtoId(MenuUpdateDto updateDto) {
+        return updateDto.getId();
     }
-    public Menu update(MenuUpdateDto dto){
-        Menu menu = getRepository().getOne(dto.getId());
-        BeanUtils.copyProperties(dto,menu);
-        return getRepository().save(menu);
-    }
-    public Menu deleteById(Integer id){
-        Menu menu = getRepository().getOne(id);
-        getRepository().delete(menu);
-        return menu;
+
+    @Override
+    public Menu newOne() {
+        return new Menu();
     }
 }
