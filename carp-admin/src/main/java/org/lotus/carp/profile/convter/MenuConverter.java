@@ -32,7 +32,7 @@ public class MenuConverter implements Converter<Menu, MenuResult> {
         return result;
     }
 
-    public List<MenuResult> map(List<Menu> list){
+    public List<MenuResult> map(Iterable<Menu> list){
         List<MenuResult> result = new ArrayList<>();
         list.forEach( item -> result.add(convert(item)));
         return result;

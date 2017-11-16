@@ -42,9 +42,9 @@
             <el-table-column label="授予用户" prop="users"></el-table-column>
             <el-table-column align="center" label="操作" >
                 <template scope="scope">
-                    <el-button size="small" type="success" @click="" icon="setting" title="分配菜单">
+                    <el-button size="small" type="success" @click="preAssignMenu(scope.row)" icon="setting" title="分配菜单">
                     </el-button>
-                    <el-button size="small" type="warning" @click="" icon="edit" title="分配功能">
+                    <el-button size="small" type="warning" @click="preAssignAction(scope.row)" icon="edit" title="分配功能">
                     </el-button>
                     <el-button size="small" type="danger" @click="">禁用
                     </el-button>
@@ -55,6 +55,12 @@
                        :current-page="query.page" :page-sizes="[5, 10, 20, 40]" :page-size="query.size"
                        layout="total, sizes, prev, pager, next, jumper" :total="totalElements">
         </el-pagination>
+        <el-dialog title="分配角色资源" :visible.sync="showAssignResourceForm">
+            <el-form>
+                <el-button @click="showAssignResourceForm=false">取消</el-button>
+                <el-button @click=""  type="primary">保存</el-button>
+            </el-form>
+        </el-dialog>
     </div>
 </@layout.main>
 <#macro myPageJS>
@@ -82,10 +88,33 @@
                         this.totalPage = response.data.payload.totalPages;
                         this.totalElements = response.data.payload.totalElements;
                     })
+                },
+                preAssignMenu(row){
+                    this.queryResourcesByRoleCode(row.id);
+                    this.showAssignResourceForm =true;
+                },
+                preAssignAction(row){
+                    this.queryResourcesByRoleCode(row.id);
+                    this.showAssignResourceForm = true;
+                },
+                queryResourcesByRoleCode(roleId){
+                    var self = this;
+                    axios.get("${rc.contextPath}/roles/"+roleId+"/resources", {params: this.query})
+                            .then(response =>{
+                                self.roleResources = response.data.payload;
+                            });
+                },
+                queryAllResources(){
+                    var self = this;
+                    axios.get("${rc.contextPath}/roles/resources", {params: this.query})
+                            .then(response =>{
+                                self.resources = response.data.payload;
+                            });
                 }
             },
             created(){
                 this.queryItems();
+                this.queryAllResources();
             },
             data: function () {
                 return {
@@ -97,7 +126,10 @@
                     totalPage: 0,
                     totalElements: 0,
                     items: [],
-                    selectedItems:[]
+                    selectedItems:[],
+                    showAssignResourceForm:false,
+                    resources:{},
+                    roleResources:{}
                 }
             }
         })

@@ -42,28 +42,38 @@ CREATE TABLE carp_action (
 
 CREATE TABLE carp_menu (
   id        INTEGER      NOT NULL AUTO_INCREMENT,
-  leaf          BIT          NOT NULL,
+  leaf      BIT          NOT NULL,
   name      VARCHAR(20)  NOT NULL,
   parent_id INT                   DEFAULT -1,
   priority  INT                   DEFAULT 100,
   url       VARCHAR(100) NOT NULL,
   PRIMARY KEY (id)
 );
-
-INSERT INTO `carp_user` VALUES (1, '$2a$10$Ohb6kWObdqM231o8lzIkT.AWkApqhEe2XNL2akji9y0wzREdOa37q', 'admin');
+CREATE TABLE carp_role_action (
+  role_id   BIGINT  NOT NULL,
+  action_id INTEGER NOT NULL,
+  PRIMARY KEY (role_id, action_id)
+);
+CREATE TABLE carp_role_menu (
+  role_id BIGINT  NOT NULL,
+  menu_id INTEGER NOT NULL,
+  PRIMARY KEY (role_id, menu_id)
+);
+  INSERT INTO `carp_user` VALUES (1, '$2a$10$Ohb6kWObdqM231o8lzIkT.AWkApqhEe2XNL2akji9y0wzREdOa37q', 'admin'
+);
 INSERT INTO `carp_user` VALUES (2, '$2a$10$drUk/XnffBvEowXVjOB2c.yNvFgUb4uHu8/zMx.Cd385OCWGQThqa', 'user');
 INSERT INTO `carp_role` VALUES (1, 'ROLE_ADMIN', '系统管理员');
 INSERT INTO `carp_role` VALUES (2, 'ROLE_USER', '一般用户');
 INSERT INTO `carp_user_role` VALUES ('admin', 'ROLE_ADMIN');
 INSERT INTO `carp_user_role` VALUES ('user', 'ROLE_USER');
 
-INSERT INTO `carp_menu` (`id`, `name`, `parent_id`, `priority`, `url`,leaf) VALUES
-  ('1', '系统管理', '-1', '1', '',0),
-  ('2', '业务管理', '-1', '2', '',0),
-  ('3', '示例中心', '1', '1', '',0),
-  ('4', 'show case', '3', '1', '',1),
-  ('5', '权限中心', '1', '1', '',0),
-  ('6', '用户管理', '5', '1', '',1),
-  ('7', '角色管理', '5', '2', '',1),
-  ('8', '菜单管理', '5', '3', '',1),
-  ('9', '功能管理', '5', '4', '',1);
+INSERT INTO `carp_menu` (`id`, `name`, `parent_id`, `priority`, `url`, leaf) VALUES
+  ('1', '系统管理', '-1', '1', '', 0),
+  ('2', '业务管理', '-1', '2', '', 0),
+  ('3', '示例中心', '1', '1', '', 0),
+  ('4', 'show case', '3', '1', '', 1),
+  ('5', '权限中心', '1', '1', '', 0),
+  ('6', '用户管理', '5', '1', '', 1),
+  ('7', '角色管理', '5', '2', '', 1),
+  ('8', '菜单管理', '5', '3', '', 1),
+  ('9', '功能管理', '5', '4', '', 1);

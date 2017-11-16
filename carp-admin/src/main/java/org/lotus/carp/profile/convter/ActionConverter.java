@@ -32,7 +32,7 @@ public class ActionConverter implements Converter<Action, ActionResult> {
         BeanUtils.copyProperties(source,result);
         return result;
     }
-    public List<ActionResult> map(List<Action> list){
+    public List<ActionResult> map(Iterable<Action> list){
         List<ActionResult> result = new ArrayList<>();
         list.forEach( item -> result.add(convert(item)));
         return result;
