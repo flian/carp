@@ -74,7 +74,6 @@
             <el-form>
                 <el-tabs type="border-card">
                     <el-tab-pane :label="firstLevelAction.name" v-for="firstLevelAction in resources.actionList">
-                        {{firstLevelAction.name}}
                         <el-form-item :label="secondLevelAction.name" v-for="secondLevelAction in firstLevelAction.children">
                             <el-checkbox-group v-model="assignedActions" v-for="thirdLevelAction in secondLevelAction.children">
                                 <el-checkbox :label="thirdLevelAction.id">{{thirdLevelAction.name}}</el-checkbox>
@@ -117,7 +116,7 @@
                     var self = this;
                     axios.put("${rc.contextPath}/roles/"+self.updateRoleId+"/actions", JSON.parse(JSON.stringify(self.assignedActions)))
                             .then(response=>{
-                                self.showAssignMenuForm = false;
+                                self.showAssignActionForm = false;
                             });
                 },
                 queryItems(){
