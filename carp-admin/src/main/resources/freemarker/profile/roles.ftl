@@ -17,7 +17,9 @@
             </el-collapse-item>
         </el-collapse>
         <el-table :data.sync="items" style="width: 100%" @selection-change="handleSelectionChange">
+            <!-- 表头选择框
             <el-table-column type="selection" width="55"></el-table-column>
+            -->
             <el-table-column type="expand">
                 <template scope="props">
                     <el-form label-position="left" inline class="demo-table-expand">
@@ -60,6 +62,7 @@
                 <el-tabs type="border-card">
                     <el-tab-pane :label="firstLevelMenu.name" v-for="firstLevelMenu in resources.menuList">
                         <el-form-item  :label="secondLevelMenu.name" v-for="secondLevelMenu in firstLevelMenu.children">
+                            <div style="margin: 25px 0;"></div>
                             <el-checkbox-group v-model="assignedMenus">
                                 <el-checkbox :label="thirdLevelMenu.id" v-for="thirdLevelMenu in secondLevelMenu.children">{{thirdLevelMenu.name}}</el-checkbox>
                             </el-checkbox-group>
