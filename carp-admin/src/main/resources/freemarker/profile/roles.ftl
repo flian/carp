@@ -67,7 +67,7 @@
                     </el-tab-pane>
                 </el-tabs>
                 <el-button @click="showAssignMenuForm=false">取消</el-button>
-                <el-button @click=""  type="primary">保存</el-button>
+                <el-button @click="handleSaveMenu"  type="primary">保存</el-button>
             </el-form>
         </el-dialog>
         <el-dialog title="分配角色功能" :visible.sync="showAssignActionForm">
@@ -83,7 +83,7 @@
                     </el-tab-pane>
                 </el-tabs>
                 <el-button @click="showAssignActionForm=false">取消</el-button>
-                <el-button @click=""  type="primary">保存</el-button>
+                <el-button @click="handleSaveAction"  type="primary">保存</el-button>
             </el-form>
         </el-dialog>
     </div>
@@ -106,6 +106,20 @@
                 handleSelectionChange(val) {
                     this.selectedItems = val;
                 },
+                handleSaveMenu(){
+                    var self = this;
+                    axios.put("${rc.contextPath}/roles/"+self.updateRoleId+"/menus", JSON.parse(JSON.stringify(self.assignedMenus)))
+                            .then(response=>{
+                                self.showAssignMenuForm = false;
+                            });
+                },
+                handleSaveAction(){
+                    var self = this;
+                    axios.put("${rc.contextPath}/roles/"+self.updateRoleId+"/actions", JSON.parse(JSON.stringify(self.assignedActions)))
+                            .then(response=>{
+                                self.showAssignMenuForm = false;
+                            });
+                },
                 queryItems(){
                     axios.get("${rc.contextPath}/roles/data", {params: this.query}).then(response => {
                         console.log(response);
@@ -115,10 +129,12 @@
                     })
                 },
                 preAssignMenu(row){
+                    this.updateRoleId = row.id;
                     this.queryResourcesByRoleCode(row.id);
                     this.showAssignMenuForm =true;
                 },
                 preAssignAction(row){
+                    this.updateRoleId = row.id;
                     this.queryResourcesByRoleCode(row.id);
                     this.showAssignActionForm = true;
                 },
@@ -156,6 +172,7 @@
                     selectedItems:[],
                     showAssignMenuForm:false,
                     showAssignActionForm:false,
+                    updateRoleId:'',
                     assignedMenus:[],
                     assignedActions:[],
                     resources:{},

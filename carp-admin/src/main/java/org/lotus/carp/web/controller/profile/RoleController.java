@@ -58,4 +58,23 @@ public class RoleController extends AdminBaseController {
     public ResponseWrapper<ResourceIdListResult> roleResources(@PathVariable("roleId") Long roleId) {
         return response().execSuccess(roleService.findRoleResourceIds(roleId));
     }
+
+    @PutMapping("{roleId}/menus")
+    @ResponseBody
+    public ResponseWrapper<ResourceIdListResult> saveRoleMenu(
+            @PathVariable("roleId") Long roleId,
+            @RequestBody List<Integer> menuIds) {
+        roleService.updateRoleMenu(roleId, menuIds);
+        return response().execSuccess(roleService.findRoleResourceIds(roleId));
+    }
+
+    @PutMapping("{roleId}/actions")
+    @ResponseBody
+    public ResponseWrapper<ResourceIdListResult> saveRoleAction(
+            @PathVariable("roleId") Long roleId,
+            @RequestBody List<Integer> actionIds) {
+        roleService.updateRoleAction(roleId, actionIds);
+        return response().execSuccess(roleService.findRoleResourceIds(roleId));
+    }
+
 }

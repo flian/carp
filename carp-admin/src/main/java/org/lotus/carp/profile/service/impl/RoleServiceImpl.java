@@ -2,6 +2,8 @@ package org.lotus.carp.profile.service.impl;
 
 import org.lotus.carp.profile.convter.ActionConverter;
 import org.lotus.carp.profile.convter.MenuConverter;
+import org.lotus.carp.profile.domain.Action;
+import org.lotus.carp.profile.domain.Menu;
 import org.lotus.carp.profile.domain.Role;
 import org.lotus.carp.profile.repository.ActionRepository;
 import org.lotus.carp.profile.repository.MenuRepository;
@@ -14,8 +16,11 @@ import org.springframework.data.domain.ExampleMatcher;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Created with IntelliJ IDEA.
@@ -72,5 +77,23 @@ public class RoleServiceImpl {
         dto.setMenuList(menuConverter.buildTreeWithoutRoot(menuRepository.findAll()));
         dto.setActionList(actionConverter.buildTreeWithoutRoot(actionRepository.findAll()));
         return dto;
+    }
+
+    @Transactional(rollbackFor = {Exception.class})
+    public Role updateRoleMenu(Long roleId, List<Integer> menuIds) {
+        Role role = roleRepository.findOne(roleId);
+        Set<Menu> newMenus = new HashSet<>();
+        menuIds.forEach(menuId -> newMenus.add(menuRepository.getOne(menuId)));
+        role.setMenus(newMenus);
+        return roleRepository.save(role);
+    }
+
+    @Transactional(rollbackFor = {Exception.class})
+    public Role updateRoleAction(Long roleId, List<Integer> actionIds) {
+        Role role = roleRepository.getOne(roleId);
+        Set<Action> newAcitons = new HashSet<>();
+        actionIds.forEach(actionId -> newAcitons.add(actionRepository.getOne(actionId)));
+        role.setActions(newAcitons);
+        return roleRepository.save(role);
     }
 }
