@@ -29,17 +29,23 @@ public class ActionConverter implements Converter<Action, ActionResult> {
     @Override
     public ActionResult convert(Action source) {
         ActionResult result = new ActionResult();
-        BeanUtils.copyProperties(source,result);
+        BeanUtils.copyProperties(source, result);
         return result;
     }
-    public List<ActionResult> map(Iterable<Action> list){
+
+    public List<ActionResult> map(Iterable<Action> list) {
         List<ActionResult> result = new ArrayList<>();
-        list.forEach( item -> result.add(convert(item)));
+        list.forEach(item -> result.add(convert(item)));
         return result;
     }
-    public List<ActionResult> buildTree(List<Action> list){
+
+    public List<ActionResult> buildTree(Iterable<Action> list) {
         List<ActionResult> result = new ArrayList<>();
         result.add(ActionResult.buildTree(map(list)));
         return result;
+    }
+
+    public List<ActionResult> buildTreeWithoutRoot(Iterable<Action> list) {
+        return ActionResult.buildTree(map(list)).getChildren();
     }
 }

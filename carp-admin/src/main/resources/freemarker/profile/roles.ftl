@@ -55,9 +55,34 @@
                        :current-page="query.page" :page-sizes="[5, 10, 20, 40]" :page-size="query.size"
                        layout="total, sizes, prev, pager, next, jumper" :total="totalElements">
         </el-pagination>
-        <el-dialog title="分配角色资源" :visible.sync="showAssignResourceForm">
+        <el-dialog title="分配角色菜单资源" :visible.sync="showAssignMenuForm">
             <el-form>
-                <el-button @click="showAssignResourceForm=false">取消</el-button>
+                <el-tabs type="border-card">
+                    <el-tab-pane :label="firstLevelMenu.name" v-for="firstLevelMenu in resources.menuList">
+                        <el-form-item  :label="secondLevelMenu.name" v-for="secondLevelMenu in firstLevelMenu.children">
+                            <el-checkbox-group v-model="assignedMenus">
+                                <el-checkbox :label="thirdLevelMenu.id" v-for="thirdLevelMenu in secondLevelMenu.children">{{thirdLevelMenu.name}}</el-checkbox>
+                            </el-checkbox-group>
+                        </el-form-item>
+                    </el-tab-pane>
+                </el-tabs>
+                <el-button @click="showAssignMenuForm=false">取消</el-button>
+                <el-button @click=""  type="primary">保存</el-button>
+            </el-form>
+        </el-dialog>
+        <el-dialog title="分配角色功能" :visible.sync="showAssignActionForm">
+            <el-form>
+                <el-tabs type="border-card">
+                    <el-tab-pane :label="firstLevelAction.name" v-for="firstLevelAction in resources.actionList">
+                        {{firstLevelAction.name}}
+                        <el-form-item :label="secondLevelAction.name" v-for="secondLevelAction in firstLevelAction.children">
+                            <el-checkbox-group v-model="assignedActions" v-for="thirdLevelAction in secondLevelAction.children">
+                                <el-checkbox :label="thirdLevelAction.id">{{thirdLevelAction.name}}</el-checkbox>
+                            </el-checkbox-group>
+                        </el-form-item>
+                    </el-tab-pane>
+                </el-tabs>
+                <el-button @click="showAssignActionForm=false">取消</el-button>
                 <el-button @click=""  type="primary">保存</el-button>
             </el-form>
         </el-dialog>
@@ -91,17 +116,19 @@
                 },
                 preAssignMenu(row){
                     this.queryResourcesByRoleCode(row.id);
-                    this.showAssignResourceForm =true;
+                    this.showAssignMenuForm =true;
                 },
                 preAssignAction(row){
                     this.queryResourcesByRoleCode(row.id);
-                    this.showAssignResourceForm = true;
+                    this.showAssignActionForm = true;
                 },
                 queryResourcesByRoleCode(roleId){
                     var self = this;
                     axios.get("${rc.contextPath}/roles/"+roleId+"/resources", {params: this.query})
                             .then(response =>{
                                 self.roleResources = response.data.payload;
+                                self.assignedMenus = self.roleResources.menuIdList;
+                                self.assignedActions =  self.roleResources.actionIdList;
                             });
                 },
                 queryAllResources(){
@@ -127,7 +154,10 @@
                     totalElements: 0,
                     items: [],
                     selectedItems:[],
-                    showAssignResourceForm:false,
+                    showAssignMenuForm:false,
+                    showAssignActionForm:false,
+                    assignedMenus:[],
+                    assignedActions:[],
                     resources:{},
                     roleResources:{}
                 }

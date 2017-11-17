@@ -6,7 +6,8 @@ import org.lotus.carp.profile.domain.Role;
 import org.lotus.carp.profile.repository.ActionRepository;
 import org.lotus.carp.profile.repository.MenuRepository;
 import org.lotus.carp.profile.repository.RoleRepository;
-import org.lotus.carp.profile.vo.ResourceListDto;
+import org.lotus.carp.profile.vo.ResourceIdListResult;
+import org.lotus.carp.profile.vo.ResourceListResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.ExampleMatcher;
@@ -51,18 +52,25 @@ public class RoleServiceImpl {
         return roleRepository.findAll();
     }
 
-    public ResourceListDto findRoleResources(Long roleId) {
+    public ResourceListResult findRoleResources(Long roleId) {
         Role role = roleRepository.findOne(roleId);
-        ResourceListDto dto = new ResourceListDto();
-        dto.setMenuList(menuConverter.map(role.getMenus()));
-        dto.setActionList(actionConverter.map(role.getActions()));
+        ResourceListResult dto = new ResourceListResult();
+        dto.setMenuList(menuConverter.buildTreeWithoutRoot(role.getMenus()));
+        dto.setActionList(actionConverter.buildTreeWithoutRoot(role.getActions()));
         return dto;
     }
 
-    public ResourceListDto allResources() {
-        ResourceListDto dto = new ResourceListDto();
-        dto.setMenuList(menuConverter.map(menuRepository.findAll()));
-        dto.setActionList(actionConverter.map(actionRepository.findAll()));
+    public ResourceIdListResult findRoleResourceIds(Long roleId) {
+        ResourceIdListResult result = new ResourceIdListResult();
+        result.getMenuIdList().addAll(roleRepository.findMenuIdWithRoleId(roleId));
+        result.getActionIdList().addAll(roleRepository.findAcitonIdWithRoleId(roleId));
+        return result;
+    }
+
+    public ResourceListResult allResources() {
+        ResourceListResult dto = new ResourceListResult();
+        dto.setMenuList(menuConverter.buildTreeWithoutRoot(menuRepository.findAll()));
+        dto.setActionList(actionConverter.buildTreeWithoutRoot(actionRepository.findAll()));
         return dto;
     }
 }

@@ -32,15 +32,19 @@ public class MenuConverter implements Converter<Menu, MenuResult> {
         return result;
     }
 
-    public List<MenuResult> map(Iterable<Menu> list){
+    public List<MenuResult> map(Iterable<Menu> list) {
         List<MenuResult> result = new ArrayList<>();
-        list.forEach( item -> result.add(convert(item)));
+        list.forEach(item -> result.add(convert(item)));
         return result;
     }
-    public List<MenuResult> buildTree(List<Menu> list){
+
+    public List<MenuResult> buildTree(Iterable<Menu> list) {
         List<MenuResult> result = new ArrayList<>();
         result.add(MenuResult.buildTree(map(list)));
         return result;
     }
-    
+
+    public List<MenuResult> buildTreeWithoutRoot(Iterable<Menu> list) {
+        return MenuResult.buildTree(map(list)).getChildren();
+    }
 }

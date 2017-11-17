@@ -3,7 +3,8 @@ package org.lotus.carp.web.controller.profile;
 import org.lotus.carp.base.vo.ResponseWrapper;
 import org.lotus.carp.profile.convter.RoleConverter;
 import org.lotus.carp.profile.service.impl.RoleServiceImpl;
-import org.lotus.carp.profile.vo.ResourceListDto;
+import org.lotus.carp.profile.vo.ResourceIdListResult;
+import org.lotus.carp.profile.vo.ResourceListResult;
 import org.lotus.carp.profile.vo.RoleResult;
 import org.lotus.carp.web.controller.AdminBaseController;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,13 +49,13 @@ public class RoleController extends AdminBaseController {
 
     @GetMapping(value = "/resources")
     @ResponseBody
-    public ResponseWrapper<ResourceListDto> allResources() {
+    public ResponseWrapper<ResourceListResult> allResources() {
         return response().execSuccess(roleService.allResources());
     }
 
     @GetMapping(value = "{roleId}/resources")
     @ResponseBody
-    public ResponseWrapper<ResourceListDto> roleResources(@PathVariable("roleId") Long roleId) {
-        return response().execSuccess(roleService.findRoleResources(roleId));
+    public ResponseWrapper<ResourceIdListResult> roleResources(@PathVariable("roleId") Long roleId) {
+        return response().execSuccess(roleService.findRoleResourceIds(roleId));
     }
 }

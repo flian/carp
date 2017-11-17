@@ -13,7 +13,7 @@ import java.util.List;
  * Time: 5:18 PM
  */
 @Data
-public class ResourceListDto {
+public class ResourceListResult {
     List<ActionResult> actionList = new ArrayList<>();
     List<MenuResult> menuList = new ArrayList<>();
 }
