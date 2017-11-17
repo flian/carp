@@ -53,7 +53,7 @@
             <el-form>
                 <el-form-item label="分配角色">
                     <el-checkbox-group v-model="assignedRoles">
-                            <el-checkbox v-for="r in allRoles" :label="r.code"></el-checkbox>
+                            <el-checkbox v-for="r in allRoles" :label="r.code">{{r.name}}</el-checkbox>
                     </el-checkbox-group>
                 </el-form-item>
                 <el-button @click="showAssignRoleForm=false">取消</el-button>
