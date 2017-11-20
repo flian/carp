@@ -301,6 +301,28 @@
         }
     });
 </script>
+<script type="text/javascript">
+    // Add a response interceptor
+    axios.interceptors.response.use(function (response) {
+        // 全局业务异常提示
+        if(response.data.procCode != 200){
+            Vue.prototype.$message({
+                showClose: true,
+                message:  response.data.message,
+                type: 'warning'
+            });
+        }
+        return response;
+    }, function (error) {
+        // 全局错误异常提示
+        Vue.prototype.$message({
+            showClose: true,
+            message: response.data.message,
+            type: 'error'
+        });
+        return Promise.reject(error);
+    });
+</script>
 </body>
 </html>
 </#macro>

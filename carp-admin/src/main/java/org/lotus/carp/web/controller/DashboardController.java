@@ -1,7 +1,12 @@
 package org.lotus.carp.web.controller;
 
+import org.lotus.carp.base.vo.ResponseWrapper;
+import org.lotus.carp.profile.convter.MenuConverter;
+import org.lotus.carp.profile.service.impl.MenuServiceImpl;
+import org.lotus.carp.profile.vo.MenuResult;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.web.ErrorController;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.core.Authentication;
@@ -16,6 +21,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.List;
 
 
 /**
@@ -28,6 +34,11 @@ import java.io.IOException;
 public class DashboardController extends AdminBaseController implements AccessDeniedHandler, ErrorController {
     private static final String ERROR_PATH = "/error";
     private static Logger logger = LoggerFactory.getLogger(DashboardController.class);
+
+    @Autowired
+    private MenuConverter menuConverter;
+    @Autowired
+    private MenuServiceImpl menuService;
 
     @GetMapping(value = {"", "/index", "/home", "/dashboard"})
     public String index() {
@@ -69,5 +80,11 @@ public class DashboardController extends AdminBaseController implements AccessDe
 
         httpServletResponse.sendRedirect(httpServletRequest.getContextPath() + "/403");
 
+    }
+    @GetMapping("/index/menus")
+    @ResponseBody
+    public ResponseWrapper<List<MenuResult>> userMenus(){
+        //TODO 根据权限拿菜单,目前暂时全部返回
+       return response().execSuccess(menuConverter.buildTreeWithoutRoot(menuService.findAll()));
     }
 }

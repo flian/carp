@@ -16,12 +16,9 @@
                 <span class="sr-only">Toggle navigation</span>
             </a>
             <ul class="nav navbar-nav">
-                <li class="active">
-                    <a href="#">系统管理</a>
-                    <span class="sr-only">(current)</span>
-                </li>
-                <li class="">
-                    <a href="#">业务管理</a>
+                <li :class="(firstLevelActiveId==menu.id)?'active':''" v-for="(menu,index) in menus">
+                    <a href="#">{{menu.name}}</a>
+                    <span class="sr-only" v-if="firstLevelActiveId==menu.id">(current)</span>
                 </li>
             </ul>
 
@@ -553,14 +550,19 @@
         template: '#mainNavApp',
         data:function () {
             return {
-
+                menus:[],
+                firstLevelActiveId : 1
             }
         },
         methods:{
 
         },
         created:function () {
-
+                let self = this;
+                axios.get("${rc.contextPath}/index/menus")
+                        .then(response =>{
+                            self.menus = response.data.payload;
+                        });
         }
     };
 </script>
