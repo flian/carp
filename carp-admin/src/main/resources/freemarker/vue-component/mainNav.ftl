@@ -344,8 +344,8 @@
         data: function () {
             return {
                 menus: [],
-                firstLevelActiveId: ${RequestParameters.f},
-                leftMenuActiveId:${RequestParameters.s},
+                firstLevelActiveId: -1,
+                leftMenuActiveId:-1,
                 leftMenus:[],
                 menuIcons: ['fa-dashboard', 'fa-files-o', 'fa-th', 'fa-pie-chart',
                     'fa-laptop', 'fa-edit', 'fa-table', 'fa-calendar'
@@ -382,9 +382,18 @@
         },
         created: function () {
             let self = this;
+            <#if RequestParameters.f??>
+                self.firstLevelActiveId=${RequestParameters.f};
+            </#if>
+        <#if RequestParameters.s??>
+            self.firstLevelActiveId=${RequestParameters.s};
+        </#if>
             axios.get("${rc.contextPath}/index/menus")
                     .then(response => {
                         self.menus = response.data.payload;
+                        if(self.firstLevelActiveId == -1){
+                            self.firstLevelActiveId = self.menus[0].id;
+                        }
                     });
         }
     };
