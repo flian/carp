@@ -551,7 +551,10 @@
         data:function () {
             return {
                 menus:[],
-                firstLevelActiveId : 1
+                firstLevelActiveId : 1,
+                menuIcons:['fa-dashboard','fa-files-o','fa-th','fa-pie-chart',
+                    'fa-laptop','fa-edit','fa-table','fa-calendar'
+                    ,'fa-folder','fa-share','fa-book']
             }
         },
         methods:{
