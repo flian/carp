@@ -3,6 +3,8 @@ package org.lotus.carp.web.controller.profile;
 import org.lotus.carp.base.vo.ResponseWrapper;
 import org.lotus.carp.profile.convter.UserConverter;
 import org.lotus.carp.profile.service.impl.UserServiceImpl;
+import org.lotus.carp.profile.vo.UserCreateDto;
+import org.lotus.carp.profile.vo.UserPasswordDto;
 import org.lotus.carp.profile.vo.UserResult;
 import org.lotus.carp.profile.vo.UserRoleUpdateDto;
 import org.lotus.carp.web.controller.AdminBaseController;
@@ -15,7 +17,7 @@ import javax.validation.Valid;
 
 
 /**
- *  用户管理
+ * 用户管理
  *
  * @author : Foy Lian
  *         Date: 8/4/2017
@@ -40,9 +42,23 @@ public class ProfileController extends AdminBaseController {
     public ResponseWrapper<UserResult> queryUsers(@RequestParam("keyword") String q, Pageable page) {
         return response().execSuccess(userService.search(q, page).map(userConverter));
     }
+
     @PutMapping("/roles")
     @ResponseBody
-    public ResponseWrapper<UserResult> updateUserRoles(@Valid @RequestBody UserRoleUpdateDto userRoleUpdateDto){
+    public ResponseWrapper<UserResult> updateUserRoles(@Valid @RequestBody UserRoleUpdateDto userRoleUpdateDto) {
         return response().execSuccess(userConverter.convert(userService.updateUserRole(userRoleUpdateDto)));
+    }
+
+    @PostMapping
+    @ResponseBody
+    public ResponseWrapper<UserResult> createUser(@Valid @RequestBody UserCreateDto userCreateDto) {
+        return response().execSuccess(userConverter.convert(userService.createUser(userCreateDto)));
+    }
+
+    @PutMapping("{userName}/password")
+    @ResponseBody
+    public ResponseWrapper<UserResult> updatePasswrod(@PathVariable("userName") String userName,
+                                                      @Valid @RequestBody UserPasswordDto userPasswordDto) {
+        return response().execSuccess(userConverter.convert(userService.updatePassword(userName, userPasswordDto)));
     }
 }

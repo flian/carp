@@ -40,7 +40,7 @@
                     <el-button size="small" type="success" @click="popChangeRole(scope.row)">分配角色
                     </el-button>
                     <el-button size="small" type="warning"
-                               @click="changePasswordModel={password:''};showChangePassword=true">改密
+                               @click="changePasswordModel={password:'',name:scope.row.userName};showChangePassword=true">改密
                     </el-button>
                     <el-button size="small" type="danger" @click="">禁用
                     </el-button>
@@ -99,8 +99,11 @@
                     var self =this;
                     self.$refs.createProfileForm.validate((valid) =>{
                             if(valid){
-                                self.showCreateProfile=false;
-                                //TODO save profile
+                                axios.post("${rc.contextPath}/profile",JSON.parse(JSON.stringify(self.profileModel)))
+                                        .then(response=>{
+                                            self.showCreateProfile=false;
+                                            self.queryItems();
+                                        });
                             }
                         });
                 },
@@ -109,8 +112,12 @@
                     self.$refs.changePasswordForm.validate(
                             (valid) =>{
                                 if(valid){
-                                    self.showChangePassword=false;
-                                    //TODO save password
+                                    axios.put("${rc.contextPath}/profile/"+self.changePasswordModel.name+"/password",
+                                            {password:self.changePasswordModel.password})
+                                            .then(response=>{
+                                                self.showChangePassword=false;
+                                                self.queryItems();
+                                            });
                                 }
                             }
                     );

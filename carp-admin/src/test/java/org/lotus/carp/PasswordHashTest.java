@@ -23,7 +23,7 @@ public class PasswordHashTest {
         String hashAdminPassword = passwordEncoder.encode(rawAdminPassword);
         String hashUserPassword = passwordEncoder.encode(rawUserPassword);
         System.out.println("admin, password:"+hashAdminPassword);
-        System.out.println("user, password:"+passwordEncoder.encode(hashUserPassword));
+        System.out.println("user, password:"+hashUserPassword);
         Assert.assertTrue("admin password should match.",passwordEncoder.matches(rawAdminPassword,hashAdminPassword));
         Assert.assertTrue("admin password should match.",passwordEncoder.matches(rawUserPassword,hashUserPassword));
     }
