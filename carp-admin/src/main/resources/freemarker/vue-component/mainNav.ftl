@@ -380,8 +380,12 @@
             },
             pageUrl:function (subMenu) {
                 var self = this;
-                let baseUrl ='${rc.contextPath}/';
-                return baseUrl +subMenu.url
+                let baseUrl ='${rc.contextPath}';
+                let url  = subMenu.url;
+                if(!url.startsWith("/")){
+                    url = '/'+url;
+                }
+                return baseUrl +url
                         + "?f="+self.firstLevelActiveId
                         +'&s='+self.leftMenuActiveId
                         +'&t='+subMenu.id;
