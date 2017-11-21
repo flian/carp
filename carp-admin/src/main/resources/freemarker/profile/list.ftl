@@ -1,7 +1,9 @@
 <@layout.main pageJS=myPageJS>
 <section class="content">
     <div id="app" v-cloak>
-        <el-button class="filter-item" style="margin-left: 10px;" @click="" type="primary" icon="edit">添加</el-button>
+        <el-button class="filter-item" style="margin-left: 10px;"
+                   @click="profileModel={name:'',password:''};showCreateProfile=true"
+                   type="primary" icon="edit">添加</el-button>
 
         <el-collapse accordion>
             <el-collapse-item title="更多功能...">
@@ -37,7 +39,8 @@
                 <template scope="scope">
                     <el-button size="small" type="success" @click="popChangeRole(scope.row)">分配角色
                     </el-button>
-                    <el-button size="small" type="warning" @click="">改密
+                    <el-button size="small" type="warning"
+                               @click="changePasswordModel={password:''};showChangePassword=true">改密
                     </el-button>
                     <el-button size="small" type="danger" @click="">禁用
                     </el-button>
@@ -48,7 +51,30 @@
                        :current-page="query.page" :page-sizes="[5, 10, 20, 40]" :page-size="query.size"
                        layout="total, sizes, prev, pager, next, jumper" :total="totalElements">
         </el-pagination>
+        <el-dialog title="创建用户" :visible.sync="showCreateProfile" >
+            <el-form label-width="90px" ref="createProfileForm" :rules="createProfileFormRules" :model="profileModel">
+                <el-form-item label="用户名" prop="name">
+                    <el-input v-model="profileModel.name" placeholder="请输入用户名"></el-input>
+                </el-form-item>
+                <el-form-item label="密码" prop="password">
+                    <el-input type="password" v-model="profileModel.password" placeholder="请输入密码"></el-input>
+                </el-form-item>
+                <el-button @click="showCreateProfile = false">取消</el-button>
+                <el-button @click="handleCreateProfile"  type="primary">保存</el-button>
+            </el-form>
+        </el-dialog>
 
+        <el-dialog title="修改密码" :visible.sync="showChangePassword">
+            <el-form label-width="90px" ref="changePasswordForm" :rules="changePasswordFormRules" :model="changePasswordModel">
+                <el-form-item label="新密码" prop="password">
+                    <el-input v-model="changePasswordModel.password" placeholder="请输入新密码" type="password"></el-input>
+                </el-form-item>
+                <el-button @click="showChangePassword=false">取消</el-button>
+                <el-button @click="handleChangePassword"  type="primary">保存</el-button>
+            </el-form>
+        </el-dialog>
+
+        <!--分配角色-->
         <el-dialog title="分配用户角色" :visible.sync="showAssignRoleForm">
             <el-form>
                 <el-form-item label="分配角色">
@@ -69,6 +95,26 @@
             computed: {
             },
             methods: {
+                handleCreateProfile(){
+                    var self =this;
+                    self.$refs.createProfileForm.validate((valid) =>{
+                            if(valid){
+                                self.showCreateProfile=false;
+                                //TODO save profile
+                            }
+                        });
+                },
+                handleChangePassword(){
+                    let self =this;
+                    self.$refs.changePasswordForm.validate(
+                            (valid) =>{
+                                if(valid){
+                                    self.showChangePassword=false;
+                                    //TODO save password
+                                }
+                            }
+                    );
+                },
                 handleSizeChange(newSize) {
                     this.query.size = newSize;
                     this.queryItems();
@@ -126,7 +172,28 @@
                     currentRow:{},
                     allRoles:[],
                     userRoleCodes:[],
-                    assignedRoles:[]
+                    assignedRoles:[],
+                    profileModel:{
+                    },
+                    changePasswordModel:{},
+                    showCreateProfile:false,
+                    createProfileFormRules:{
+                      name:[
+                          {type:"string",required:true,message:"请输入用户名",trigger:"blur"},
+                          {type:"string",min:3,max:20,message:"请输入3-20位用户名",trigger:"blur"}
+                      ],
+                        password:[
+                            {type:"string",required:true,message:"请输入密码",trigger:"blur"},
+                            {type:"string",min:6,max:20,message:"密码不符合规则",trigger:"blur"}
+                        ]
+                    },
+                    changePasswordFormRules:{
+                        password:[
+                            {type:"string",required:true,message:"请输入新密码",trigger:"blur"},
+                            {type:"string",min:6,max:20,message:"密码不符合规则",trigger:"blur"}
+                            ]
+                    },
+                    showChangePassword:false
                 }
             }
         })
