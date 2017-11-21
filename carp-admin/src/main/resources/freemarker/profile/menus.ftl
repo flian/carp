@@ -1,7 +1,8 @@
 <@layout.main pageJS=myPageJS>
 <section class="content">
     <div id="app" v-cloak>
-        <el-tree :data="items" :props="defaultProps" node-key="id" default-expand-all
+        <el-tree :data="items" :props="defaultProps" node-key="id"
+                 default-expanded-keys="[-1]"
                  :expand-on-click-node="false"
                  :highlight-current="true"
                  :render-content="renderContent">
