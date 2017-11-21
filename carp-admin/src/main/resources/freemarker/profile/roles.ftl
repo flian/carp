@@ -62,9 +62,12 @@
                 <el-tabs type="border-card">
                     <el-tab-pane :label="firstLevelMenu.name" v-for="firstLevelMenu in resources.menuList">
                         <el-form-item  :label="secondLevelMenu.name" v-for="secondLevelMenu in firstLevelMenu.children">
-                            <div style="margin: 25px 0;"></div>
+                            <div style="margin: 0px 0;"></div>
                             <el-checkbox-group v-model="assignedMenus">
-                                <el-checkbox :label="thirdLevelMenu.id" v-for="thirdLevelMenu in secondLevelMenu.children">{{thirdLevelMenu.name}}</el-checkbox>
+                                <el-checkbox :label="thirdLevelMenu.id"
+                                             v-for="thirdLevelMenu in secondLevelMenu.children">
+                                    {{thirdLevelMenu.name}}
+                                </el-checkbox>
                             </el-checkbox-group>
                         </el-form-item>
                     </el-tab-pane>
@@ -78,8 +81,12 @@
                 <el-tabs type="border-card">
                     <el-tab-pane :label="firstLevelAction.name" v-for="firstLevelAction in resources.actionList">
                         <el-form-item :label="secondLevelAction.name" v-for="secondLevelAction in firstLevelAction.children">
-                            <el-checkbox-group v-model="assignedActions" v-for="thirdLevelAction in secondLevelAction.children">
-                                <el-checkbox :label="thirdLevelAction.id">{{thirdLevelAction.name}}</el-checkbox>
+                            <div style="margin: 0px 0;"></div>
+                            <el-checkbox-group v-model="assignedActions" >
+                                <el-checkbox :label="thirdLevelAction.id"
+                                             v-for="thirdLevelAction in secondLevelAction.children">
+                                    {{thirdLevelAction.name}}
+                                </el-checkbox>
                             </el-checkbox-group>
                         </el-form-item>
                     </el-tab-pane>
