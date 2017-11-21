@@ -5,6 +5,7 @@ import org.lotus.carp.profile.convter.RoleConverter;
 import org.lotus.carp.profile.service.impl.RoleServiceImpl;
 import org.lotus.carp.profile.vo.ResourceIdListResult;
 import org.lotus.carp.profile.vo.ResourceListResult;
+import org.lotus.carp.profile.vo.RoleCreateDto;
 import org.lotus.carp.profile.vo.RoleResult;
 import org.lotus.carp.web.controller.AdminBaseController;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +14,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 /**
@@ -33,6 +35,12 @@ public class RoleController extends AdminBaseController {
     @GetMapping
     public String list() {
         return "/profile/roles";
+    }
+
+    @PostMapping
+    @ResponseBody
+    public ResponseWrapper<RoleResult> createRole(@Valid @RequestBody RoleCreateDto dto){
+        return response().execSuccess(roleConverter.convert(roleService.createRole(dto)));
     }
 
     @GetMapping(value = "/data")

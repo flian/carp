@@ -1,7 +1,8 @@
 <@layout.main pageJS=myPageJS>
 <section class="content">
     <div id="app" v-cloak>
-        <el-button class="filter-item" style="margin-left: 10px;" @click="" type="primary" icon="edit">添加</el-button>
+        <el-button class="filter-item" style="margin-left: 10px;"
+                   @click="RoleModel={code:'',name:''};showCreateRole=true;" type="primary" icon="edit">添加</el-button>
 
         <el-collapse accordion>
             <el-collapse-item title="更多功能...">
@@ -57,6 +58,20 @@
                        :current-page="query.page" :page-sizes="[5, 10, 20, 40]" :page-size="query.size"
                        layout="total, sizes, prev, pager, next, jumper" :total="totalElements">
         </el-pagination>
+
+        <el-dialog title="创建角色" :visible.sync="showCreateRole" >
+            <el-form label-width="90px" ref="createRoleForm" :rules="createRoleFormRules" :model="RoleModel">
+                <el-form-item label="角色编码" prop="code">
+                    <el-input v-model="RoleModel.code" placeholder="请输入用角色编码"></el-input>
+                </el-form-item>
+                <el-form-item label="角色名称" prop="name">
+                    <el-input v-model="RoleModel.name" placeholder="请输入角色名称"></el-input>
+                </el-form-item>
+                <el-button @click="showCreateRole = false">取消</el-button>
+                <el-button @click="handleCreateRole"  type="primary">保存</el-button>
+            </el-form>
+        </el-dialog>
+
         <el-dialog title="分配角色菜单资源" :visible.sync="showAssignMenuForm">
             <el-form>
                 <el-tabs type="border-card">
@@ -76,6 +91,7 @@
                 <el-button @click="handleSaveMenu"  type="primary">保存</el-button>
             </el-form>
         </el-dialog>
+
         <el-dialog title="分配角色功能" :visible.sync="showAssignActionForm">
             <el-form>
                 <el-tabs type="border-card">
@@ -104,6 +120,18 @@
             computed: {
             },
             methods: {
+                handleCreateRole(){
+                    var self =this;
+                    self.$refs.createRoleForm.validate((valid) =>{
+                        if(valid){
+                            axios.post("${rc.contextPath}/roles",JSON.parse(JSON.stringify(self.RoleModel)))
+                                    .then(response=>{
+                                        self.showCreateRole=false;
+                                        self.queryItems();
+                                    });
+                        }
+                    });
+                },
                 handleSizeChange(newSize) {
                     this.query.size = newSize;
                     this.queryItems();
@@ -185,7 +213,20 @@
                     assignedMenus:[],
                     assignedActions:[],
                     resources:{},
-                    roleResources:{}
+                    roleResources:{},
+                    //创建角色
+                    showCreateRole:false,
+                    RoleModel:{},
+                    createRoleFormRules:{
+                        code:[
+                            {type:"string",required:true,message:"请输入角色编码",trigger:"blur"},
+                            {type:"string",min:6,max:20,message:"请输入6-20位角色名称",trigger:"blur"}
+                        ],
+                        name:[
+                            {type:"string",required:true,message:"请输入角色名称",trigger:"blur"},
+                            {type:"string",min:1,max:50,message:"请输入1-50位角色名称",trigger:"blur"}
+                        ]
+                    }
                 }
             }
         })

@@ -31,7 +31,9 @@ public class RoleConverter implements Converter<Role, RoleResult> {
     public RoleResult convert(Role source) {
         RoleResult result = new RoleResult();
         BeanUtils.copyProperties(source, result);
-        result.setUsers(Joiner.on(",").join(Iterables.transform(source.getUsers(), u -> u.getUserName())));
+        if(null != source.getUsers()){
+            result.setUsers(Joiner.on(",").join(Iterables.transform(source.getUsers(), u -> u.getUserName())));
+        }
         return result;
     }
 

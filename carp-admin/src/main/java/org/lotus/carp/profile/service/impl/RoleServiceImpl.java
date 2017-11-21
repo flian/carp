@@ -1,5 +1,6 @@
 package org.lotus.carp.profile.service.impl;
 
+import com.google.common.base.Preconditions;
 import org.lotus.carp.profile.convter.ActionConverter;
 import org.lotus.carp.profile.convter.MenuConverter;
 import org.lotus.carp.profile.domain.Action;
@@ -10,6 +11,7 @@ import org.lotus.carp.profile.repository.MenuRepository;
 import org.lotus.carp.profile.repository.RoleRepository;
 import org.lotus.carp.profile.vo.ResourceIdListResult;
 import org.lotus.carp.profile.vo.ResourceListResult;
+import org.lotus.carp.profile.vo.RoleCreateDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.ExampleMatcher;
@@ -94,6 +96,15 @@ public class RoleServiceImpl {
         Set<Action> newAcitons = new HashSet<>();
         actionIds.forEach(actionId -> newAcitons.add(actionRepository.getOne(actionId)));
         role.setActions(newAcitons);
+        return roleRepository.save(role);
+    }
+
+    @Transactional(rollbackFor = {Exception.class})
+    public Role createRole(RoleCreateDto dto) {
+        Preconditions.checkArgument(roleRepository.findByCode(dto.getCode()) == null, "角色编码已存在!");
+        Role role = new Role();
+        role.setCode(dto.getCode());
+        role.setName(dto.getName());
         return roleRepository.save(role);
     }
 }
