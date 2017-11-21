@@ -325,7 +325,7 @@
                             </span>
                         </a>
                         <ul class="treeview-menu">
-                            <li class="" v-for="sub in menu.children">
+                            <li :class="{'active': sub.id == subMenuActiveId}" v-for="sub in menu.children">
                                 <a :href="pageUrl(sub)">
                                     <i class="fa fa-circle-o"></i> {{sub.name}}
                                 </a>
@@ -344,8 +344,12 @@
         data: function () {
             return {
                 menus: [],
+                //一级菜单
                 firstLevelActiveId: -1,
+                //二级菜单
                 leftMenuActiveId:-1,
+                //三级菜单
+                subMenuActiveId:-1,
                 leftMenus:[],
                 menuIcons: ['fa-dashboard', 'fa-files-o', 'fa-th', 'fa-pie-chart',
                     'fa-laptop', 'fa-edit', 'fa-table', 'fa-calendar'
@@ -377,7 +381,10 @@
             pageUrl:function (subMenu) {
                 var self = this;
                 let baseUrl ='${rc.contextPath}/';
-                return baseUrl +subMenu.url + "?f="+self.firstLevelActiveId+'&s='+self.leftMenuActiveId;
+                return baseUrl +subMenu.url
+                        + "?f="+self.firstLevelActiveId
+                        +'&s='+self.leftMenuActiveId
+                        +'&t='+subMenu.id;
             }
         },
         created: function () {
@@ -387,6 +394,9 @@
             </#if>
         <#if RequestParameters.s??>
             self.leftMenuActiveId=${RequestParameters.s};
+        </#if>
+        <#if RequestParameters.t??>
+            self.subMenuActiveId=${RequestParameters.t};
         </#if>
             axios.get("${rc.contextPath}/index/menus")
                     .then(response => {
