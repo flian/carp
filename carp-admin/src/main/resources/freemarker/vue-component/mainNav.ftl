@@ -386,13 +386,22 @@
                 self.firstLevelActiveId=${RequestParameters.f};
             </#if>
         <#if RequestParameters.s??>
-            self.firstLevelActiveId=${RequestParameters.s};
+            self.leftMenuActiveId=${RequestParameters.s};
         </#if>
             axios.get("${rc.contextPath}/index/menus")
                     .then(response => {
                         self.menus = response.data.payload;
                         if(self.firstLevelActiveId == -1){
                             self.firstLevelActiveId = self.menus[0].id;
+                        }else{
+                            self.menus.forEach(function (menu) {
+                                if(menu.id == self.firstLevelActiveId){
+                                    self.leftMenus = menu.children;
+                                }
+                            })
+                        }
+                        if(self.leftMenuActiveId == -1){
+                            self.leftMenus = self.menus[0].children;
                         }
                     });
         }
