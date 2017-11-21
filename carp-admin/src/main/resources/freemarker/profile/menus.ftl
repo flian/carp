@@ -2,7 +2,7 @@
 <section class="content">
     <div id="app" v-cloak>
         <el-tree :data="items" :props="defaultProps" node-key="id"
-                 default-expanded-keys="[-1]"
+                 :default-expanded-keys="defaultExpandedKeys"
                  :expand-on-click-node="false"
                  :highlight-current="true"
                  :render-content="renderContent">
@@ -71,6 +71,7 @@
                 showType: 1,//1:查看详情，2:新增，3：编辑,
                 storeRef: {},
                 dataRef: {},
+                defaultExpandedKeys:[-1],//默认展开数
                 defaultProps: {
                     children: 'children',
                     label: 'name'
