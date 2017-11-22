@@ -7,6 +7,9 @@ visitor [element UI](http://element-cn.eleme.io/1.4/#/zh-CN/component/form) for 
 #包含功能
 
 ##RBAC
+default Users:
+admin/admin123
+user/user123
 
 User: 后台用户
 Role: 后台角色

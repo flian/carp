@@ -59,6 +59,11 @@ CREATE TABLE carp_role_menu (
   menu_id INTEGER NOT NULL,
   PRIMARY KEY (role_id, menu_id)
 );
+-- ----------------------------
+--           Add two Users:
+--           admin/admin123 with ROLE_ADMIN
+--           user/user123         with ROLE_USER
+-- ----------------------------
   INSERT INTO `carp_user` VALUES (1, '$2a$10$Ohb6kWObdqM231o8lzIkT.AWkApqhEe2XNL2akji9y0wzREdOa37q', 'admin'
 );
 INSERT INTO `carp_user` VALUES (2, '$2a$10$HkOAFyU86LVXjtnlILOtFu2SdHQ4dJgYd6DATL.EydBLfvmRTo6wm', 'user');
