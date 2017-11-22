@@ -3,6 +3,7 @@ package org.lotus.carp.configuration;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.annotation.ObjectPostProcessor;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -11,12 +12,14 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.access.AccessDeniedHandler;
+import org.springframework.security.web.access.intercept.FilterSecurityInterceptor;
 
 /**
  * Created with IntelliJ IDEA.
+ *
  * @author : Foy Lian
- * Date: 8/3/2017
- * Time: 10:47 AM
+ *         Date: 8/3/2017
+ *         Time: 10:47 AM
  */
 @Configuration
 @EnableWebSecurity
@@ -25,18 +28,29 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
     private UserDetailsService userDetailsService;
 
     @Autowired
+    private ActionFilterSecurityMetadataSource actionFilterSecurityMetadataSource;
+
+    @Autowired
     private AccessDeniedHandler accessDeniedHandler;
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable()
                 .authorizeRequests()
-                .antMatchers("/","/webjars/**").permitAll()
-                .antMatchers("/","/css/**").permitAll()
+                .antMatchers("/webjars/**").permitAll()
+                .antMatchers("/css/**").permitAll()
                 .antMatchers("/druid/**").permitAll()
-                .antMatchers("/admin/**").hasAnyRole("ROLE_ADMIN")
-                .antMatchers("/user/**").hasAnyRole("ROLE_USER")
-                .anyRequest().authenticated()
+                .antMatchers("/403/**").permitAll()
+/*                .antMatchers("/admin*//**").hasAnyRole("ROLE_ADMIN")
+         .antMatchers("/user*//**").hasAnyRole("ROLE_USER")*/
+                .anyRequest().authenticated().withObjectPostProcessor(new ObjectPostProcessor<FilterSecurityInterceptor>() {
+            @Override
+            public <O extends FilterSecurityInterceptor> O postProcess(
+                    O fsi) {
+                fsi.setSecurityMetadataSource(actionFilterSecurityMetadataSource);
+                return fsi;
+            }
+        })
                 .and()
                 .formLogin()
                 .loginPage("/login")
@@ -47,11 +61,13 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .exceptionHandling().accessDeniedHandler(accessDeniedHandler);
     }
+
     // create two users, admin and user
     @Autowired
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
     }
+
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
