@@ -4,6 +4,7 @@ import org.lotus.carp.base.vo.ResponseWrapper;
 import org.lotus.carp.profile.convter.MenuConverter;
 import org.lotus.carp.profile.service.impl.MenuServiceImpl;
 import org.lotus.carp.profile.vo.MenuResult;
+import org.lotus.carp.utils.ProfileUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,9 +27,10 @@ import java.util.List;
 
 /**
  * Created with IntelliJ IDEA.
+ *
  * @author : Foy Lian
- * Date: 8/2/2017
- * Time: 3:00 PM
+ *         Date: 8/2/2017
+ *         Time: 3:00 PM
  */
 @Controller
 public class DashboardController extends AdminBaseController implements AccessDeniedHandler, ErrorController {
@@ -81,10 +83,15 @@ public class DashboardController extends AdminBaseController implements AccessDe
         httpServletResponse.sendRedirect(httpServletRequest.getContextPath() + "/403");
 
     }
+
     @GetMapping("/index/menus")
     @ResponseBody
-    public ResponseWrapper<List<MenuResult>> userMenus(){
-        //TODO 根据权限拿菜单,目前暂时全部返回
-       return response().execSuccess(menuConverter.buildTreeWithoutRoot(menuService.findAll()));
+    public ResponseWrapper<List<MenuResult>> userMenus() {
+        List<MenuResult> list = ProfileUtil.userMenus();
+        if (list == null) {
+            list = menuConverter.buildTreeWithoutRoot(menuService.getMenusByUserName(ProfileUtil.name()));
+            ProfileUtil.cacheUserMenus(list);
+        }
+        return response().execSuccess(list);
     }
 }

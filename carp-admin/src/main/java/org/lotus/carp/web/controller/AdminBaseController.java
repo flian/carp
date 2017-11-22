@@ -1,9 +1,7 @@
 package org.lotus.carp.web.controller;
 
 import org.lotus.carp.base.web.BaseController;
-import org.springframework.web.context.request.RequestAttributes;
-import org.springframework.web.context.request.RequestContextHolder;
-import org.springframework.web.context.request.ServletRequestAttributes;
+import org.lotus.carp.utils.ProfileUtil;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -15,9 +13,6 @@ import javax.servlet.http.HttpServletRequest;
  */
 public abstract class AdminBaseController implements BaseController {
     protected HttpServletRequest request() {
-        RequestAttributes ra = RequestContextHolder.getRequestAttributes();
-        ServletRequestAttributes sra = (ServletRequestAttributes) ra;
-        HttpServletRequest request = sra.getRequest();
-        return request;
+        return ProfileUtil.request();
     }
 }
