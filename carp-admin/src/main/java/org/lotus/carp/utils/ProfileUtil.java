@@ -1,7 +1,7 @@
 package org.lotus.carp.utils;
 
 import com.google.common.base.Preconditions;
-import org.lotus.carp.profile.vo.MenuResult;
+import org.lotus.carp.security.vo.MenuResult;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.context.request.RequestAttributes;
 import org.springframework.web.context.request.RequestContextHolder;

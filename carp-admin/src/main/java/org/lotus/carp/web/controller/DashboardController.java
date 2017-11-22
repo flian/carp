@@ -1,9 +1,9 @@
 package org.lotus.carp.web.controller;
 
 import org.lotus.carp.base.vo.ResponseWrapper;
-import org.lotus.carp.profile.convter.MenuConverter;
-import org.lotus.carp.profile.service.impl.MenuServiceImpl;
-import org.lotus.carp.profile.vo.MenuResult;
+import org.lotus.carp.security.convter.MenuConverter;
+import org.lotus.carp.security.service.impl.MenuServiceImpl;
+import org.lotus.carp.security.vo.MenuResult;
 import org.lotus.carp.utils.ProfileUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -49,7 +49,7 @@ public class DashboardController extends AdminBaseController implements AccessDe
 
     @GetMapping("/login")
     public String login() {
-        return "profile/login";
+        return "security/login";
     }
 
     @Override
