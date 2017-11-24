@@ -48,7 +48,7 @@ public class UserServiceImpl implements UserDetailsService {
         Preconditions.checkNotNull(user, "No user present with userName: " + userName);
         Set<GrantedAuthority> grantedAuthorities = new HashSet<>();
         for (Role role : user.getRoles()) {
-            grantedAuthorities.add(new SimpleGrantedAuthority(role.getName()));
+            grantedAuthorities.add(new SimpleGrantedAuthority(role.getCode()));
         }
         return new org.springframework.security.core.userdetails.User(user.getUserName(), user.getPassword(), grantedAuthorities);
     }

@@ -89,7 +89,7 @@ public class ActionFilterSecurityMetadataSource extends DefaultFilterInvocationS
         for (RequestActionMapping<RequestMatcher> mapping : cachedRoleMappings) {
             RequestMatcher matcher = mapping.getMatcher();
             if (matcher.matches(request)) {
-                mapping.getAction().getGrantedRoles();
+                return mapping.getAction().getGrantedRoles();
             }
         }
         // 兜底名单（表示既不是白名单，有没有功能授权，则匹配一个ROLE_SECURITY，交给角色定义来决定怎么处理，一般不处理则不能访问这个URL
