@@ -98,7 +98,7 @@ public class ActionFilterSecurityMetadataSource extends DefaultFilterInvocationS
         }
         return null;
     }
-
+//FIXME 需要适当的时候刷新，否则每次重新分配功能后，都需要重启应用才能生效
     public boolean reload() {
         Queue<RequestActionMapping<RequestMatcher>> tmpCachedRoleMappingsQueue = new ConcurrentLinkedQueue<RequestActionMapping<RequestMatcher>>();
         List<Action> actionList = actionRepository.listByLeaf();

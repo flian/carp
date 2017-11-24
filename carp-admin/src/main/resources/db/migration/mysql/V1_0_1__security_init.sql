@@ -146,11 +146,11 @@ INSERT INTO `carp_action` (`id`, `action_method`, `action_url`, `leaf`, `name`, 
 INSERT INTO `carp_action` (`id`, `action_method`, `action_url`, `leaf`, `name`, `parent_id`, `priority`) VALUES ('3', 'ALL', 'NONE', '\0', '示例管理', '-1', '2');
 INSERT INTO `carp_action` (`id`, `action_method`, `action_url`, `leaf`, `name`, `parent_id`, `priority`) VALUES ('4', 'ALL', 'NONE', '\0', '权限中心', '1', '1');
 INSERT INTO `carp_action` (`id`, `action_method`, `action_url`, `leaf`, `name`, `parent_id`, `priority`) VALUES ('5', 'ALL', 'NONE', '\0', '示例中心', '3', '1');
-INSERT INTO `carp_action` (`id`, `action_method`, `action_url`, `leaf`, `name`, `parent_id`, `priority`) VALUES ('6', 'ALL', '/profile', '', '用户管理', '4', '1');
-INSERT INTO `carp_action` (`id`, `action_method`, `action_url`, `leaf`, `name`, `parent_id`, `priority`) VALUES ('7', 'ALL', '/roles', '', '角色管理', '4', '1');
-INSERT INTO `carp_action` (`id`, `action_method`, `action_url`, `leaf`, `name`, `parent_id`, `priority`) VALUES ('8', 'ALL', '/menus', '', '菜单管理', '4', '2');
-INSERT INTO `carp_action` (`id`, `action_method`, `action_url`, `leaf`, `name`, `parent_id`, `priority`) VALUES ('9', 'ALL', '/actions', '', '功能管理', '4', '3');
-INSERT INTO `carp_action` (`id`, `action_method`, `action_url`, `leaf`, `name`, `parent_id`, `priority`) VALUES ('10', 'ALL', '/cards', '', '卡片管理示范', '5', '1');
+INSERT INTO `carp_action` (`id`, `action_method`, `action_url`, `leaf`, `name`, `parent_id`, `priority`) VALUES ('6', 'ALL', '/profile.*', '', '用户管理', '4', '1');
+INSERT INTO `carp_action` (`id`, `action_method`, `action_url`, `leaf`, `name`, `parent_id`, `priority`) VALUES ('7', 'ALL', '/roles.*', '', '角色管理', '4', '1');
+INSERT INTO `carp_action` (`id`, `action_method`, `action_url`, `leaf`, `name`, `parent_id`, `priority`) VALUES ('8', 'ALL', '/menus.*', '', '菜单管理', '4', '2');
+INSERT INTO `carp_action` (`id`, `action_method`, `action_url`, `leaf`, `name`, `parent_id`, `priority`) VALUES ('9', 'ALL', '/actions.*', '', '功能管理', '4', '3');
+INSERT INTO `carp_action` (`id`, `action_method`, `action_url`, `leaf`, `name`, `parent_id`, `priority`) VALUES ('10', 'ALL', '/cards.*', '', '卡片管理示范', '5', '1');
 -- ----------------------------
 -- Auto increment value for carp_action
 -- ----------------------------
