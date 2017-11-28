@@ -79,7 +79,12 @@ public class CardServiceImpl implements CardService {
         return String.format("%s%s", cardIdPrefix, random());
     }
 
+    @Override
+    public boolean deleteCardByIds(Long[] ids) {
+        return cardRepository.deleteByIds(ids) > 0;
+    }
+
     private String random() {
-        return "" + (int)(Math.random() * 1000000000);
+        return "" + (int) (Math.random() * 1000000000);
     }
 }

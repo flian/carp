@@ -11,7 +11,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -19,9 +18,10 @@ import javax.validation.Valid;
 
 /**
  * Created with IntelliJ IDEA.
+ *
  * @author : Foy Lian
- * Date: 7/31/2017
- * Time: 4:36 PM
+ *         Date: 7/31/2017
+ *         Time: 4:36 PM
  */
 @Controller
 @RequestMapping("/cards")
@@ -48,7 +48,7 @@ public class CardController extends AdminBaseController {
 
     @PostMapping
     @ResponseBody
-    public ResponseWrapper<CardResult> save(@Valid @RequestBody  CardCreateDto dto) {
+    public ResponseWrapper<CardResult> save(@Valid @RequestBody CardCreateDto dto) {
         return response().execSuccess(cardService.save(dto));
     }
 
@@ -56,9 +56,14 @@ public class CardController extends AdminBaseController {
     @ResponseBody
     public ResponseWrapper<CardResult> update(@Valid @RequestBody CardUpdateDto dto) {
         CardResult card = cardService.get(dto.getCardId());
-        Preconditions.checkArgument(dto.getFrozenValue().compareTo(card.getIssueValue()) <= 0,"冻结金额不能大于卡面值");
-        Preconditions.checkArgument(dto.getBalanceValue().compareTo(card.getIssueValue()) <= 0,"卡余额不能大于卡面值");
+        Preconditions.checkArgument(dto.getFrozenValue().compareTo(card.getIssueValue()) <= 0, "冻结金额不能大于卡面值");
+        Preconditions.checkArgument(dto.getBalanceValue().compareTo(card.getIssueValue()) <= 0, "卡余额不能大于卡面值");
         return response().execSuccess(cardService.update(dto));
     }
 
+    @PostMapping("/delete")
+    @ResponseBody
+    public ResponseWrapper<Boolean> deleteCardsByIds(@RequestBody Long[] ids) {
+        return response().execSuccess(cardService.deleteCardByIds(ids));
+    }
 }

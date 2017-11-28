@@ -46,7 +46,7 @@
                 <template scope="scope">
                     <el-button size="small" type="success" @click="edit(scope.row)">编辑
                     </el-button>
-                    <el-button size="small" type="danger" @click="deleteRow(row)">删除
+                    <el-button size="small" type="danger" @click="deleteRow(scope.row)">删除
                     </el-button>
                 </template>
             </el-table-column>
@@ -182,7 +182,9 @@
                 },
 
                 deleteRow(row){
-                    this.deleteBySelectedCards(row);
+                    let cards = [];
+                    cards.push(row);
+                    this.deleteBySelectedCards(cards);
                 },
                 deleteSelected(){
                     this.deleteBySelectedCards(this.selectedCards);
@@ -205,10 +207,7 @@
                             message: '删除成功！'
                         });
                     }).catch(() => {
-                        this.$message({
-                            type: 'info',
-                            message: '删除失败！'
-                        });
+                        console.log("取消删除");
                     });
                 },
                 deleteCardsByIds(ids){

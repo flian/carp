@@ -23,4 +23,5 @@ public interface CardService {
     public CardResult update(CardUpdateDto updateDto);
     public CardResult get(String cardCode);
     public CardResult getByType(CardTypeEnum type);
+    public boolean deleteCardByIds(Long [] ids);
 }
