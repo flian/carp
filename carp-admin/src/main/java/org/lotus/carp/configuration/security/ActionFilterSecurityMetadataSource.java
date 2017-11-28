@@ -1,4 +1,4 @@
-package org.lotus.carp.configuration;
+package org.lotus.carp.configuration.security;
 
 import lombok.Setter;
 import org.apache.commons.collections.CollectionUtils;

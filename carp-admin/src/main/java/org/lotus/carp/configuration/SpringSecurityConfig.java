@@ -1,5 +1,7 @@
 package org.lotus.carp.configuration;
 
+import org.lotus.carp.configuration.security.ActionFilterSecurityMetadataSource;
+import org.lotus.carp.configuration.security.CarpRoleVoter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

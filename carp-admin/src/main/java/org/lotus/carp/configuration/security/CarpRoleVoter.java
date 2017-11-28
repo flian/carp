@@ -1,4 +1,4 @@
-package org.lotus.carp.configuration;
+package org.lotus.carp.configuration.security;
 
 import org.springframework.security.access.vote.RoleVoter;
 

@@ -1,4 +1,4 @@
-package org.lotus.carp.configuration;
+package org.lotus.carp.configuration.security;
 
 import lombok.Data;
 import org.lotus.carp.security.vo.SecurityActionResult;
