@@ -317,7 +317,7 @@
                 <ul class="sidebar-menu">
                     <li class="header"></li>
                     <li :class="leftMenuActiveClass(menu)" v-for="(menu,index) in leftMenus">
-                        <a href="#" @click="leftMenuActiveId = menu.id">
+                        <a href="#" @click="leftMenuActiveId == menu.id ? leftMenuActiveId=-999: leftMenuActiveId=menu.id">
                             <i :class="leftMenuClass(index)"></i>
                             <span>{{menu.name}}</span>
                             <span class="pull-right-container">

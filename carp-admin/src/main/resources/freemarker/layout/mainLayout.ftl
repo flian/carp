@@ -267,8 +267,8 @@
 <script src="${rc.contextPath}/webjars/AdminLTE/bootstrap/js/bootstrap.min.js"></script>
 <!-- FastClick -->
 <script src="${rc.contextPath}/webjars/AdminLTE/plugins/fastclick/fastclick.js"></script>
-<!-- AdminLTE App -->
-<script src="${rc.contextPath}/webjars/AdminLTE/dist/js/app.min.js"></script>
+<!-- AdminLTE App: remove js -->
+<#--<script src="${rc.contextPath}/webjars/AdminLTE/dist/js/app.min.js"></script>-->
 <!-- Sparkline -->
 <script src="${rc.contextPath}/webjars/AdminLTE/plugins/sparkline/jquery.sparkline.min.js"></script>
 <!-- jvectormap -->
