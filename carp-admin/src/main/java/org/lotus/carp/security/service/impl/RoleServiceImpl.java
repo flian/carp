@@ -1,6 +1,7 @@
 package org.lotus.carp.security.service.impl;
 
 import com.google.common.base.Preconditions;
+import org.lotus.carp.base.event.SecurityResourceChangedEvent;
 import org.lotus.carp.security.convter.ActionConverter;
 import org.lotus.carp.security.convter.MenuConverter;
 import org.lotus.carp.security.domain.Action;
@@ -13,6 +14,7 @@ import org.lotus.carp.security.vo.ResourceIdListResult;
 import org.lotus.carp.security.vo.ResourceListResult;
 import org.lotus.carp.security.vo.RoleCreateDto;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.ExampleMatcher;
 import org.springframework.data.domain.Page;
@@ -43,6 +45,9 @@ public class RoleServiceImpl {
     private MenuConverter menuConverter;
     @Autowired
     private ActionConverter actionConverter;
+
+    @Autowired
+    protected ApplicationEventPublisher publisher;
 
     public Page<Role> search(String q, Pageable page) {
         Role queryParams = new Role();
@@ -87,7 +92,9 @@ public class RoleServiceImpl {
         Set<Menu> newMenus = new HashSet<>();
         menuIds.forEach(menuId -> newMenus.add(menuRepository.getOne(menuId)));
         role.setMenus(newMenus);
-        return roleRepository.save(role);
+        Role result = roleRepository.save(role);
+        publisher.publishEvent(new SecurityResourceChangedEvent());
+        return result;
     }
 
     @Transactional(rollbackFor = {Exception.class})
@@ -96,7 +103,9 @@ public class RoleServiceImpl {
         Set<Action> newAcitons = new HashSet<>();
         actionIds.forEach(actionId -> newAcitons.add(actionRepository.getOne(actionId)));
         role.setActions(newAcitons);
-        return roleRepository.save(role);
+        Role result = roleRepository.save(role);
+        publisher.publishEvent(new SecurityResourceChangedEvent());
+        return result;
     }
 
     @Transactional(rollbackFor = {Exception.class})
@@ -105,6 +114,8 @@ public class RoleServiceImpl {
         Role role = new Role();
         role.setCode(dto.getCode());
         role.setName(dto.getName());
-        return roleRepository.save(role);
+        Role result = roleRepository.save(role);
+        publisher.publishEvent(new SecurityResourceChangedEvent());
+        return result;
     }
 }

@@ -4,6 +4,7 @@ import lombok.Setter;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.lotus.carp.security.domain.Action;
+import org.lotus.carp.base.event.SecurityResourceChangedEvent;
 import org.lotus.carp.security.repository.ActionRepository;
 import org.lotus.carp.security.repository.RoleRepository;
 import org.lotus.carp.security.vo.SecurityActionResult;
@@ -15,6 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
+import org.springframework.context.event.EventListener;
 import org.springframework.security.access.ConfigAttribute;
 import org.springframework.security.access.SecurityConfig;
 import org.springframework.security.web.FilterInvocation;
@@ -98,7 +100,18 @@ public class ActionFilterSecurityMetadataSource extends DefaultFilterInvocationS
         }
         return null;
     }
-//FIXME 需要适当的时候刷新，否则每次重新分配功能后，都需要重启应用才能生效
+
+    @EventListener
+    public void handleRefresh(SecurityResourceChangedEvent event) {
+        if(logger.isInfoEnabled()){
+            logger.info("start refresh.." + event.getCode());
+        }
+        reload();
+        if(logger.isInfoEnabled()){
+            logger.info("end refresh.." + event.getCode());
+        }
+    }
+
     public boolean reload() {
         Queue<RequestActionMapping<RequestMatcher>> tmpCachedRoleMappingsQueue = new ConcurrentLinkedQueue<RequestActionMapping<RequestMatcher>>();
         List<Action> actionList = actionRepository.listByLeaf();

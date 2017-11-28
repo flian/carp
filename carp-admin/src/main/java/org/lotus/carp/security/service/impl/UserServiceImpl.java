@@ -1,6 +1,7 @@
 package org.lotus.carp.security.service.impl;
 
 import com.google.common.base.Preconditions;
+import org.lotus.carp.base.event.SecurityResourceChangedEvent;
 import org.lotus.carp.security.domain.Role;
 import org.lotus.carp.security.domain.User;
 import org.lotus.carp.security.repository.RoleRepository;
@@ -9,6 +10,7 @@ import org.lotus.carp.security.vo.UserCreateDto;
 import org.lotus.carp.security.vo.UserPasswordDto;
 import org.lotus.carp.security.vo.UserRoleUpdateDto;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.GrantedAuthority;
@@ -41,6 +43,9 @@ public class UserServiceImpl implements UserDetailsService {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
+    @Autowired
+    protected ApplicationEventPublisher publisher;
+
     @Override
     @Transactional(readOnly = true, rollbackFor = {Exception.class})
     public UserDetails loadUserByUsername(String userName) throws UsernameNotFoundException {
@@ -64,7 +69,9 @@ public class UserServiceImpl implements UserDetailsService {
         Set<Role> roles = new HashSet<>();
         user.setRoles(roles);
         userRoleUpdateDto.getRoles().forEach(code -> roles.add(roleRepository.findByCode(code)));
-        return userRepository.save(user);
+        User result = userRepository.save(user);
+        publisher.publishEvent(new SecurityResourceChangedEvent());
+        return result;
     }
 
     @Transactional(rollbackFor = {Exception.class})
@@ -73,7 +80,9 @@ public class UserServiceImpl implements UserDetailsService {
         User newUser = new User();
         newUser.setUserName(userCreateDto.getName());
         newUser.setPassword(passwordEncoder.encode(userCreateDto.getPassword()));
-        return userRepository.save(newUser);
+        User result = userRepository.save(newUser);
+        publisher.publishEvent(new SecurityResourceChangedEvent());
+        return result;
     }
 
     @Transactional(rollbackFor = {Exception.class})
