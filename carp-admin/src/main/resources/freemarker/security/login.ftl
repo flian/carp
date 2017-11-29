@@ -50,11 +50,13 @@
                 <input name="password" type="password" class="form-control" placeholder="密码，至少6位字母、数字组合" value="admin123">
                 <span class="glyphicon glyphicon-lock form-control-feedback"></span>
             </div>
-            <div class="form-group has-feedback captcha">
-                <input id="captchaCode" name="captchaCode" type="text" class="form-control" placeholder="验证码">
-                <img alt="点击更换" src="${rc.contextPath}/login/captcha/image" id="captchaImage"/>
-                <a href="javascript:void(0)" id="captchaTag">看不清，换一个？</a>
-            </div>
+            <#if needCaptcha>
+                <div class="form-group has-feedback captcha">
+                    <input id="captchaCode" name="captchaCode" type="text" class="form-control" placeholder="验证码">
+                    <img alt="点击更换" src="${rc.contextPath}/login/captcha/image" id="captchaImage"/>
+                    <a href="javascript:void(0)" id="captchaTag">看不清，换一个？</a>
+                </div>
+            </#if>
             <div class="row">
                 <div class="col-xs-8">
                     <div class="checkbox icheck">

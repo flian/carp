@@ -33,10 +33,12 @@ public class CaptchaUsernamePasswordAuthenticationFilter extends UsernamePasswor
 
     @Override
     public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response) throws AuthenticationException {
-        if (-1 == captchaFailedTimes || failedTimes() > captchaFailedTimes) {
+        if (!isCurrentRequestNeedCaptcha()) {
             //不需要验证验证码
+            failedTimesPlus();
             return super.attemptAuthentication(request, response);
         }
+
         failedTimesPlus();
         String userInputCaptchaCode = obtainCaptchaCode(request);
         String capTxt = ProfileUtil.getLoginCapText();
@@ -63,5 +65,12 @@ public class CaptchaUsernamePasswordAuthenticationFilter extends UsernamePasswor
 
     private String obtainCaptchaCode(HttpServletRequest request) {
         return request.getParameter(DEFAULT_CAPTCHA_CODE_PARAMETER);
+    }
+
+    public boolean isCurrentRequestNeedCaptcha() {
+        if (!captchaEnable || -1 == captchaFailedTimes || failedTimes() < captchaFailedTimes) {
+            return false;
+        }
+        return true;
     }
 }
