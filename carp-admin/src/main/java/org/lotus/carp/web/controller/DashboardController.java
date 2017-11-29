@@ -56,11 +56,7 @@ public class DashboardController extends AdminBaseController implements AccessDe
         return ERROR_PATH;
     }
 
-    @RequestMapping("/403")
-    @ResponseBody
-    public String forbidden() {
-        return "没有权限！";
-    }
+
 
     @RequestMapping(ERROR_PATH)
     @ResponseBody
@@ -79,9 +75,22 @@ public class DashboardController extends AdminBaseController implements AccessDe
                     + "' attempted to access the protected URL: "
                     + httpServletRequest.getRequestURI());
         }
+        if(isAjax(request())){
+            httpServletResponse.sendRedirect(httpServletRequest.getContextPath() + "/403");
+        }else {
+            httpServletResponse.sendRedirect(httpServletRequest.getContextPath() + "/forbidden");
+        }
+    }
 
-        httpServletResponse.sendRedirect(httpServletRequest.getContextPath() + "/403");
+    @RequestMapping("/403")
+    @ResponseBody
+    public ResponseWrapper<String> forbidden() {
+        return response().execAccessDenied().addMessage("没有权限!");
+    }
 
+    @GetMapping("/forbidden")
+    public String accessDenied(){
+        return "security/403";
     }
 
     @GetMapping("/index/menus")
@@ -95,5 +104,9 @@ public class DashboardController extends AdminBaseController implements AccessDe
         return response().execSuccess(list);
     }
 
+    private boolean isAjax(HttpServletRequest request){
+        String requestedWithHeader = request.getHeader("X-Requested-With");
+        return "XMLHttpRequest".equals(requestedWithHeader);
+    }
 
 }

@@ -6,9 +6,10 @@ import java.io.Serializable;
 
 /**
  * Created with IntelliJ IDEA.
+ *
  * @author : Foy Lian
- * Date: 8/2/2017
- * Time: 3:07 PM
+ *         Date: 8/2/2017
+ *         Time: 3:07 PM
  */
 @Data
 public class ResponseWrapper<T> implements Serializable {
@@ -32,6 +33,11 @@ public class ResponseWrapper<T> implements Serializable {
 
     public ResponseWrapper execFailue() {
         procCode = 99999;
+        return this;
+    }
+
+    public ResponseWrapper execAccessDenied() {
+        procCode = 403;
         return this;
     }
 
