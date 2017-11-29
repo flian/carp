@@ -1,10 +1,14 @@
 package org.lotus.carp.configuration;
 
+import lombok.Setter;
 import org.lotus.carp.configuration.security.ActionFilterSecurityMetadataSource;
+import org.lotus.carp.configuration.security.CaptchaUsernamePasswordAuthenticationFilter;
 import org.lotus.carp.configuration.security.CarpRoleVoter;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.security.access.AccessDecisionManager;
 import org.springframework.security.access.AccessDecisionVoter;
 import org.springframework.security.access.vote.AffirmativeBased;
@@ -20,6 +24,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.access.AccessDeniedHandler;
 import org.springframework.security.web.access.expression.WebExpressionVoter;
 import org.springframework.security.web.access.intercept.FilterSecurityInterceptor;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 import java.util.Arrays;
 import java.util.List;
@@ -33,6 +38,8 @@ import java.util.List;
  */
 @Configuration
 @EnableWebSecurity
+@PropertySource(value = "classpath:/config/carp.properties")
+@ConfigurationProperties(prefix = "carp.security.kaptcha")
 public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private UserDetailsService userDetailsService;
@@ -43,6 +50,11 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private AccessDeniedHandler accessDeniedHandler;
 
+    @Setter
+    private boolean captchaEnable = true;
+    @Setter
+    private int captchaFailedTimes = -1;
+
     @Bean
     public AccessDecisionManager accessDecisionManager() {
         List<AccessDecisionVoter<? extends Object>> decisionVoters
@@ -50,25 +62,33 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
                 new CarpRoleVoter(),
                 new WebExpressionVoter(),
                 new AuthenticatedVoter()
-                );
+        );
         return new AffirmativeBased(decisionVoters);
+    }
+
+    @Bean
+    public CaptchaUsernamePasswordAuthenticationFilter formLogin() throws Exception {
+        CaptchaUsernamePasswordAuthenticationFilter filter = new CaptchaUsernamePasswordAuthenticationFilter(captchaEnable, captchaFailedTimes);
+        filter.setAuthenticationManager(authenticationManager());
+        return filter;
     }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
+        http.addFilterBefore(formLogin(), UsernamePasswordAuthenticationFilter.class);
         http.csrf().disable()
                 .authorizeRequests()
                 .anyRequest()
                 .authenticated()
                 .accessDecisionManager(accessDecisionManager())
                 .withObjectPostProcessor(new ObjectPostProcessor<FilterSecurityInterceptor>() {
-            @Override
-            public <O extends FilterSecurityInterceptor> O postProcess(
-                    O fsi) {
-                fsi.setSecurityMetadataSource(actionFilterSecurityMetadataSource);
-                return fsi;
-            }
-        })
+                    @Override
+                    public <O extends FilterSecurityInterceptor> O postProcess(
+                            O fsi) {
+                        fsi.setSecurityMetadataSource(actionFilterSecurityMetadataSource);
+                        return fsi;
+                    }
+                })
                 .and()
                 .formLogin()
                 .loginPage("/login")

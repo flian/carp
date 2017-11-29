@@ -28,3 +28,8 @@
 .content {
     min-height: 768px;
 }
+
+/** 验证码样式**/
+ .captcha input { width: 35%; display: inline; vertical-align: middle; }
+.captcha img { width: 95px; height: 34px; display: inline; vertical-align: middle; }
+.captcha a {vertical-align: bottom;font-size: 12px;}

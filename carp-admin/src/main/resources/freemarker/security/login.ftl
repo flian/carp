@@ -16,6 +16,8 @@
     <link rel="stylesheet" href="${rc.contextPath}/webjars/AdminLTE/dist/css/AdminLTE.min.css">
     <!-- iCheck -->
     <link rel="stylesheet" href="${rc.contextPath}/webjars/AdminLTE/plugins/iCheck/square/blue.css">
+    <!-- costom css-->
+    <link rel="stylesheet" href="${rc.contextPath}/css/common.css">
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -47,6 +49,11 @@
             <div class="form-group has-feedback">
                 <input name="password" type="password" class="form-control" placeholder="密码，至少6位字母、数字组合" value="admin123">
                 <span class="glyphicon glyphicon-lock form-control-feedback"></span>
+            </div>
+            <div class="form-group has-feedback captcha">
+                <input id="captchaCode" name="captchaCode" type="text" class="form-control" placeholder="验证码">
+                <img alt="点击更换" src="${rc.contextPath}/login/captcha/image" id="captchaImage"/>
+                <a href="javascript:void(0)" id="captchaTag">看不清，换一个？</a>
             </div>
             <div class="row">
                 <div class="col-xs-8">
@@ -89,6 +96,16 @@
 <script src="${rc.contextPath}/webjars/AdminLTE/plugins/iCheck/icheck.min.js"></script>
 <script>
     $(function () {
+        $("#captchaTag").on('click',function(){refreshCaptchaImage()});
+        $("#captchaImage").on('click',function(){refreshCaptchaImage()});
+        function refreshCaptchaImage() {
+            $("#captchaImage").attr(
+                    'src',
+                    '${rc.contextPath}/login/captcha/image?'
+                    + Math.floor(Math.random() * 100))
+                    .fadeIn();
+            $('#captchaCode').val('');
+        }
         $('input').iCheck({
             checkboxClass: 'icheckbox_square-blue',
             radioClass: 'iradio_square-blue',

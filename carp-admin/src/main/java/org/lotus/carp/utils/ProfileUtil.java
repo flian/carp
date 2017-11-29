@@ -1,6 +1,7 @@
 package org.lotus.carp.utils;
 
 import com.google.common.base.Preconditions;
+import com.google.common.base.Strings;
 import org.lotus.carp.security.vo.MenuResult;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.context.request.RequestAttributes;
@@ -8,6 +9,7 @@ import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.util.List;
 
 /**
@@ -37,5 +39,16 @@ public class ProfileUtil {
         ServletRequestAttributes sra = (ServletRequestAttributes) ra;
         HttpServletRequest request = sra.getRequest();
         return request;
+    }
+
+    public static HttpSession session(){
+        return request().getSession();
+    }
+    public static void setLoginCapText(String capText){
+        Preconditions.checkArgument(Strings.isNullOrEmpty(capText));
+            session().setAttribute(Constants.KAPTCHA_SESSION_KEY,capText);
+    }
+    public static String getLoginCapText(){
+        return (String)session().getAttribute(Constants.KAPTCHA_SESSION_KEY);
     }
 }
