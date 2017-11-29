@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.imageio.ImageIO;
 import javax.servlet.ServletOutputStream;
@@ -39,9 +40,12 @@ public class LoginController {
     }
 
     @ExceptionHandler(AuthenticationServiceException.class)
-    public String loginError(AuthenticationServiceException e, Model model) {
-        model.addAttribute("error", e.getMessage());
-        return login(model);
+    public ModelAndView loginError(AuthenticationServiceException e) {
+        ModelAndView mv = new ModelAndView();
+        mv.addObject("error", e.getMessage());
+        mv.addObject("needCaptcha", captchaUsernamePasswordAuthenticationFilter.isCurrentRequestNeedCaptcha());
+        mv.setViewName("security/login");
+        return mv;
     }
 
     @GetMapping("/login/captcha/image")

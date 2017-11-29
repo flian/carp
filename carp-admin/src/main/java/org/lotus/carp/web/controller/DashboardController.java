@@ -64,8 +64,8 @@ public class DashboardController extends AdminBaseController implements AccessDe
 
     @RequestMapping(ERROR_PATH)
     @ResponseBody
-    public String error() {
-        return "超人，出错啦！ 我们马上回来。";
+    public String error(Exception e) {
+        return String.format("超人，出错啦！ 我们马上回来。- %s",e.getMessage());
     }
 
 
