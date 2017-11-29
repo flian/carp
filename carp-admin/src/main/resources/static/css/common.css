@@ -33,3 +33,5 @@
  .captcha input { width: 35%; display: inline; vertical-align: middle; }
 .captcha img { width: 95px; height: 34px; display: inline; vertical-align: middle; }
 .captcha a {vertical-align: bottom;font-size: 12px;}
+/** 登录错误提示样式**/
+span.error  {color:red;}

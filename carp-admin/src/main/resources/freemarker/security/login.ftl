@@ -34,8 +34,8 @@
     <!-- /.login-logo -->
     <div class="login-box-body">
         <p class="login-box-msg">请登录</p>
-    <#if RequestParameters.error??>
-        用户名密码错误！
+    <#if RequestParameters.msg??>
+        <span class="error">${RequestParameters.msg}</span>
     </#if>
 
     <#if RequestParameters.logout??>

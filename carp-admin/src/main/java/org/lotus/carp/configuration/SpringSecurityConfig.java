@@ -2,6 +2,7 @@ package org.lotus.carp.configuration;
 
 import lombok.Setter;
 import org.lotus.carp.configuration.security.ActionFilterSecurityMetadataSource;
+import org.lotus.carp.configuration.security.AuthFailureHandler;
 import org.lotus.carp.configuration.security.CaptchaUsernamePasswordAuthenticationFilter;
 import org.lotus.carp.configuration.security.CarpRoleVoter;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -50,6 +51,9 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private AccessDeniedHandler accessDeniedHandler;
 
+    @Autowired
+    private AuthFailureHandler authFailureHandler;
+
     @Setter
     private boolean captchaEnable = true;
     @Setter
@@ -70,6 +74,7 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
     public CaptchaUsernamePasswordAuthenticationFilter formLogin() throws Exception {
         CaptchaUsernamePasswordAuthenticationFilter filter = new CaptchaUsernamePasswordAuthenticationFilter(captchaEnable, captchaFailedTimes);
         filter.setAuthenticationManager(authenticationManager());
+        filter.setAuthenticationFailureHandler(authFailureHandler);
         return filter;
     }
 
