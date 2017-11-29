@@ -5,12 +5,9 @@ import org.lotus.carp.configuration.security.CaptchaUsernamePasswordAuthenticati
 import org.lotus.carp.utils.Constants;
 import org.lotus.carp.utils.ProfileUtil;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.authentication.AuthenticationServiceException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.servlet.ModelAndView;
 
 import javax.imageio.ImageIO;
 import javax.servlet.ServletOutputStream;
@@ -37,15 +34,6 @@ public class LoginController {
     public String login(Model model) {
         model.addAttribute("needCaptcha", captchaUsernamePasswordAuthenticationFilter.isCurrentRequestNeedCaptcha());
         return "security/login";
-    }
-
-    @ExceptionHandler(AuthenticationServiceException.class)
-    public ModelAndView loginError(AuthenticationServiceException e) {
-        ModelAndView mv = new ModelAndView();
-        mv.addObject("error", e.getMessage());
-        mv.addObject("needCaptcha", captchaUsernamePasswordAuthenticationFilter.isCurrentRequestNeedCaptcha());
-        mv.setViewName("security/login");
-        return mv;
     }
 
     @GetMapping("/login/captcha/image")
