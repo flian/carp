@@ -35,6 +35,7 @@ spring:
         exposeSpringMacroHelpers: true
         settings:
           auto_import: /layout/layout.ftl as layout
+        prefer-file-system-access: false
     #jpa自动生成sql
     jpa:
       show-sql: true

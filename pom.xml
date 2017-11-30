@@ -5,12 +5,13 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>org.lotus.carp</groupId>
-    <artifactId>showcase</artifactId>
+    <artifactId>carp</artifactId>
     <version>1.0-SNAPSHOT</version>
     <modules>
         <module>carp-parent</module>
         <module>carp-base</module>
         <module>carp-core</module>
+        <module>carp-commerce</module>
         <module>carp-admin</module>
         <module>carp-front</module>
         <module>carp-mobile</module>

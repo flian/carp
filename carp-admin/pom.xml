@@ -47,6 +47,12 @@
             <artifactId>carp-service-impl</artifactId>
             <version>${carp.version}</version>
         </dependency>
+        <!-- include commerce admin -->
+        <dependency>
+            <groupId>org.lotus.carp</groupId>
+            <artifactId>carp-commerce-admin</artifactId>
+            <version>${carp.version}</version>
+        </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-freemarker</artifactId>
