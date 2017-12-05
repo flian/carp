@@ -1,7 +1,7 @@
 CREATE TABLE carp_user (
   id        BIGINT       NOT NULL AUTO_INCREMENT
   COMMENT '逻辑主键',
-  password  VARCHAR(255) NOT NULL
+  password  VARCHAR(64) NOT NULL
   COMMENT '密码',
   user_name VARCHAR(20)  NOT NULL
   COMMENT '用户名',
