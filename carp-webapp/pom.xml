@@ -24,6 +24,12 @@
             <artifactId>carp-admin</artifactId>
             <version>${carp.version}</version>
         </dependency>
+        <!-- include commerce admin -->
+        <dependency>
+            <groupId>org.lotus.carp</groupId>
+            <artifactId>carp-commerce-admin</artifactId>
+            <version>${carp.version}</version>
+        </dependency>
         <dependency>
             <groupId>org.lotus.carp</groupId>
             <artifactId>carp-front</artifactId>
