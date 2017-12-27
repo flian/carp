@@ -85,7 +85,7 @@
                 self.$refs.changePasswordForm.validate(
                         (valid) =>{
                             if(valid){
-                                axios.put("${rc.contextPath}/public/customer/"+self.changePasswordModel.name+"/password",
+                                axios.put("${rc.contextPath}/customer/"+self.changePasswordModel.name+"/password",
                                         {password:self.changePasswordModel.password})
                                         .then(response=>{
                                             self.showChangePassword=false;
@@ -111,7 +111,7 @@
                 this.selectedItems = val;
             },
             queryItems(){
-                axios.get("${rc.contextPath}/public/customer/data", {params: this.query}).then(response => {
+                axios.get("${rc.contextPath}/customer/data", {params: this.query}).then(response => {
                     this.items = response.data.payload.content;
                     this.totalPage = response.data.payload.totalPages;
                     this.totalElements = response.data.payload.totalElements;

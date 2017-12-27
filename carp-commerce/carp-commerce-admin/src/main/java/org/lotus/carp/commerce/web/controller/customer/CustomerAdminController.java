@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.*;
  */
 
 @Controller
-@RequestMapping("/public/customer")
+@RequestMapping("/customer")
 public class CustomerAdminController implements BaseController {
     @Autowired
     private CustomerService customerService;
