@@ -5,10 +5,10 @@ INSERT INTO `carp_menu` (`id`, `leaf`, `name`, `parent_id`, `priority`, `url`) V
 INSERT INTO `carp_menu` (`id`, `leaf`, `name`, `parent_id`, `priority`, `url`) VALUES ('73', '\0', '库存管理', '2', '4', '#');
 INSERT INTO `carp_menu` (`id`, `leaf`, `name`, `parent_id`, `priority`, `url`) VALUES ('74', '\0', '订单管理', '2', '5', '#');
 INSERT INTO `carp_menu` (`id`, `leaf`, `name`, `parent_id`, `priority`, `url`) VALUES ('75', '', '客户管理', '70', '1', '/customer');
-INSERT INTO `carp_menu` (`id`, `leaf`, `name`, `parent_id`, `priority`, `url`) VALUES ('76', '', '分类管理', '71', '2', '/category');
-INSERT INTO `carp_menu` (`id`, `leaf`, `name`, `parent_id`, `priority`, `url`) VALUES ('77', '', '产品管理', '71', '1', '/product');
+INSERT INTO `carp_menu` (`id`, `leaf`, `name`, `parent_id`, `priority`, `url`) VALUES ('76', '', '分类管理', '71', '1', '/category');
+INSERT INTO `carp_menu` (`id`, `leaf`, `name`, `parent_id`, `priority`, `url`) VALUES ('77', '', '产品管理', '71', '2', '/product');
 INSERT INTO `carp_menu` (`id`, `leaf`, `name`, `parent_id`, `priority`, `url`) VALUES ('78', '', '基础价格管理', '72', '1', '/list/price');
-INSERT INTO `carp_menu` (`id`, `leaf`, `name`, `parent_id`, `priority`, `url`) VALUES ('79', '', '促销价格管理', '72', '1', '/sale/price');
+INSERT INTO `carp_menu` (`id`, `leaf`, `name`, `parent_id`, `priority`, `url`) VALUES ('79', '', '促销价格管理', '72', '2', '/sale/price');
 INSERT INTO `carp_menu` (`id`, `leaf`, `name`, `parent_id`, `priority`, `url`) VALUES ('80', '', '基础库存管理', '73', '1', '/stock');
 INSERT INTO `carp_menu` (`id`, `leaf`, `name`, `parent_id`, `priority`, `url`) VALUES ('81', '', '订单管理', '74', '1', '/order');
 ALTER TABLE `carp_menu` AUTO_INCREMENT=82;
