@@ -1,9 +1,9 @@
 #初始化commerce菜单
 INSERT INTO `carp_menu` (`id`, `leaf`, `name`, `parent_id`, `priority`, `url`) VALUES ('70', '\0', '客户管理', '2', '1', '#');
-INSERT INTO `carp_menu` (`id`, `leaf`, `name`, `parent_id`, `priority`, `url`) VALUES ('71', '\0', '产品分类', '2', '1', '#');
-INSERT INTO `carp_menu` (`id`, `leaf`, `name`, `parent_id`, `priority`, `url`) VALUES ('72', '\0', '价格管理', '2', '2', '#');
-INSERT INTO `carp_menu` (`id`, `leaf`, `name`, `parent_id`, `priority`, `url`) VALUES ('73', '\0', '库存管理', '2', '3', '#');
-INSERT INTO `carp_menu` (`id`, `leaf`, `name`, `parent_id`, `priority`, `url`) VALUES ('74', '\0', '订单管理', '2', '4', '#');
+INSERT INTO `carp_menu` (`id`, `leaf`, `name`, `parent_id`, `priority`, `url`) VALUES ('71', '\0', '产品分类', '2', '2', '#');
+INSERT INTO `carp_menu` (`id`, `leaf`, `name`, `parent_id`, `priority`, `url`) VALUES ('72', '\0', '价格管理', '2', '3', '#');
+INSERT INTO `carp_menu` (`id`, `leaf`, `name`, `parent_id`, `priority`, `url`) VALUES ('73', '\0', '库存管理', '2', '4', '#');
+INSERT INTO `carp_menu` (`id`, `leaf`, `name`, `parent_id`, `priority`, `url`) VALUES ('74', '\0', '订单管理', '2', '5', '#');
 INSERT INTO `carp_menu` (`id`, `leaf`, `name`, `parent_id`, `priority`, `url`) VALUES ('75', '', '客户管理', '70', '1', '/customer');
 INSERT INTO `carp_menu` (`id`, `leaf`, `name`, `parent_id`, `priority`, `url`) VALUES ('76', '', '分类管理', '71', '2', '/category');
 INSERT INTO `carp_menu` (`id`, `leaf`, `name`, `parent_id`, `priority`, `url`) VALUES ('77', '', '产品管理', '71', '1', '/product');
