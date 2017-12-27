@@ -89,6 +89,10 @@
                                         {password:self.changePasswordModel.password})
                                         .then(response=>{
                                             self.showChangePassword=false;
+                                            self.$message({
+                                                type: 'success',
+                                                message: "修改密码成功!"
+                                            });
                                             self.queryItems();
                                         });
                             }

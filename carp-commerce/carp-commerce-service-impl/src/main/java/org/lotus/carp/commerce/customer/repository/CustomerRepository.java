@@ -18,4 +18,6 @@ public interface CustomerRepository extends JpaRepository<Customer,Long> {
 
     @Query("from Customer c where c.userName LIKE CONCAT('%',:q)")
     Page<Customer> search(@Param("q")String q, Pageable pageable);
+
+    Customer findByUserName(String userName);
 }

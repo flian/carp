@@ -13,4 +13,5 @@ import org.springframework.data.domain.Pageable;
  */
 public interface CustomerService {
      Page<CustomerResult> search(String q, Pageable page);
+     CustomerResult changePassword(String changedByUserId,String targetUserName,String newPassword);
 }

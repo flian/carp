@@ -7,10 +7,7 @@ import org.lotus.carp.commerce.customer.vo.CustomerResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * Created with IntelliJ IDEA.
@@ -39,5 +36,11 @@ public class CustomerAdminController implements BaseController {
     @ResponseBody
     public ResponseWrapper<CustomerResult> queryCustomers(@RequestParam("keyword") String q, Pageable page) {
         return response().execSuccess(customerService.search(q, page));
+    }
+
+    @PutMapping("/{userName}/password")
+    @ResponseBody
+    public ResponseWrapper<CustomerResult> changeCustomerPassword(@PathVariable("userName") String userName,@RequestBody String password){
+        return response().execSuccess(customerService.changePassword("admin",userName,password));
     }
 }
