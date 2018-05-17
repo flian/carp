@@ -6,13 +6,14 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 /**
  * Created with IntelliJ IDEA.
+ *
  * @author : Foy Lian
- * Date: 7/31/2017
- * Time: 4:24 PM
+ *         Date: 7/31/2017
+ *         Time: 4:24 PM
  */
 @SpringBootApplication
 public class AdminApplication {
     public static void main(String[] args) {
-        SpringApplication.run(AdminApplication.class, args) ;
+        SpringApplication.run(AdminApplication.class, args);
     }
 }

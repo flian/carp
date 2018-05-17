@@ -15,7 +15,23 @@
     <name>carp-parent</name>
     <url>https://github.com/flian/carp</url>
 
-
+    <licenses>
+        <license>
+            <name>Apache License, Version 2.0</name>
+            <url>http://www.apache.org/licenses/LICENSE-2.0</url>
+        </license>
+    </licenses>
+    <developers>
+        <developer>
+            <name>Foy Lian</name>
+            <email>ljs2342003@gmail.com</email>
+            <organization>CARP </organization>
+            <organizationUrl>https://github.com/flian/carp</organizationUrl>
+        </developer>
+    </developers>
+    <scm>
+        <url>https://github.com/flian/carp</url>
+    </scm>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <java.source.version>1.8</java.source.version>

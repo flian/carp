@@ -1,3 +1,4 @@
+#common基础配置
 server:
     port: 8081
     context-path: /admin

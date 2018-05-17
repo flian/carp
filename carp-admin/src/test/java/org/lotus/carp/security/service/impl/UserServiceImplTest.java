@@ -12,13 +12,14 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.domain.Page;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.test.annotation.DirtiesContext;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Arrays;
 
 /**
- * Created with IntelliJ IDEA.
+ *  集成测试示例。 测试userService方法。也可改造后测试API
  * @author : Foy Lian
  * Date: 8/4/2017
  * Time: 4:48 PM
@@ -27,6 +28,7 @@ import java.util.Arrays;
 @SpringBootTest(classes = AdminApplication.class)
 @DirtiesContext
 @Transactional
+@ActiveProfiles("it")
 public class UserServiceImplTest {
     @Autowired
     private UserServiceImpl userService;
@@ -69,7 +71,7 @@ public class UserServiceImplTest {
                         Assert.that(result.getUserName().startsWith(q));
                     });
                     Page<UserResult> list = users.map(userConvter);
-                    Assert.that(list.getSize() > 0);
+                    Assert.that(list.getTotalElements() > 0);
                 }
         );
 

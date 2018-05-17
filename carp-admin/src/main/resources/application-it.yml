@@ -1,0 +1,14 @@
+# 集成测试配置
+spring:
+    datasource:
+        name: adminIntegrationTest
+        url: jdbc:log4jdbc:mysql://127.0.0.1/carp_it?useUnicode=true&characterEncoding=utf-8&useSSL=false
+        # 使用druid数据源
+        driver-class-name: net.sf.log4jdbc.DriverSpy
+        #dev 不用wall设置
+        filters: stat,log4j
+    freemarker:
+        cache: true
+#flyway配置
+flyway:
+  enabled: true

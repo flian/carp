@@ -132,7 +132,8 @@
             <version>2.3.11</version>
         </dependency>-->
     </dependencies>
-    <build>
+    <!--打成标准的jar包
+      <build>
         <plugins>
         <plugin>
             <groupId>org.springframework.boot</groupId>
@@ -146,5 +147,5 @@
             </dependencies>
         </plugin>
         </plugins>
-    </build>
+    </build>-->
 </project>

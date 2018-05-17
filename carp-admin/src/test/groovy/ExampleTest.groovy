@@ -1,7 +1,7 @@
 import spock.lang.Specification
 
 /**
- * Created with IntelliJ IDEA.
+ *  spock 测试示例
  * User: Foy Lian
  * Date: 2017-01-13
  * Time: 11:11
