@@ -49,6 +49,8 @@ master 为开发分支，不固定更新
 mvn deploy -Dmaven.test.skip=true
 
 版本发布：
+see [maven-release-plugin](http://maven.apache.org/maven-release/maven-release-plugin/prepare-mojo.html) for more detail
+
 mvn release:prepare
 
 
