@@ -271,8 +271,10 @@
                 <version>2.5.3</version>
                 <configuration>
                     <autoVersionSubmodules>true</autoVersionSubmodules>
+                    <allowTimestampedSnapshots>true</allowTimestampedSnapshots>
                     <useReleaseProfile>false</useReleaseProfile>
                     <releaseProfiles>release</releaseProfiles>
+                    <developmentVersion>1.0.0-SNAPSHOT</developmentVersion>
                     <goals>deploy</goals>
                 </configuration>
             </plugin>
