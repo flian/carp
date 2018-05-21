@@ -40,12 +40,12 @@
         <dependency>
             <groupId>org.lotus.carp</groupId>
             <artifactId>carp-service</artifactId>
-            <version>${carp.version}</version>
+            <version>${project.version}</version>
         </dependency>
         <dependency>
             <groupId>org.lotus.carp</groupId>
             <artifactId>carp-service-impl</artifactId>
-            <version>${carp.version}</version>
+            <version>${project.version}</version>
         </dependency>
 
         <dependency>

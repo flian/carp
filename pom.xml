@@ -66,7 +66,6 @@
         <jxsl.poi.version>1.0.13</jxsl.poi.version>
         <jxls.version>2.4.0</jxls.version>
         <log4jdbc.version>1.2</log4jdbc.version>
-        <carp.version>1.0-SNAPSHOT</carp.version>
     </properties>
     <repositories>
         <repository>
