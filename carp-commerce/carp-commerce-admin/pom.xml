@@ -2,7 +2,7 @@
     <parent>
         <artifactId>carp-commerce</artifactId>
         <groupId>org.lotus.carp</groupId>
-        <version>0.1.0</version>
+        <version>0.2.0-SNAPSHOT</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
     <modelVersion>4.0.0</modelVersion>
