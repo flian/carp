@@ -30,7 +30,10 @@
         </developer>
     </developers>
     <scm>
-        <url>https://github.com/flian/carp</url>
+        <connection>scm:git:git@github.com:flian/carp.git</connection>
+        <developerConnection>scm:git:git@github.com:flian/carp.git</developerConnection>
+        <url>git@github.com:flian/carp.git</url>
+        <tag>HEAD</tag>
     </scm>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -241,6 +244,25 @@
                         </goals>
                     </execution>
                 </executions>
+            </plugin>
+            <!--release plugin-->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-release-plugin</artifactId>
+                <dependencies>
+                    <dependency>
+                        <groupId>org.apache.maven.scm</groupId>
+                        <artifactId>maven-scm-provider-gitexe</artifactId>
+                        <version>1.9.4</version>
+                    </dependency>
+                </dependencies>
+                <version>2.5.3</version>
+                <configuration>
+                    <autoVersionSubmodules>true</autoVersionSubmodules>
+                    <useReleaseProfile>false</useReleaseProfile>
+                    <releaseProfiles>release</releaseProfiles>
+                    <goals>deploy</goals>
+                </configuration>
             </plugin>
         </plugins>
     </build>
