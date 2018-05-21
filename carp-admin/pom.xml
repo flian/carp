@@ -35,7 +35,7 @@
         <dependency>
             <groupId>org.lotus.carp</groupId>
             <artifactId>carp-base</artifactId>
-            <version>${carp.version}</version>
+            <version>${project.version}</version>
         </dependency>
         <dependency>
             <groupId>org.lotus.carp</groupId>
