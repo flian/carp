@@ -51,7 +51,7 @@ mvn deploy -Dmaven.test.skip=true
 版本发布：
 see [maven-release-plugin](http://maven.apache.org/maven-release/maven-release-plugin/prepare-mojo.html) for more detail
 
-mvn release:prepare
-
+预备：mvn release:prepare
+发布：mvn release:perform
 
 
