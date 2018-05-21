@@ -45,3 +45,6 @@ master 为开发分支，不固定更新
 发布时采用release分支
 更多模块详情，请查看对应模块README描述
 
+发布：
+mvn deploy -Dmaven.test.skip=true
+

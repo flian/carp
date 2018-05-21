@@ -60,6 +60,11 @@
             <url>http://maven.aliyun.com/nexus/content/groups/public/</url>
         </repository>
         <repository>
+            <id>carpmaven</id>
+            <name>carp maven</name>
+            <url>http://114.118.13.103:8888/nexus/content/groups/public/</url>
+        </repository>
+        <repository>
             <id>macula-repo</id>
             <name>macula-repo</name>
             <url>http://maven.infinitus.com.cn:8081/nexus/content/groups/public</url>
@@ -243,14 +248,14 @@
     <distributionManagement>
         <!-- publish releases and snapshots private nexus repository. -->
         <repository>
-            <id>releases</id>
+            <id>carp_releases</id>
             <name>Releases</name>
-            <url>http://10.71.161.109:8081/repository/maven-release/</url>
+            <url>http://114.118.13.103:8888/nexus/content/repositories/releases</url>
         </repository>
         <snapshotRepository>
-            <id>snapshots</id>
+            <id>carp_snapshots</id>
             <name>Snapshots</name>
-            <url>http://10.71.161.109:8081/repository/maven-snapshots/</url>
+            <url>http://114.118.13.103:8888/nexus/content/repositories/snapshots</url>
         </snapshotRepository>
     </distributionManagement>
 </project>
