@@ -51,3 +51,11 @@ spring:
 #flyway配置
 flyway:
   enabled: false
+#carp配置
+carp:
+  config:
+    default-title: "Carp"
+    version:  "0.1.0"
+    versionStatus: "RC"
+    expose-static-classes: []
+    expose-bean-names:  ["carpConfig"]
