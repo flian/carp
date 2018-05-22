@@ -65,6 +65,6 @@ carp:
     #登录页面的字
     login-text: "login"
     #是否显示导航上没有实现的链接
-    show-unused-icons:  false
+    show-unused-icons:  true
     expose-static-classes: []
     expose-bean-names:  ["carpConfig"]
