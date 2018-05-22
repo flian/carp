@@ -10,12 +10,10 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.web.ErrorController;
 import org.springframework.security.access.AccessDeniedException;
-import org.springframework.security.authentication.AuthenticationServiceException;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.access.AccessDeniedHandler;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -39,6 +37,9 @@ public class DashboardController extends AdminBaseController implements AccessDe
     private static final String ERROR_PATH = "/error";
     private static Logger logger = LoggerFactory.getLogger(DashboardController.class);
 
+    @Autowired(required = false)
+    private CustomerDashboard customerDashboard;
+
     @Autowired
     private MenuConverter menuConverter;
     @Autowired
@@ -47,6 +48,9 @@ public class DashboardController extends AdminBaseController implements AccessDe
 
     @GetMapping(value = {"", "/index", "/home", "/dashboard"})
     public String index() {
+        if (null != customerDashboard) {
+            return customerDashboard.dashboard();
+        }
         return "/dashboard";
     }
 
@@ -57,11 +61,10 @@ public class DashboardController extends AdminBaseController implements AccessDe
     }
 
 
-
     @RequestMapping(ERROR_PATH)
     @ResponseBody
     public String error(Exception e) {
-        return String.format("超人，出错啦！ 我们马上回来。- %s",e.getMessage());
+        return String.format("超人，出错啦！ 我们马上回来。- %s", e.getMessage());
     }
 
 
@@ -75,9 +78,9 @@ public class DashboardController extends AdminBaseController implements AccessDe
                     + "' attempted to access the protected URL: "
                     + httpServletRequest.getRequestURI());
         }
-        if(isAjax(request())){
+        if (isAjax(request())) {
             httpServletResponse.sendRedirect(httpServletRequest.getContextPath() + "/403");
-        }else {
+        } else {
             httpServletResponse.sendRedirect(httpServletRequest.getContextPath() + "/forbidden");
         }
     }
@@ -89,7 +92,7 @@ public class DashboardController extends AdminBaseController implements AccessDe
     }
 
     @GetMapping("/forbidden")
-    public String accessDenied(){
+    public String accessDenied() {
         return "security/403";
     }
 
@@ -104,7 +107,7 @@ public class DashboardController extends AdminBaseController implements AccessDe
         return response().execSuccess(list);
     }
 
-    private boolean isAjax(HttpServletRequest request){
+    private boolean isAjax(HttpServletRequest request) {
         String requestedWithHeader = request.getHeader("X-Requested-With");
         return "XMLHttpRequest".equals(requestedWithHeader);
     }
