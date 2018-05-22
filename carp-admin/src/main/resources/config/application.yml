@@ -51,3 +51,20 @@ spring:
 #flyway配置
 flyway:
   enabled: false
+#carp配置
+carp:
+  config:
+  #默认页面的title
+    default-title: "Carp Demo"
+    #项目版本号
+    version:  "V0.1.0"
+    #版本状态
+    version-status: "RC"
+    #项目名称,各种地方用到
+    project-name: "Carp"
+    #登录页面的字
+    login-text: "login"
+    #是否显示导航上没有实现的链接
+    show-unused-icons:  true
+    expose-static-classes: []
+    expose-bean-names:  ["carpConfig"]

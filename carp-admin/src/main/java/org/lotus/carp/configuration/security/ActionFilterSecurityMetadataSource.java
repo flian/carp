@@ -3,8 +3,8 @@ package org.lotus.carp.configuration.security;
 import lombok.Setter;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
-import org.lotus.carp.security.domain.Action;
 import org.lotus.carp.base.event.SecurityResourceChangedEvent;
+import org.lotus.carp.security.domain.Action;
 import org.lotus.carp.security.repository.ActionRepository;
 import org.lotus.carp.security.repository.RoleRepository;
 import org.lotus.carp.security.vo.SecurityActionResult;
@@ -19,6 +19,7 @@ import org.springframework.context.annotation.PropertySource;
 import org.springframework.context.event.EventListener;
 import org.springframework.security.access.ConfigAttribute;
 import org.springframework.security.access.SecurityConfig;
+import org.springframework.security.access.vote.AuthenticatedVoter;
 import org.springframework.security.web.FilterInvocation;
 import org.springframework.security.web.access.intercept.DefaultFilterInvocationSecurityMetadataSource;
 import org.springframework.security.web.util.matcher.RegexRequestMatcher;
@@ -52,6 +53,9 @@ public class ActionFilterSecurityMetadataSource extends DefaultFilterInvocationS
     @Setter
     private String securityUrlPattern;
 
+    @Setter
+    private String authenticatedUrlPattern;
+
     @Autowired
     private ActionRepository actionRepository;
     @Autowired
@@ -63,8 +67,11 @@ public class ActionFilterSecurityMetadataSource extends DefaultFilterInvocationS
     public static final ConfigAttribute NO_PERMISSION_ROLE = new SecurityConfig("_ROLE_PRIVATE_");
 
     public static final ConfigAttribute SECURITY_PERMISSION_ROLE = new SecurityConfig("ROLE_SECURITY");
-    private ConfigAttribute securityUrlRole = SECURITY_PERMISSION_ROLE;
 
+    public static final ConfigAttribute AUTHENTICATED_FULLY = new SecurityConfig(AuthenticatedVoter.IS_AUTHENTICATED_FULLY);
+
+    private ConfigAttribute securityUrlRole = SECURITY_PERMISSION_ROLE;
+    private ConfigAttribute authenticatedFull = AUTHENTICATED_FULLY;
 
     /**
      * Sets the internal request map from the supplied map. The key elements should be of
@@ -88,6 +95,11 @@ public class ActionFilterSecurityMetadataSource extends DefaultFilterInvocationS
         if (StringUtils.isNotEmpty(publicUrlPattern) && invocation.getRequestUrl().matches(publicUrlPattern)) {
             return null;
         }
+        //需要登录的url
+        if (StringUtils.isNotEmpty(authenticatedUrlPattern) && invocation.getRequestUrl().matches(authenticatedUrlPattern)) {
+            return Collections.singleton(authenticatedFull);
+        }
+
         for (RequestActionMapping<RequestMatcher> mapping : cachedRoleMappings) {
             RequestMatcher matcher = mapping.getMatcher();
             if (matcher.matches(request)) {
@@ -103,11 +115,11 @@ public class ActionFilterSecurityMetadataSource extends DefaultFilterInvocationS
 
     @EventListener
     public void handleRefresh(SecurityResourceChangedEvent event) {
-        if(logger.isInfoEnabled()){
+        if (logger.isInfoEnabled()) {
             logger.info("start refresh.." + event.getCode());
         }
         reload();
-        if(logger.isInfoEnabled()){
+        if (logger.isInfoEnabled()) {
             logger.info("end refresh.." + event.getCode());
         }
     }
