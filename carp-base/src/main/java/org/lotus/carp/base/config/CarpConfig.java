@@ -17,7 +17,7 @@ import org.springframework.stereotype.Component;
 @ConfigurationProperties(prefix = "carp.config")
 @Data
 @Component("carpConfig")
-@ConditionalOnMissingBean
+@ConditionalOnMissingBean(name = "carpConfig")
 public class CarpConfig {
     private String defaultTitle;
     private String version;
