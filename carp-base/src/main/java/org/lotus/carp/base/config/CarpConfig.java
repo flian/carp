@@ -21,7 +21,10 @@ import java.io.Serializable;
 public class CarpConfig implements Serializable {
     private static final long serialVersionUID = -8360122653581869435L;
     private String defaultTitle;
+    private String projectName;
+    private boolean showUnusedIcons;
     private String version;
+    private String loginText;
     private String versionStatus;
     private String[] exposeBeanNames;
     private String[] exposeStaticClasses;
