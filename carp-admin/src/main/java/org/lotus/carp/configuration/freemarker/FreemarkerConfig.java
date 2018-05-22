@@ -7,6 +7,7 @@ import org.lotus.carp.base.config.CarpConfig;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.AutoConfigureAfter;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer;
 import org.springframework.web.servlet.view.freemarker.FreeMarkerViewResolver;
@@ -23,6 +24,7 @@ import java.util.List;
  * Time: 11:30 AM
  */
 @Configuration
+@AutoConfigureAfter(CarpConfig.class)
 public class FreemarkerConfig {
     private static final String preFIx = "";
     private static Logger logger = LoggerFactory.getLogger(FreemarkerConfig.class);
@@ -45,17 +47,22 @@ public class FreemarkerConfig {
     @Autowired
     public void configureFreemarker(FreeMarkerViewResolver resolver, CarpConfig carpConfig) {
         //设置某些静态方法
-        List<Class> classList = new ArrayList<>();
-        Arrays.stream(carpConfig.getExposeStaticClasses()).forEach(className -> {
-            try {
-                classList.add(Class.forName(className));
-            } catch (ClassNotFoundException e) {
-                logger.error("找不到class:" + className, e);
-            }
-        });
-        configStaticConst(resolver, classList);
+        if (null != carpConfig.getExposeStaticClasses()) {
+            List<Class> classList = new ArrayList<>();
+            Arrays.stream(carpConfig.getExposeStaticClasses()).forEach(className -> {
+                try {
+                    classList.add(Class.forName(className));
+                } catch (ClassNotFoundException e) {
+                    logger.error("找不到class:" + className, e);
+                }
+            });
+            configStaticConst(resolver, classList);
+        }
+
         //设置页面可访问的bean
-        resolver.setExposedContextBeanNames(carpConfig.getExposeBeanNames());
+        if (null != carpConfig.getExposeBeanNames() && carpConfig.getExposeBeanNames().length > 0) {
+            resolver.setExposedContextBeanNames(carpConfig.getExposeBeanNames());
+        }
     }
 
 

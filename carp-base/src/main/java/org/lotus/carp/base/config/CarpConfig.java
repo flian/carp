@@ -1,10 +1,11 @@
 package org.lotus.carp.base.config;
 
 import lombok.Data;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.stereotype.Component;
+
+import java.io.Serializable;
 
 /**
  * Carp 框架配置
@@ -17,8 +18,8 @@ import org.springframework.stereotype.Component;
 @ConfigurationProperties(prefix = "carp.config")
 @Data
 @Component("carpConfig")
-@ConditionalOnMissingBean(name = "carpConfig")
-public class CarpConfig {
+public class CarpConfig implements Serializable {
+    private static final long serialVersionUID = -8360122653581869435L;
     private String defaultTitle;
     private String version;
     private String versionStatus;
