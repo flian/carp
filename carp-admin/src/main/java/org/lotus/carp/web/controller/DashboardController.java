@@ -1,5 +1,6 @@
 package org.lotus.carp.web.controller;
 
+import com.google.common.base.Strings;
 import org.lotus.carp.base.vo.ResponseWrapper;
 import org.lotus.carp.security.convter.MenuConverter;
 import org.lotus.carp.security.service.impl.MenuServiceImpl;
@@ -49,7 +50,10 @@ public class DashboardController extends AdminBaseController implements AccessDe
     @GetMapping(value = {"", "/index", "/home", "/dashboard"})
     public String index() {
         if (null != customerDashboard) {
-            return customerDashboard.dashboard();
+            String customResult = customerDashboard.dashboard();
+            if(!Strings.isNullOrEmpty(customResult)){
+                return customResult;
+            }
         }
         return "/dashboard";
     }
