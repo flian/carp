@@ -4,9 +4,9 @@
             <!-- Logo -->
             <a href="${rc.contextPath}" class="logo">
                 <!-- mini logo for sidebar mini 50x50 pixels -->
-                <span class="logo-mini"><b>CARP</b>V1.0</span>
+                <span class="logo-mini"><b>${carpConfig.projectName}</b>${carpConfig.version}</span>
                 <!-- logo for regular state and mobile devices -->
-                <span class="logo-lg"><b>CARP</b>V1.0</span>
+                <span class="logo-lg"><b>${carpConfig.projectName}</b>${carpConfig.version}</span>
             </a>
 
             <!-- Header Navbar: style can be found in header.less -->
@@ -27,10 +27,12 @@
                     <ul class="nav navbar-nav">
                         <!-- Messages: style can be found in dropdown.less-->
                         <li class="dropdown messages-menu">
+                        <#if  carpConfig.showUnusedIcons>
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                                 <i class="fa fa-envelope-o"></i>
                                 <span class="label label-success">4</span>
                             </a>
+                        </#if>
                             <ul class="dropdown-menu">
                                 <li class="header">You have 4 messages</li>
                                 <li>
@@ -293,25 +295,29 @@
             <section class="sidebar">
                 <!-- Sidebar user panel -->
                 <div class="user-panel">
+                <#if  carpConfig.showUnusedIcons>
                     <div class="pull-left image">
                         <img src="${rc.contextPath}/webjars/AdminLTE/dist/img/avatar2.png" class="img-circle"
                              alt="User Image">
                     </div>
                     <div class="pull-left info">
                         <p><#include "../layout/widget/currentUserName.ftl"/></p>
-                        <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
+                        <a href="#"><i class="fa fa-circle text-success"></i> 在线</a>
                     </div>
+                    </#if>
                 </div>
                 <!-- search form -->
+            <#if carpConfig.showUnusedIcons>
                 <form action="#" method="get" class="sidebar-form">
                     <div class="input-group">
                         <input type="text" name="q" class="form-control" placeholder="Search...">
                         <span class="input-group-btn">
-                <button type="submit" name="search" id="search-btn" class="btn btn-flat"><i class="fa fa-search"></i>
-                </button>
-              </span>
+                        <button type="submit" name="search" id="search-btn" class="btn btn-flat"><i class="fa fa-search"></i>
+                        </button>
+                        </span>
                     </div>
                 </form>
+            </#if>
                 <!-- /.search form -->
                 <!-- sidebar menu: : style can be found in sidebar.less -->
                 <ul class="sidebar-menu">
