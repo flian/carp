@@ -58,13 +58,10 @@ public class LoginController {
         ProfileUtil.session().setAttribute(sessionKey, capText);
         //创建含文本的图片
         BufferedImage bi = kaptchaProducer.createImage(capText);
-        ServletOutputStream out = response.getOutputStream();
-        // 画出此图片并展示到页面上（request.getOutputStream)
-        ImageIO.write(bi, "jpg", out);
-        try {
-            out.flush();
-        } finally {
-            out.close();
+        
+        try (ServletOutputStream out = response.getOutputStream()) {
+            // 画出此图片并展示到页面上（request.getOutputStream)
+            ImageIO.write(bi, "jpg", out);
         }
     }
 }

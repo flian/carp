@@ -4,9 +4,9 @@
             <!-- Logo -->
             <a href="${rc.contextPath}" class="logo">
                 <!-- mini logo for sidebar mini 50x50 pixels -->
-                <span class="logo-mini"><b>CARP</b>V1.0</span>
+                <span class="logo-mini"><b>${carpConfig.projectName}</b>${carpConfig.version}</span>
                 <!-- logo for regular state and mobile devices -->
-                <span class="logo-lg"><b>CARP</b>V1.0</span>
+                <span class="logo-lg"><b>${carpConfig.projectName}</b>${carpConfig.version}</span>
             </a>
 
             <!-- Header Navbar: style can be found in header.less -->
@@ -27,10 +27,12 @@
                     <ul class="nav navbar-nav">
                         <!-- Messages: style can be found in dropdown.less-->
                         <li class="dropdown messages-menu">
+                        <#if  carpConfig.showUnusedIcons>
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                                 <i class="fa fa-envelope-o"></i>
                                 <span class="label label-success">4</span>
                             </a>
+                        </#if>
                             <ul class="dropdown-menu">
                                 <li class="header">You have 4 messages</li>
                                 <li>
@@ -109,10 +111,12 @@
                         </li>
                         <!-- Notifications: style can be found in dropdown.less -->
                         <li class="dropdown notifications-menu">
+                        <#if  carpConfig.showUnusedIcons>
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                                 <i class="fa fa-bell-o"></i>
                                 <span class="label label-warning">10</span>
                             </a>
+                            </#if>
                             <ul class="dropdown-menu">
                                 <li class="header">You have 10 notifications</li>
                                 <li>
@@ -153,10 +157,12 @@
                         </li>
                         <!-- Tasks: style can be found in dropdown.less -->
                         <li class="dropdown tasks-menu">
+                        <#if  carpConfig.showUnusedIcons>
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                                 <i class="fa fa-flag-o"></i>
                                 <span class="label label-danger">9</span>
                             </a>
+                            </#if>
                             <ul class="dropdown-menu">
                                 <li class="header">You have 9 tasks</li>
                                 <li>
@@ -236,12 +242,15 @@
                         <!-- User Account: style can be found in dropdown.less -->
                         <li class="dropdown user user-menu">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            <#if  carpConfig.showUnusedIcons>
                                 <img src="${rc.contextPath}/webjars/AdminLTE/dist/img/avatar2.png" class="user-image"
                                      alt="User Image">
+                                </#if>
                                 <span class="hidden-xs"><#include "../layout/widget/currentUserName.ftl"/></span>
                             </a>
                             <ul class="dropdown-menu">
                                 <!-- User image -->
+                                <#if  carpConfig.showUnusedIcons>
                                 <li class="user-header">
                                     <img src="${rc.contextPath}/webjars/AdminLTE/dist/img/avatar2.png"
                                          class="img-circle"
@@ -252,6 +261,7 @@
                                         <small>Member since Nov. 2012</small>
                                     </p>
                                 </li>
+
                                 <!-- Menu Body -->
                                 <li class="user-body">
                                     <div class="row">
@@ -267,13 +277,16 @@
                                     </div>
                                     <!-- /.row -->
                                 </li>
+                                </#if>
                                 <!-- Menu Footer-->
                                 <li class="user-footer">
+                                    <#if  carpConfig.showUnusedIcons>
                                     <div class="pull-left">
                                         <a href="#" class="btn btn-default btn-flat">Profile</a>
                                     </div>
+                                    </#if>
                                     <div class="pull-right">
-                                        <a href="${rc.contextPath}/logout" class="btn btn-default btn-flat">Sign out</a>
+                                        <a href="${rc.contextPath}/logout" class="btn btn-default btn-flat">退出</a>
                                     </div>
                                 </li>
                             </ul>
@@ -293,29 +306,35 @@
             <section class="sidebar">
                 <!-- Sidebar user panel -->
                 <div class="user-panel">
+                <#if  carpConfig.showUnusedIcons>
                     <div class="pull-left image">
                         <img src="${rc.contextPath}/webjars/AdminLTE/dist/img/avatar2.png" class="img-circle"
                              alt="User Image">
                     </div>
                     <div class="pull-left info">
                         <p><#include "../layout/widget/currentUserName.ftl"/></p>
-                        <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
+                        <a href="#"><i class="fa fa-circle text-success"></i> 在线</a>
                     </div>
+                    </#if>
                 </div>
                 <!-- search form -->
+            <#if carpConfig.showUnusedIcons>
                 <form action="#" method="get" class="sidebar-form">
                     <div class="input-group">
                         <input type="text" name="q" class="form-control" placeholder="Search...">
                         <span class="input-group-btn">
-                <button type="submit" name="search" id="search-btn" class="btn btn-flat"><i class="fa fa-search"></i>
-                </button>
-              </span>
+                        <button type="submit" name="search" id="search-btn" class="btn btn-flat"><i class="fa fa-search"></i>
+                        </button>
+                        </span>
                     </div>
                 </form>
+            </#if>
                 <!-- /.search form -->
                 <!-- sidebar menu: : style can be found in sidebar.less -->
                 <ul class="sidebar-menu">
+                <#if  carpConfig.showUnusedIcons>
                     <li class="header"></li>
+                </#if>
                     <li :class="leftMenuActiveClass(menu)" v-for="(menu,index) in leftMenus">
                         <a href="#" @click="leftMenuActiveId == menu.id ? leftMenuActiveId=-999: leftMenuActiveId=menu.id">
                             <i :class="leftMenuClass(index)"></i>

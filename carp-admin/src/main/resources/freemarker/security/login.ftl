@@ -29,7 +29,7 @@
 <body class="hold-transition login-page">
 <div class="login-box">
     <div class="login-logo">
-        <a href="#"><b>CARP</b>login</a>
+        <a href="#"><b>${carpConfig.projectName}</b>${carpConfig.loginText}</a>
     </div>
     <!-- /.login-logo -->
     <div class="login-box-body">
@@ -43,11 +43,11 @@
     </#if>
         <form action="${rc.contextPath}/login" method="post">
             <div class="form-group has-feedback">
-                <input name="username" type="text" class="form-control" placeholder="用户名" value="admin">
+                <input name="username" type="text" class="form-control" placeholder="用户名" value="${carpConfig.loginUserName}">
                 <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
             </div>
             <div class="form-group has-feedback">
-                <input name="password" type="password" class="form-control" placeholder="密码，至少6位字母、数字组合" value="admin123">
+                <input name="password" type="password" class="form-control" placeholder="密码，至少6位字母、数字组合" value="${carpConfig.loginUserPassword}">
                 <span class="glyphicon glyphicon-lock form-control-feedback"></span>
             </div>
             <#if needCaptcha>
