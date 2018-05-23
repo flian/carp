@@ -286,7 +286,7 @@
                                     </div>
                                     </#if>
                                     <div class="pull-right">
-                                        <a href="${rc.contextPath}/logout" class="btn btn-default btn-flat">Sign out</a>
+                                        <a href="${rc.contextPath}/logout" class="btn btn-default btn-flat">退出</a>
                                     </div>
                                 </li>
                             </ul>

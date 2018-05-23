@@ -64,6 +64,8 @@ carp:
     project-name: "Carp"
     #登录页面的字
     login-text: "login"
+    login-user-name: "admin"
+    login-user-password:  "Admin123"
     #是否显示导航上没有实现的链接
     show-unused-icons:  true
     expose-static-classes: []

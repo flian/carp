@@ -23,6 +23,8 @@ public class CarpConfig implements Serializable {
     private String defaultTitle;
     private String projectName;
     private boolean showUnusedIcons;
+    private String loginUserName;
+    private String loginUserPassword;
     private String version;
     private String loginText;
     private String versionStatus;
