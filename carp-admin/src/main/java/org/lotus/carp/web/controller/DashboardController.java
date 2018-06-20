@@ -71,7 +71,7 @@ public class DashboardController extends AdminBaseController implements AccessDe
 
     @GetMapping(value = {"/welcome"})
     public String welcome() {
-        return "/home/welcome";
+        return "/welcome";
     }
 
     @Override

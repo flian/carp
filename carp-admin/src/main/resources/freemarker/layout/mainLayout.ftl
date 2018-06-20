@@ -50,7 +50,11 @@
     </div>
 
     <!-- Content Wrapper. Contains page content -->
+    <#if carpConfig.defaultTheme>
     <div class="content-wrapper">
+        <#else >
+        <div class="content-wrapper" style="margin-left: 0px">
+    </#if>
         <!-- Content Header (Page header) -->
         <section class="content-header">
             <h1>
