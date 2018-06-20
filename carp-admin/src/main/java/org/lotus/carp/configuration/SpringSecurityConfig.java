@@ -1,6 +1,7 @@
 package org.lotus.carp.configuration;
 
 import lombok.Setter;
+import org.lotus.carp.base.config.CarpConfig;
 import org.lotus.carp.configuration.security.ActionFilterSecurityMetadataSource;
 import org.lotus.carp.configuration.security.AuthFailureHandler;
 import org.lotus.carp.configuration.security.CaptchaUsernamePasswordAuthenticationFilter;
@@ -27,6 +28,7 @@ import org.springframework.security.web.access.expression.WebExpressionVoter;
 import org.springframework.security.web.access.intercept.FilterSecurityInterceptor;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
+import javax.annotation.Resource;
 import java.util.Arrays;
 import java.util.List;
 
@@ -53,6 +55,9 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
     private AuthFailureHandler authFailureHandler;
+
+    @Resource(name = "carpConfig")
+    private CarpConfig carpConfig;
 
     @Setter
     private boolean captchaEnable = true;
@@ -103,9 +108,13 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
                 .permitAll()
                 .and()
                 .exceptionHandling().accessDeniedHandler(accessDeniedHandler);
+        //使用hui-admin主题
+        if(null != carpConfig && carpConfig.isHuiAdminTheme()){
+            //允许frame调用
+            http.headers().frameOptions().disable();
+        }
     }
 
-    // create two users, admin and user
     @Autowired
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());

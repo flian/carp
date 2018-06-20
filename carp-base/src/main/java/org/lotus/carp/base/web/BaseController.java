@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created with IntelliJ IDEA.
+ * admin后台通用基础controller
  * @author : Foy Lian
  * Date: 8/2/2017
  * Time: 3:03 PM

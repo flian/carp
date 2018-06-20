@@ -5,7 +5,7 @@ import lombok.Data;
 import java.io.Serializable;
 
 /**
- * Created with IntelliJ IDEA.
+ *  角色、资源改变事件实体
  *
  * @author: Foy Lian
  * Date: 11/28/2017

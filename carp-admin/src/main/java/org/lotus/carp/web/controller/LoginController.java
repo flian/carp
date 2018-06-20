@@ -16,7 +16,7 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 
 /**
- * Created with IntelliJ IDEA.
+ * admin登录及验证码
  *
  * @author: Foy Lian
  * Date: 11/29/2017

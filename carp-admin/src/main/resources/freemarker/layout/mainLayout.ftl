@@ -44,10 +44,17 @@
 <body class="hold-transition skin-blue sidebar-mini">
 <div class="wrapper">
     <div id="navApp">
+        <#if carpConfig.defaultTheme>
         <main-nav-component></main-nav-component>
+        </#if>
     </div>
+
     <!-- Content Wrapper. Contains page content -->
+    <#if carpConfig.defaultTheme>
     <div class="content-wrapper">
+        <#else >
+        <div class="content-wrapper" style="margin-left: 0px">
+    </#if>
         <!-- Content Header (Page header) -->
         <section class="content-header">
             <h1>
