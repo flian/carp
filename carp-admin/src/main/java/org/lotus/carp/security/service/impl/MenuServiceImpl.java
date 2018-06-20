@@ -63,6 +63,9 @@ public class MenuServiceImpl extends BaseService<MenuRepository, Menu, Integer, 
         Set<Menu> userMenus = new HashSet<>();
         List<Menu> result = new ArrayList<>();
         User user = userRepository.findByUserName(userName);
+        if (null == user) {
+            return Collections.emptyList();
+        }
         Set<Role> roles = user.getRoles();
         if (CollectionUtils.isNotEmpty(roles)) {
             roles.forEach(role -> {
@@ -71,11 +74,11 @@ public class MenuServiceImpl extends BaseService<MenuRepository, Menu, Integer, 
                     roleMenus.forEach(menu -> {
                         userMenus.add(menu);
                         Menu rr = menu;
-                        while (rr!=null && rr.getParentId() > 0) {
+                        while (rr != null && rr.getParentId() > 0) {
                             Menu parentMenu = menuRepository.findOne(rr.getParentId());
                             if (!userMenus.contains(parentMenu)) {
                                 userMenus.add(parentMenu);
-                            }else {
+                            } else {
                                 break;
                             }
                             rr = parentMenu;

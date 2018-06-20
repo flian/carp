@@ -5,7 +5,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>1.5.6.RELEASE</version>
+        <version>1.5.14.RELEASE</version>
     </parent>
 
     <groupId>org.lotus.carp</groupId>
@@ -50,7 +50,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <java.source.version>1.8</java.source.version>
         <java.target.version>1.8</java.target.version>
-        <springboot.starter.version>1.5.6.RELEASE</springboot.starter.version>
+        <springboot.starter.version>1.5.14.RELEASE</springboot.starter.version>
         <spring.springloaded.version>1.2.0.RELEASE</spring.springloaded.version>
         <poi.version>3.16</poi.version>
         <junit.version>4.12</junit.version>

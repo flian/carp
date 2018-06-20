@@ -20,6 +20,7 @@ import java.io.Serializable;
 @Component("carpConfig")
 public class CarpConfig implements Serializable {
     private static final long serialVersionUID = -8360122653581869435L;
+    private static String[] themes = {"adminLTE", "huiAdmin"};
     private String defaultTitle;
     private String projectName;
     private boolean showUnusedIcons;
@@ -30,4 +31,13 @@ public class CarpConfig implements Serializable {
     private String versionStatus;
     private String[] exposeBeanNames;
     private String[] exposeStaticClasses;
+    private String theme = themes[0];
+
+    public boolean isDefaultTheme() {
+        return themes[0].equals(theme);
+    }
+
+    public boolean isHuiAdminTheme() {
+        return themes[1].equals(theme);
+    }
 }
