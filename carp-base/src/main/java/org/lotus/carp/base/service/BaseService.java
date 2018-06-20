@@ -13,7 +13,7 @@ import java.io.Serializable;
 import java.util.List;
 
 /**
- * Created with IntelliJ IDEA.
+ *  泛型服务方法基类，提供基本的CRUD操作
  *
  * @author: Foy Lian
  * Date: 11/10/2017

@@ -20,7 +20,7 @@ import javax.sql.DataSource;
 import java.sql.SQLException;
 
 /**
- * Created with IntelliJ IDEA.
+ * Druid datasource configuration
  *
  * @author: Foy Lian
  * Date: 11/15/2017

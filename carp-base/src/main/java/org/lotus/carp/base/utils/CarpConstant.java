@@ -1,7 +1,7 @@
 package org.lotus.carp.base.utils;
 
 /**
- * Created with IntelliJ IDEA.
+ *  carp常量配置
  *
  * @author: Foy Lian
  * Date: 11/16/2017

@@ -40,6 +40,17 @@ mobile端
 >carp-webapp
 包含全部
 
+## 命名规则
+
+### vo规则
+> 尽量统一采用驼峰命名
+
+> 需要入库的数据，使用Dto后缀
+
+> 查询的参数可用Query等后缀的bean
+
+> service层的返回值统一使用Result后缀的bean. (考虑持久层的PO和视图层解耦)
+
 ## 其他
 master 为开发分支，不固定更新
 发布时采用release分支

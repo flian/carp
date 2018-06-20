@@ -5,7 +5,7 @@ import lombok.Data;
 import java.io.Serializable;
 
 /**
- * Created with IntelliJ IDEA.
+ *  admin后台通用response 包装
  *
  * @author : Foy Lian
  *         Date: 8/2/2017
