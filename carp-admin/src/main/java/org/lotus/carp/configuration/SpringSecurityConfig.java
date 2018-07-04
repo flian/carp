@@ -109,7 +109,8 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .exceptionHandling().accessDeniedHandler(accessDeniedHandler);
         //使用hui-admin主题
-        if(null != carpConfig && carpConfig.isHuiAdminTheme()){
+        if (null != carpConfig &&
+                (carpConfig.isDisableFrameOptions() || carpConfig.isHuiAdminTheme())) {
             //允许frame调用
             http.headers().frameOptions().disable();
         }

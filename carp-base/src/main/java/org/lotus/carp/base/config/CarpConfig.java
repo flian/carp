@@ -32,6 +32,7 @@ public class CarpConfig implements Serializable {
     private String[] exposeBeanNames;
     private String[] exposeStaticClasses;
     private String theme = themes[0];
+    private boolean disableFrameOptions = false;
 
     public boolean isDefaultTheme() {
         return themes[0].equals(theme);
