@@ -39,6 +39,7 @@
         </el-dialog>
 
     </div>
+</section>
 </@layout.main>
 <#macro myPageJS>
     <script>
@@ -226,5 +227,5 @@
             }
         })
     </script>
-</section>
+
 </#macro>
