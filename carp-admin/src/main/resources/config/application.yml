@@ -70,3 +70,5 @@ carp:
     show-unused-icons:  true
     expose-static-classes: []
     expose-bean-names:  ["carpConfig"]
+    theme: "adminLTE"
+    #theme: "huiAdmin"

@@ -40,6 +40,14 @@
 
     <!--carp common css-->
     <link rel="stylesheet" href="${rc.contextPath}/css/common.css">
+    <style type="text/css">
+        <#-- for huiadmin css -->
+    <#if carpConfig.defaultTheme == false>
+        .content-wrapper, .main-footer {
+            margin-left: 0px;
+        }
+    </#if>
+    </style>
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
 <div class="wrapper">
@@ -50,11 +58,7 @@
     </div>
 
     <!-- Content Wrapper. Contains page content -->
-    <#if carpConfig.defaultTheme>
     <div class="content-wrapper">
-        <#else >
-        <div class="content-wrapper" style="margin-left: 0px">
-    </#if>
         <!-- Content Header (Page header) -->
         <section class="content-header">
             <h1>
