@@ -112,7 +112,7 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
         if (null != carpConfig &&
                 (carpConfig.isDisableFrameOptions() || carpConfig.isHuiAdminTheme())) {
             //允许frame调用
-            http.headers().frameOptions().disable();
+            http.headers().frameOptions().sameOrigin();
         }
     }
 
