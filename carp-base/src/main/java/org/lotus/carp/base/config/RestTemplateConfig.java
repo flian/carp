@@ -26,7 +26,10 @@ public class RestTemplateConfig {
     @Bean
     @ConditionalOnMissingBean
     public RestTemplate globalRestTemplate() {
-        RestTemplate restTemplate = new RestTemplate(new BufferingClientHttpRequestFactory(new SimpleClientHttpRequestFactory()));
+        SimpleClientHttpRequestFactory clientFactory = new SimpleClientHttpRequestFactory();
+        clientFactory.setConnectTimeout(20000);
+        clientFactory.setReadTimeout(20000);
+        RestTemplate restTemplate = new RestTemplate(new BufferingClientHttpRequestFactory(clientFactory));
         List<ClientHttpRequestInterceptor> interceptors = new ArrayList<>();
         interceptors.add(new LoggingRequestInterceptor());
         restTemplate.setInterceptors(interceptors);
