@@ -28,7 +28,7 @@ public class CardConverter implements Converter<Card, CardResult> {
     }
 
     public Page<CardResult> toPageList(Page<Card> cards) {
-        return cards.map(this);
+        return cards.map(this::convert);
     }
 
     public CardResult toResult(Card card) {

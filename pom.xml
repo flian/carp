@@ -51,6 +51,7 @@
         <java.target.version>1.8</java.target.version>
         <springboot.starter.version>2.0.4.RELEASE</springboot.starter.version>
         <spring.springloaded.version>1.2.8.RELEASE</spring.springloaded.version>
+        <spock.version>1.1-groovy-2.4</spock.version>
         <poi.version>3.16</poi.version>
         <junit.version>4.12</junit.version>
         <mysql.jdbc.version>5.1.34</mysql.jdbc.version>
@@ -63,6 +64,7 @@
         <jxsl.poi.version>1.0.13</jxsl.poi.version>
         <jxls.version>2.4.0</jxls.version>
         <log4jdbc.version>1.2</log4jdbc.version>
+        <kaptcha.version>2.3.2</kaptcha.version>
     </properties>
     <repositories>
         <repository>
@@ -164,8 +166,9 @@
             <dependency>
                 <groupId>com.github.penggle</groupId>
                 <artifactId>kaptcha</artifactId>
-                <version>2.3.2</version>
+                <version>${kaptcha.version}</version>
             </dependency>
+
         </dependencies>
     </dependencyManagement>
     <dependencies>
@@ -176,6 +179,7 @@
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
+            <scope>provided</scope>
         </dependency>
         <!-- test scope dependency-->
         <dependency>
@@ -192,11 +196,13 @@
         <dependency>
             <groupId>org.spockframework</groupId>
             <artifactId>spock-core</artifactId>
+            <version>${spock.version}</version>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.spockframework</groupId>
             <artifactId>spock-spring</artifactId>
+            <version>${spock.version}</version>
             <scope>test</scope>
         </dependency>
         <dependency>
