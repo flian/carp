@@ -9,7 +9,7 @@
 
     <groupId>org.lotus.carp</groupId>
     <artifactId>carp-parent</artifactId>
-    <version>0.2.0</version>
+    <version>0.3.0-SNAPSHOT</version>
     <packaging>pom</packaging>
 
     <name>carp-parent</name>
@@ -43,7 +43,7 @@
         <connection>scm:git:git@github.com:flian/carp.git</connection>
         <developerConnection>scm:git:git@github.com:flian/carp.git</developerConnection>
         <url>git@github.com:flian/carp.git</url>
-        <tag>carp-parent-0.2.0</tag>
+        <tag>HEAD</tag>
     </scm>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
