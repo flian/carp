@@ -1,7 +1,8 @@
 #common基础配置
 server:
     port: 8081
-    context-path: /admin
+    servlet:
+      context-path: /admin
 spring:
     datasource:
         name: adminPrdEnv
