@@ -4,7 +4,7 @@ import lombok.Data;
 import org.lotus.carp.security.vo.SecurityActionResult;
 
 /**
- * Created with IntelliJ IDEA.
+ *  request action mapping
  *
  * @author: Foy Lian
  * Date: 11/22/2017

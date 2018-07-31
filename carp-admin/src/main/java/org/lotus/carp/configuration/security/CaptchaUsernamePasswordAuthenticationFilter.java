@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Created with IntelliJ IDEA.
+ * 带可选验证码的登录filter
  *
  * @author: Foy Lian
  * Date: 11/28/2017

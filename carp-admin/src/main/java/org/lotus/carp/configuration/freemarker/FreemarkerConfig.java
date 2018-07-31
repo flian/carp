@@ -17,7 +17,7 @@ import java.util.Arrays;
 import java.util.List;
 
 /**
- * Created with IntelliJ IDEA.
+ *  freemarker 全局配置
  *
  * @author: Foy Lian
  * Date: 4/27/2018

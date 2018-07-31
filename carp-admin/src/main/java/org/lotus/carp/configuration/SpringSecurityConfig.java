@@ -36,8 +36,8 @@ import java.util.List;
  * Created with IntelliJ IDEA.
  *
  * @author : Foy Lian
- *         Date: 8/3/2017
- *         Time: 10:47 AM
+ * Date: 8/3/2017
+ * Time: 10:47 AM
  */
 @Configuration
 @EnableWebSecurity
@@ -109,11 +109,31 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .exceptionHandling().accessDeniedHandler(accessDeniedHandler);
         //使用hui-admin主题
-        if (null != carpConfig &&
-                (carpConfig.isDisableFrameOptions() || carpConfig.isHuiAdminTheme())) {
+        if (shouldEnableFrameCrossDomain()) {
             //允许frame调用
-            http.headers().frameOptions().sameOrigin();
+            if (carpConfig.isDisableFrameOptions()) {
+                http.headers().frameOptions().disable();
+            } else {
+                http.headers().frameOptions().sameOrigin();
+            }
+
         }
+    }
+
+    private boolean shouldEnableFrameCrossDomain() {
+        if (null == carpConfig) {
+            return false;
+        }
+        if (carpConfig.isSameOrigin()) {
+            return true;
+        }
+        if (carpConfig.isHuiAdminTheme()) {
+            return true;
+        }
+        if (carpConfig.isDisableFrameOptions()) {
+            return true;
+        }
+        return false;
     }
 
     @Autowired

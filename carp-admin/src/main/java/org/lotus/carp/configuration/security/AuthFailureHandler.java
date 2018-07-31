@@ -15,7 +15,7 @@ import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 
 /**
- * Created with IntelliJ IDEA.
+ *  spring security 登录失败handler
  *
  * @author: Foy Lian
  * Date: 11/29/2017
