@@ -15,12 +15,18 @@
     <modules>
         <module>carp-service</module>
         <module>carp-service-impl</module>
+        <module>carp-service-admin</module>
     </modules>
 
     <properties>
     </properties>
 
     <dependencies>
-
+        <dependency>
+            <groupId>org.lotus.carp</groupId>
+            <artifactId>carp-base</artifactId>
+            <version>${project.version}</version>
+            <scope>provided</scope>
+        </dependency>
     </dependencies>
 </project>

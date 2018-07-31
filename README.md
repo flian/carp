@@ -23,19 +23,23 @@ program arguments `--flyway.enabled=true --spring.profiles.active=dev --debug`.
 功能配置等功能
 
 >carp-core
-服务接口、实现方法
+carp核心功能模块，目前包括showcase、前端用户模块
+
+>carp-commerce
+carp commerce模块，依赖carp-core模块，包括product、order模块
+
 
 >carp-admin
 管理端
+
+> carp-api
+提供api封装、api人证等功能
 
 >carp-front
 PC端
 
 >carp-mobile
 mobile端
-
->carp commerce
-封装基本的commerce操作
 
 >carp-webapp
 包含全部
