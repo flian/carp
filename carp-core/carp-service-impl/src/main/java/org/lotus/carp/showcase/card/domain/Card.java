@@ -19,7 +19,7 @@ public class Card implements Serializable {
 
     private static final long serialVersionUID = 3909450513871676563L;
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     /**
      * 卡号
