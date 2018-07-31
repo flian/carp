@@ -42,6 +42,9 @@ spring:
     jpa:
       show-sql: true
       properties:
+        hibernate:
+          id:
+            new_generator_mappings: false
         javax:
          persistence:
            schema-generation:
@@ -49,9 +52,9 @@ spring:
             scripts:
               action: create
               create-target: carp_reate.sql
-#flyway配置
-flyway:
-  enabled: false
+  #flyway配置
+    flyway:
+      enabled: false
 #carp配置
 carp:
   config:
