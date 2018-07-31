@@ -7,7 +7,7 @@ spring:
         # 使用druid数据源
         driver-class-name: net.sf.log4jdbc.DriverSpy
         #dev 不用wall设置
-        filters: stat,log4j
+        filters: stat,slf4j
     freemarker:
         cache: true
 #flyway配置
