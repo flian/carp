@@ -55,6 +55,17 @@ mobile端
 
 > service层的返回值统一使用Result后缀的bean. (考虑持久层的PO和视图层解耦)
 
+## flyway version 分配
+V1_0_x 到 V1_100_x由carp项目占用, 使用carp作为startup的项目，需要使用flyway做版本，请留意。
+
+> V1_0_x系列， 分配给carp-admin模块
+
+> V1_1_x系列，分配给carp-core及其子模块：carp-service-impl,carp-service-admin模块
+
+>  V1_2_x系列，分配给carp-commerce及其子模块: carp-commerce-service-impl,carp-commerce-admin模块
+
+>  V1_3_x系列，分配给carp-api模块？？？
+
 ## 其他
 master 为开发分支，不固定更新
 发布时采用release分支
