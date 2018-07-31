@@ -46,7 +46,7 @@ public class RoleController extends AdminBaseController {
     @GetMapping(value = "/data")
     @ResponseBody
     public ResponseWrapper<Page<RoleResult>> queryRoles(@RequestParam("keyword") String q, Pageable page) {
-        return response().execSuccess(roleService.search(q, page).map(roleConverter));
+        return response().execSuccess(roleService.search(q, page).map(roleConverter::convert));
     }
 
     @GetMapping(value = "/all")

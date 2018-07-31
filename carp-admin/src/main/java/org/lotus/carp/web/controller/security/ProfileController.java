@@ -40,7 +40,7 @@ public class ProfileController extends AdminBaseController {
     @GetMapping("/data")
     @ResponseBody
     public ResponseWrapper<UserResult> queryUsers(@RequestParam("keyword") String q, Pageable page) {
-        return response().execSuccess(userService.search(q, page).map(userConverter));
+        return response().execSuccess(userService.search(q, page).map(userConverter::convert));
     }
 
     @PutMapping("/roles")

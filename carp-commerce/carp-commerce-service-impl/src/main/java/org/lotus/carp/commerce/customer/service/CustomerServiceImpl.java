@@ -29,7 +29,7 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     public Page<CustomerResult> search(String q, Pageable page) {
-        return customerRepository.search(q, page).map(customerConverter);
+        return customerRepository.search(q, page).map(customerConverter::convert);
     }
 
     @Override

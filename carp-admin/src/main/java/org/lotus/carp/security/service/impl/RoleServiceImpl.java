@@ -65,7 +65,7 @@ public class RoleServiceImpl {
     }
 
     public ResourceListResult findRoleResources(Long roleId) {
-        Role role = roleRepository.findOne(roleId);
+        Role role = roleRepository.getOne(roleId);
         ResourceListResult dto = new ResourceListResult();
         dto.setMenuList(menuConverter.buildTreeWithoutRoot(role.getMenus()));
         dto.setActionList(actionConverter.buildTreeWithoutRoot(role.getActions()));
@@ -88,7 +88,7 @@ public class RoleServiceImpl {
 
     @Transactional(rollbackFor = {Exception.class})
     public Role updateRoleMenu(Long roleId, List<Integer> menuIds) {
-        Role role = roleRepository.findOne(roleId);
+        Role role = roleRepository.getOne(roleId);
         Set<Menu> newMenus = new HashSet<>();
         menuIds.forEach(menuId -> newMenus.add(menuRepository.getOne(menuId)));
         role.setMenus(newMenus);

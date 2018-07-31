@@ -70,7 +70,7 @@ public class UserServiceImplTest {
                         UserResult result = userConvter.toResult(user);
                         Assert.that(result.getUserName().startsWith(q));
                     });
-                    Page<UserResult> list = users.map(userConvter);
+                    Page<UserResult> list = users.map(userConvter::convert);
                     Assert.that(list.getTotalElements() > 0);
                 }
         );

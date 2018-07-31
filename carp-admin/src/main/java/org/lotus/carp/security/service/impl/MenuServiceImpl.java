@@ -75,7 +75,7 @@ public class MenuServiceImpl extends BaseService<MenuRepository, Menu, Integer, 
                         userMenus.add(menu);
                         Menu rr = menu;
                         while (rr != null && rr.getParentId() > 0) {
-                            Menu parentMenu = menuRepository.findOne(rr.getParentId());
+                            Menu parentMenu = menuRepository.getOne(rr.getParentId());
                             if (!userMenus.contains(parentMenu)) {
                                 userMenus.add(parentMenu);
                             } else {

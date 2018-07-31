@@ -65,7 +65,7 @@ public class UserServiceImpl implements UserDetailsService {
 
     @Transactional(rollbackFor = {Exception.class})
     public User updateUserRole(UserRoleUpdateDto userRoleUpdateDto) {
-        User user = userRepository.findOne(userRoleUpdateDto.getUserId());
+        User user = userRepository.getOne(userRoleUpdateDto.getUserId());
         Set<Role> roles = new HashSet<>();
         user.setRoles(roles);
         userRoleUpdateDto.getRoles().forEach(code -> roles.add(roleRepository.findByCode(code)));
