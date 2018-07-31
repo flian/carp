@@ -1,16 +1,17 @@
 #初始化card数据
-INSERT INTO `carp_showcase_card` VALUES (1, 'card001', '0001', 1000.00, 1.00, 1000.00);
-INSERT INTO `carp_showcase_card` VALUES (2, 'card002', '0001', 100.00, 0.00, 100.00);
-INSERT INTO `carp_showcase_card` VALUES (3, 'card003', '0001', 1000.00, 1.00, 1000.00);
-INSERT INTO `carp_showcase_card` VALUES (4, 'card004', '0001', 100.00, 0.00, 100.00);
-INSERT INTO `carp_showcase_card` VALUES (5, 'card005', '0001', 1000.00, 1.00, 1000.00);
-INSERT INTO `carp_showcase_card` VALUES (6, 'card006', '0001', 100.00, 0.00, 100.00);
-INSERT INTO `carp_showcase_card` VALUES (7, 'card007', '0001', 1000.00, 1.00, 1000.00);
-INSERT INTO `carp_showcase_card` VALUES (8, 'card008', '0001', 100.00, 0.00, 100.00);
-INSERT INTO `carp_showcase_card` VALUES (9, 'card009', '0001', 1000.00, 1.00, 1000.00);
-INSERT INTO `carp_showcase_card` VALUES (10, 'card010', '0001', 100.00, 0.00, 100.00);
-INSERT INTO `carp_showcase_card` VALUES (11, 'card011', '0001', 1000.00, 1.00, 1000.00);
-INSERT INTO `carp_showcase_card` VALUES (12, 'card012', '0001', 100.00, 0.00, 100.00);
+INSERT INTO `carp_showcase_card` (`id`, `card_id`, `card_type`, `issue_value`, `frozen_value`, `balance_value`) VALUES (1, 'card001', '0001', 1000.00, 11.00, 1000.00);
+INSERT INTO `carp_showcase_card` (`id`, `card_id`, `card_type`, `issue_value`, `frozen_value`, `balance_value`) VALUES (2, 'card002', '0001', 100.00, 0.00, 100.00);
+INSERT INTO `carp_showcase_card` (`id`, `card_id`, `card_type`, `issue_value`, `frozen_value`, `balance_value`) VALUES (3, 'card003', '0001', 1000.00, 1.00, 1000.00);
+INSERT INTO `carp_showcase_card` (`id`, `card_id`, `card_type`, `issue_value`, `frozen_value`, `balance_value`) VALUES (4, 'card004', '0001', 100.00, 0.00, 100.00);
+INSERT INTO `carp_showcase_card` (`id`, `card_id`, `card_type`, `issue_value`, `frozen_value`, `balance_value`) VALUES (5, 'card005', '0001', 1000.00, 1.00, 1000.00);
+INSERT INTO `carp_showcase_card` (`id`, `card_id`, `card_type`, `issue_value`, `frozen_value`, `balance_value`) VALUES (6, 'card006', '0001', 100.00, 0.00, 100.00);
+INSERT INTO `carp_showcase_card` (`id`, `card_id`, `card_type`, `issue_value`, `frozen_value`, `balance_value`) VALUES (7, 'card007', '0001', 1000.00, 1.00, 1000.00);
+INSERT INTO `carp_showcase_card` (`id`, `card_id`, `card_type`, `issue_value`, `frozen_value`, `balance_value`) VALUES (8, 'card008', '0001', 100.00, 0.00, 100.00);
+INSERT INTO `carp_showcase_card` (`id`, `card_id`, `card_type`, `issue_value`, `frozen_value`, `balance_value`) VALUES (9, 'card009', '0001', 1000.00, 1.00, 1000.00);
+INSERT INTO `carp_showcase_card` (`id`, `card_id`, `card_type`, `issue_value`, `frozen_value`, `balance_value`) VALUES (10, 'card010', '0001', 100.00, 0.00, 100.00);
+INSERT INTO `carp_showcase_card` (`id`, `card_id`, `card_type`, `issue_value`, `frozen_value`, `balance_value`) VALUES (11, 'card011', '0001', 1000.00, 1.00, 1000.00);
+INSERT INTO `carp_showcase_card` (`id`, `card_id`, `card_type`, `issue_value`, `frozen_value`, `balance_value`) VALUES (12, 'card012', '0001', 100.00, 0.00, 100.00);
+
 
 #初始化用户种子数据
 INSERT INTO `carp_customer` (`id`, `avatar`, `gender`, `mobile`, `nick_name`, `password`, `user_name`, `uuid`) VALUES (1, '11', 1, '13333333333', '小白', '$2a$10$tpYOWdQtvOKLWN02mUbDMO/Y3aHE8dM4q9jc.7cYJh/9mFPPnIEIi', 'test_001', '$10$tpYOWdQtvOKLWN02mUbDMO/Y3aHE8dM4q9jc.7cYJh/9mF2PnIEIi');
