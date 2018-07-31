@@ -6,6 +6,7 @@
     <title>${carpConfig.projectName} | ${carpConfig.loginText}</title>
     <!-- Tell the browser to be responsive to screen width -->
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <link rel="icon" type="image/x-icon" href="${rc.contextPath}/favicon.ico">
     <!-- Bootstrap 3.3.6 -->
     <link rel="stylesheet" href="${rc.contextPath}/webjars/AdminLTE/bootstrap/css/bootstrap.min.css">
     <!-- Font Awesome -->
