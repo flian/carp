@@ -26,6 +26,5 @@ spring:
         template-loader-path: /freemarker/
         suffix: .ftl
 
-
-flyway:
-  enabled: false
+    flyway:
+      enabled: false
