@@ -119,6 +119,31 @@
             <artifactId>axios</artifactId>
             <version>0.18.0</version>
         </dependency>
+        <!-- font-awesome -->
+        <dependency>
+            <groupId>org.webjars</groupId>
+            <artifactId>font-awesome</artifactId>
+            <version>4.7.0</version>
+            <!--<version>5.2.0</version>-->
+        </dependency>
+        <!--ionicons-->
+        <dependency>
+            <groupId>org.webjars</groupId>
+            <artifactId>ionicons</artifactId>
+            <version>2.0.1</version>
+        </dependency>
+        <!-- html5shiv -->
+        <dependency>
+            <groupId>org.webjars</groupId>
+            <artifactId>html5shiv</artifactId>
+            <version>3.7.3</version>
+        </dependency>
+        <!--respond-->
+        <dependency>
+            <groupId>org.webjars</groupId>
+            <artifactId>respond</artifactId>
+            <version>1.4.2</version>
+        </dependency>
         <!-- element-ui -->
         <dependency>
             <groupId>org.webjars.npm</groupId>
