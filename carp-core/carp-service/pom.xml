@@ -22,7 +22,7 @@
             <artifactId>spring-data-commons</artifactId>
             <scope>compile</scope>
         </dependency>
-        <!-- Bean Validation API support -->
+        <!-- CarpBeanUtils Validation API support -->
         <dependency>
             <groupId>org.hibernate.validator</groupId>
             <artifactId>hibernate-validator</artifactId>
