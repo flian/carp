@@ -1,0 +1,55 @@
+#common基础配置
+server:
+    port: 8081
+spring:
+    datasource:
+        name: adminApiEnv
+        url: jdbc:mysql://127.0.0.1/carp?useUnicode=true&characterEncoding=utf-8&useSSL=false
+        username: root
+        password: Admin123
+        # 使用druid数据源
+        type: com.alibaba.druid.pool.DruidDataSource
+        driver-class-name: com.mysql.jdbc.Driver
+        filters: stat,wall,slf4j
+        maxActive: 20
+        initialSize: 1
+        maxWait: 60000
+        minIdle: 1
+        timeBetweenEvictionRunsMillis: 60000
+        minEvictableIdleTimeMillis: 300000
+        validationQuery: select 'x'
+        testWhileIdle: true
+        testOnBorrow: false
+        testOnReturn: false
+        poolPreparedStatements: true
+        maxOpenPreparedStatements: 20
+        logSlowSql: true
+        allow: 127.0.0.1
+    freemarker:
+        template-loader-path: classpath:/freemarker/
+        suffix: .ftl
+        cache: false
+        order: 1
+        contentType: text/html;charset=utf-8
+        requestContextAttribute: rc
+        exposeSpringMacroHelpers: true
+        settings:
+          auto_import: /layout/layout.ftl as layout
+        prefer-file-system-access: false
+    #jpa自动生成sql
+    jpa:
+      show-sql: true
+      properties:
+        hibernate:
+          id:
+            new_generator_mappings: false
+        javax:
+         persistence:
+           schema-generation:
+            create-source:  metadata
+            scripts:
+              action: create
+              create-target: carp_reate.sql
+  #flyway配置
+    flyway:
+      enabled: false

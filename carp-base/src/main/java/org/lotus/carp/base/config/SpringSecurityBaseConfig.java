@@ -15,7 +15,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
  * Time: 5:20 PM
  */
 @Configuration
-
+@ConditionalOnClass(value = {PasswordEncoder.class, BCryptPasswordEncoder.class})
 public class SpringSecurityBaseConfig {
     @Bean
     @ConditionalOnClass(value = {PasswordEncoder.class, BCryptPasswordEncoder.class})
