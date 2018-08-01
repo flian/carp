@@ -20,6 +20,7 @@
         <module>carp-core</module>
         <module>carp-commerce</module>
         <module>carp-admin</module>
+        <module>carp-api</module>
         <module>carp-front</module>
         <module>carp-mobile</module>
         <module>carp-webapp</module>
