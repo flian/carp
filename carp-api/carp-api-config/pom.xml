@@ -26,6 +26,10 @@
             <artifactId>spring-security-core</artifactId>
         </dependency>
         <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+        <dependency>
             <groupId>org.lotus.carp</groupId>
             <artifactId>carp-service-impl</artifactId>
             <version>${project.version}</version>

@@ -27,7 +27,7 @@ public class CustomerController implements BaseController {
     }
 
     @GetMapping("/{userId}")
-    public ResponseWrapper<CustomerDetailResult> me(@PathVariable Long userId) {
+    public ResponseWrapper<CustomerDetailResult> info(@PathVariable Long userId) {
         return response().execSuccess(customerService.userInfo(userId));
     }
 }
