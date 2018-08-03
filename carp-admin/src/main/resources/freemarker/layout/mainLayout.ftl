@@ -42,7 +42,8 @@
     <script src="${rc.contextPath}/webjars/respond/dest/respond.min.js"></script>
     <![endif]-->
     <!-- import CSS -->
-    <link rel="stylesheet" href="${rc.contextPath}/webjars/element-ui/lib/theme-default/index.css">
+    <link rel="stylesheet" href="${rc.contextPath}/webjars/element-ui/lib/theme-chalk/index.css">
+    <#--<link rel="stylesheet" href="${rc.contextPath}/webjars/element-ui/lib/theme-default/index.css">-->
 
     <!--carp common css-->
     <link rel="stylesheet" href="${rc.contextPath}/css/common.css">
