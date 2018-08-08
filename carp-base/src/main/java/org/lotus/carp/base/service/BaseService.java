@@ -8,6 +8,7 @@ import org.springframework.data.domain.Example;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.io.Serializable;
 import java.util.List;
@@ -38,6 +39,7 @@ public abstract class BaseService<T extends JpaRepository, E, ID extends Seriali
         return (E) repository.getOne(id);
     }
 
+    @Transactional(rollbackFor = {Exception.class})
     public E save(E entity) {
         return (E) repository.save(entity);
     }
@@ -54,12 +56,13 @@ public abstract class BaseService<T extends JpaRepository, E, ID extends Seriali
      */
     public abstract Example<E> createExampleQuery(String q);
 
+    @Transactional(rollbackFor = {Exception.class})
     public E delete(ID id) {
         Object entity = repository.getOne(id);
-        repository.delete(id);
+        repository.delete(entity);
         return (E) entity;
     }
-
+    @Transactional(rollbackFor = {Exception.class})
     public E create(C createDto) {
         E entity = newOne();
         BeanUtils.copyProperties(createDto, entity);
@@ -67,7 +70,7 @@ public abstract class BaseService<T extends JpaRepository, E, ID extends Seriali
         publishEvent(result);
         return result;
     }
-
+    @Transactional(rollbackFor = {Exception.class})
     public E update(U updateDto) {
         E entity = (E) repository.getOne(getUpdateDtoId(updateDto));
         BeanUtils.copyProperties(updateDto, entity);
