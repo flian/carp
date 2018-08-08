@@ -8,7 +8,7 @@ import org.springframework.data.repository.query.Param;
 import java.util.List;
 
 /**
- * Created with IntelliJ IDEA.
+ *  action功能repository
  *
  * @author: Foy Lian
  * Date: 11/10/2017
@@ -21,4 +21,13 @@ public interface ActionRepository extends JpaRepository<Action, Integer> {
     default List<Action> listByLeaf() {
         return listByLeaf(true);
     }
+
+    /**
+     * 计算给定的action，被授予了多少角色
+     * @param actionId
+     * @return
+     */
+    @Query(value = "SELECT COUNT(DISTINCT action_id ) FROM  carp_role_action where action_id =:actionId"
+            ,nativeQuery = true)
+    int actionAssignedRolesCount(@Param("actionId") Integer actionId);
 }

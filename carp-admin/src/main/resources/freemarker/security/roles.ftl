@@ -45,9 +45,9 @@
             <el-table-column label="授予用户" prop="users"></el-table-column>
             <el-table-column align="center" label="操作" >
                 <template scope="scope">
-                    <el-button size="small" type="success" @click="preAssignMenu(scope.row)" icon="setting" title="分配菜单">
+                    <el-button size="small" type="success" @click="preAssignMenu(scope.row)" icon="el-icon-setting" title="分配菜单">
                     </el-button>
-                    <el-button size="small" type="warning" @click="preAssignAction(scope.row)" icon="edit" title="分配功能">
+                    <el-button size="small" type="warning" @click="preAssignAction(scope.row)" icon="el-icon-edit-outline" title="分配功能">
                     </el-button>
                     <el-button size="small" type="danger" @click="">禁用
                     </el-button>

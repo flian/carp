@@ -170,7 +170,11 @@
             <#-- ref : http://blog.csdn.net/x_lord/article/details/70161195 -->
                 renderContent: function (createElement, {node, data, store}) {
                     var self = this;
-                    return createElement('span', [
+                    return createElement('span', {
+                        attrs:{
+                            class:"custom-tree-node"
+                        }
+                    },[
                         createElement('span', node.label),
                         createElement('span', {
                             attrs: {
@@ -245,4 +249,14 @@
             }
         })
     </script>
+<style>
+    .custom-tree-node {
+        flex: 1;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        font-size: 14px;
+        padding-right: 8px;
+    }
+</style>
 </#macro>

@@ -55,6 +55,6 @@ public class ActionController extends AdminBaseController {
     @DeleteMapping(value = "/{id}")
     @ResponseBody
     public ResponseWrapper<ActionResult> delete(@PathVariable Integer id) {
-        return response().execSuccess(actionConverter.convert(actionService.delete(id)));
+        return response().execSuccess(actionConverter.convert(actionService.deleteActionById(id)));
     }
 }

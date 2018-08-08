@@ -51,7 +51,7 @@ public class MenuController extends AdminBaseController {
     @DeleteMapping(value = "/{id}")
     @ResponseBody
     public ResponseWrapper<MenuResult> delete(@PathVariable Integer id) {
-        return response().execSuccess(menuConverter.convert(menuService.delete(id)));
+        return response().execSuccess(menuConverter.convert(menuService.deleteMenuById(id)));
     }
 
     @GetMapping("/data")
