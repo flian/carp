@@ -46,6 +46,12 @@ public class MenuServiceImpl extends BaseService<MenuRepository, Menu, Integer, 
         return Example.of(menuQuery, matcher);
     }
 
+    @Transactional(rollbackFor = {Exception.class})
+    public Menu deleteMenuById(Integer id) {
+        int count = menuRepository.menuAssignedRolesCount(id);
+        Preconditions.checkArgument(0 == count, String.format("菜单已经授予%d个角色，请取消授权后在删除菜单!",count));
+        return delete(id);
+    }
 
     @Override
     public Integer getUpdateDtoId(MenuUpdateDto updateDto) {
