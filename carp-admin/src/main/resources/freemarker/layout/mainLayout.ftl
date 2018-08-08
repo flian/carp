@@ -305,7 +305,8 @@
 <!-- AdminLTE for demo purposes -->
 <script src="${rc.contextPath}/webjars/AdminLTE/dist/js/demo.js"></script>
 <!-- vue and element-ui-->
-<script src="${rc.contextPath}/webjars/vue/dist/vue.js"></script>
+<script src="${rc.contextPath}/webjars/vue/vue.js"></script>
+<#--<script src="${rc.contextPath}/webjars/vue/dist/vue.js"></script>-->
 <script src="${rc.contextPath}/webjars/axios/dist/axios.js"></script>
 <script src="${rc.contextPath}/webjars/element-ui/lib/index.js"></script>
     <#if pageJS?is_directive>
