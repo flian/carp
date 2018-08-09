@@ -55,6 +55,12 @@ spring:
   #flyway配置
     flyway:
       enabled: false
+#metrics
+management:
+  endpoints:
+    web:
+      exposure:
+        include:  info,health,metrics
 #carp配置
 carp:
   config:
