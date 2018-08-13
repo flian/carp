@@ -1,4 +1,4 @@
-<@layout.main pageJS=myPageJS>
+<@layout.main pageCss=myPageCss pageJS=myPageJS>
 <section class="content">
     <div id="app" v-cloak>
         <el-button class="filter-item" style="margin-left: 10px;" @click="add" type="primary" icon="edit">添加</el-button>
@@ -92,6 +92,16 @@
     </div>
 </section>
 </@layout.main>
+<!--just for demo-->
+<#macro myPageCss>
+    <style type="text/css">
+        .el-table_1_column_3 {
+            font-size: 23px;
+            color: red;
+        }
+
+    </style>
+</#macro>
 <#macro myPageJS>
     <script>
         new Vue({

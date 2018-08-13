@@ -1,4 +1,11 @@
-<#macro main  pageJS='' dashboard2=false title="">
+<#--
+  参数说明：
+   includeCss: 需要包含的css文件，css应该是放置在static目录下
+   pageCss: 自己在子页面使用宏写css
+   pageJS: 自己在子页面使用宏写js
+   title: 标题
+-->
+<#macro main  includeCss='' pageCss='' pageJS='' dashboard2=false title="">
 <!DOCTYPE html>
 <html>
 <head>
@@ -47,6 +54,15 @@
 
     <!--carp common css-->
     <link rel="stylesheet" href="${rc.contextPath}/css/common.css">
+    <#if includeCss?? && includeCss!="">
+        <#list includeCss?split(",") as cssFile>
+                <link rel="stylesheet" href="${rc.contextPath}/${cssFile}">
+        </#list>
+    </#if>
+        <!-- 页面写css-->
+        <#if pageCss?is_directive>
+            <@pageCss/>
+        </#if>
     <style type="text/css">
         <#-- for huiadmin css -->
     <#if carpConfig.defaultTheme == false>
