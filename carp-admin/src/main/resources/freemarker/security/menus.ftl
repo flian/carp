@@ -160,9 +160,6 @@
                     },[
                         createElement('span', node.label),
                         createElement('span', {
-                            attrs: {
-                                style: "float: right; margin-right: 20px"
-                            }
                         }, [
                             createElement('el-button', {
                                 attrs: {
@@ -239,6 +236,9 @@
         justify-content: space-between;
         font-size: 14px;
         padding-right: 8px;
+    }
+    .el-button--mini {
+        height: 23px;
     }
 </style>
 </#macro>
