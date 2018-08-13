@@ -1,4 +1,4 @@
-<@layout.main pageCss=myPageCss pageJS=myPageJS>
+<@layout.main includeCss="css/cards/col4.css,css/cards/col5.css" pageCss=myPageCss pageJS=myPageJS>
 <section class="content">
     <div id="app" v-cloak>
         <el-button class="filter-item" style="margin-left: 10px;" @click="add" type="primary" icon="edit">添加</el-button>
