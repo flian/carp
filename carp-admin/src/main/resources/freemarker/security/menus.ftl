@@ -5,6 +5,7 @@
                  :default-expanded-keys="defaultExpandedKeys"
                  :expand-on-click-node="false"
                  :highlight-current="true"
+                 :default-expand-all="true"
                  :render-content="renderContent">
         </el-tree>
         <el-dialog :title="formTitle" :visible.sync="showForm">
