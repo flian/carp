@@ -7,6 +7,7 @@ CREATE TABLE carp_customer (
   password  VARCHAR(64) NOT NULL,
   user_name VARCHAR(20) NOT NULL,
   uuid      VARCHAR(64) NOT NULL,
+  `last_password_reset_date` datetime DEFAULT NULL,
   PRIMARY KEY (id)
 );
 ALTER TABLE carp_customer

@@ -7,6 +7,7 @@ import org.lotus.carp.customer.enums.Gender;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Date;
 
 /**
  * commerce 顾客实体
@@ -61,5 +62,11 @@ public class Customer implements Serializable {
     @Setter
     @Column(length = 64)
     private String avatar;
-
+    /**
+     * 最近一次重设置密码时间
+     */
+    @Getter
+    @Setter
+    @Column(name = "last_password_reset_date")
+    private Date lastPasswordResetDate;
 }
