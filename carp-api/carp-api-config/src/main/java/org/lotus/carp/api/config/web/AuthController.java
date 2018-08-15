@@ -1,7 +1,8 @@
-package org.lotus.carp.api.config.jwt;
+package org.lotus.carp.api.config.web;
 
 import org.lotus.carp.api.config.dto.JwtAuthenticationRequest;
 import org.lotus.carp.api.config.dto.JwtAuthenticationResponse;
+import org.lotus.carp.api.config.jwt.AuthService;
 import org.lotus.carp.base.vo.ResponseWrapper;
 import org.lotus.carp.base.web.BaseController;
 import org.lotus.carp.customer.vo.CustomerDetailResult;
