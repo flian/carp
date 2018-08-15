@@ -3,14 +3,17 @@ package org.lotus.carp.api.config.jwt;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
+import io.jsonwebtoken.io.Decoders;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
+import javax.crypto.spec.SecretKeySpec;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+
 /**
  * Created with IntelliJ IDEA.
  *
@@ -99,10 +102,13 @@ public class JwtTokenUtil implements Serializable {
     }
 
     String generateToken(Map<String, Object> claims) {
+        SignatureAlgorithm signatureAlgorithm = SignatureAlgorithm.HS512;
+        byte[] secretKeyBytes = Decoders.BASE64.decode(secret);
+        SecretKeySpec key = new SecretKeySpec(secretKeyBytes, signatureAlgorithm.getJcaName());
         return Jwts.builder()
                 .setClaims(claims)
                 .setExpiration(generateExpirationDate())
-                .signWith(SignatureAlgorithm.HS512, secret)
+                .signWith(key, signatureAlgorithm)
                 .compact();
     }
 
