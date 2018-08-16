@@ -64,3 +64,12 @@ jwt:
       path: auth
       refresh: refresh
       register: "auth/register"
+#wechat
+wechat:
+#是否启用微信登录
+  enable: true
+  #微信appId，appSecret
+  appid: wxdbe8e668a9deb51d
+  appSecret:  d1e04e8be1ffa0a8f485faed73669192
+  #oauth2成功后的回调url
+  oauth2RedirectUri: http://192.168.2.10:8081/api/wx/oauth2/callback

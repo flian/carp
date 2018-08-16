@@ -12,6 +12,7 @@ import org.lotus.carp.customer.vo.CustomerRegisterDto;
  */
 public interface AuthService {
     CustomerDetailResult register(CustomerRegisterDto userToAdd);
+    String loginWithUuid(String uuid);
     String login(String username, String password);
     String refresh(String oldToken);
 }

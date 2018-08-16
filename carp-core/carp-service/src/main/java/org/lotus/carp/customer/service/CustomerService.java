@@ -3,6 +3,7 @@ package org.lotus.carp.customer.service;
 import org.lotus.carp.customer.vo.CustomerDetailResult;
 import org.lotus.carp.customer.vo.CustomerRegisterDto;
 import org.lotus.carp.customer.vo.CustomerResult;
+import org.lotus.carp.customer.vo.CustomerWechatRegisterDto;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -26,9 +27,23 @@ public interface CustomerService {
     CustomerDetailResult register(CustomerRegisterDto dto);
 
     /**
+     * 从微信注册
+     * @param dto
+     * @return 注册成功用户详情
+     */
+    CustomerDetailResult registerFromWechat(CustomerWechatRegisterDto dto);
+
+    /**
      * 获取用户
      * @param id 用户id
      * @return 用户详情
      */
     CustomerDetailResult userInfo(Long id);
+
+    /**
+     * 获取用户详情
+     * @param uuid uuid
+     * @return
+     */
+    CustomerDetailResult getByUuid(String uuid);
 }

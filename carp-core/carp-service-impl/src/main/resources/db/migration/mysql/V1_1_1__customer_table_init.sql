@@ -8,6 +8,9 @@ CREATE TABLE carp_customer (
   user_name VARCHAR(20) NOT NULL,
   uuid      VARCHAR(64) NOT NULL,
   `last_password_reset_date` datetime DEFAULT NULL,
+  from_channel      VARCHAR(64) NOT NULL,
+  wx_open_id      VARCHAR(32),
+  wx_union_id      VARCHAR(32),
   PRIMARY KEY (id)
 );
 ALTER TABLE carp_customer
