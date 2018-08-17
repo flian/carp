@@ -19,7 +19,7 @@ import org.springframework.context.annotation.Configuration;
  * Time: 5:24 PM
  */
 @Configuration
-@ConditionalOnProperty(name = "wechat.enable", value = "true")
+@ConditionalOnProperty(value = "wechat.enable", havingValue = "true")
 @ConditionalOnClass(value = {WxMpInMemoryConfigStorage.class, WxMpServiceImpl.class})
 @EnableConfigurationProperties(WxMpProperties.class)
 @Slf4j

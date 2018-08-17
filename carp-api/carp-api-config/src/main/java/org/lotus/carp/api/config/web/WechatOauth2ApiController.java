@@ -21,8 +21,10 @@ import org.lotus.carp.customer.vo.CustomerWechatRegisterDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -33,8 +35,8 @@ import javax.servlet.http.HttpServletRequest;
  * Date: 8/16/2018
  * Time: 5:31 PM
  */
-@ConditionalOnProperty(name = "wechat.enable", value = "true")
-@Controller
+@ConditionalOnProperty(value = "wechat.enable", havingValue = "true")
+@RestController
 @RequestMapping("/api/wx/oauth2")
 @Slf4j
 public class WechatOauth2ApiController implements BaseController {
@@ -51,18 +53,20 @@ public class WechatOauth2ApiController implements BaseController {
     @Autowired
     private CustomerService customerService;
 
-    @RequestMapping("/url")
-    public ResponseWrapper<WechatOauth2LoginUrlResult> wxLoginUrl(HttpServletRequest request) {
-        if(!isWechatRequest(request)){
+    @GetMapping("/url")
+    public ResponseWrapper<WechatOauth2LoginUrlResult> wxLoginUrl(@RequestParam(value = "oauth2RedirectUri", required = false, defaultValue = "") String redirectUri,
+                                                                  HttpServletRequest request) {
+        if (!isWechatRequest(request)) {
             log.info("seems call is not from wechat, may can't login success!");
         }
+        String wxOauth2RedirectUri = Strings.isNullOrEmpty(redirectUri) ? wxMpProperties.getOauth2RedirectUri() : redirectUri;
         WechatOauth2LoginUrlResult result = new WechatOauth2LoginUrlResult();
-        String url = wxMpService.oauth2buildAuthorizationUrl(wxMpProperties.getOauth2RedirectUri(), WxConsts.OAuth2Scope.SNSAPI_USERINFO, null);
+        String url = wxMpService.oauth2buildAuthorizationUrl(wxOauth2RedirectUri, WxConsts.OAuth2Scope.SNSAPI_USERINFO, null);
         result.setUrl(url);
         return response().execSuccess(result);
     }
 
-    @RequestMapping("/oauth2RedirectUri")
+    @GetMapping("/oauth2RedirectUri")
     public ResponseWrapper<JwtAuthenticationResponse> wxOauth2CallBack(@RequestParam(value = "code") String wxCode) throws WxErrorException {
         WxMpOAuth2AccessToken wxMpOAuth2AccessToken = wxMpService.oauth2getAccessToken(wxCode);
         Preconditions.checkArgument(wxMpService.oauth2validateAccessToken(wxMpOAuth2AccessToken), "access token无效!");
@@ -71,13 +75,7 @@ public class WechatOauth2ApiController implements BaseController {
                 && Strings.isNullOrEmpty(wxMpUser.getUnionId()), "openId, unionId不能同时为空!");
         // save user, and login user
         CustomerWechatRegisterDto wechatRegisterDto = new CustomerWechatRegisterDto();
-        if (wxMpUser.getSex() == 1) {
-            wechatRegisterDto.setGender(Gender.MALE);
-        } else if (wxMpUser.getSex() == 2) {
-            wechatRegisterDto.setGender(Gender.FEMALE);
-        } else {
-            wechatRegisterDto.setGender(Gender.UNKNOWN);
-        }
+        wechatRegisterDto.setGender(Gender.parse(wxMpUser.getSex()));
         wechatRegisterDto.setNickName(wxMpUser.getNickname());
         wechatRegisterDto.setOpenId(wxMpUser.getOpenId());
         wechatRegisterDto.setUnionId(wxMpUser.getUnionId());

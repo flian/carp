@@ -1,6 +1,6 @@
 CREATE TABLE carp_customer (
   id        BIGINT      NOT NULL AUTO_INCREMENT,
-  avatar    VARCHAR(64),
+  avatar    VARCHAR(150),
   gender    INTEGER,
   mobile    VARCHAR(11) NOT NULL,
   nick_name VARCHAR(20) NOT NULL,

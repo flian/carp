@@ -119,7 +119,7 @@ public class CustomerServiceImpl implements CustomerService {
      */
     @Override
     public CustomerDetailResult getByUuid(String uuid) {
-        return CarpBeanUtils.copy(customerRepository.findyByUuid(uuid), CustomerDetailResult.class);
+        return CarpBeanUtils.copy(customerRepository.findByUuid(uuid), CustomerDetailResult.class);
     }
 
     /**

@@ -21,5 +21,5 @@ public interface CustomerRepository extends JpaRepository<Customer,Long> {
 
     Customer findByUserName(String userName);
 
-    Customer findyByUuid(String uuid);
+    Customer findByUuid(String uuid);
 }
