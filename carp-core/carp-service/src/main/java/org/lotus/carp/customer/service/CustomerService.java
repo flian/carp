@@ -27,7 +27,7 @@ public interface CustomerService {
     CustomerDetailResult register(CustomerRegisterDto dto);
 
     /**
-     * 从微信注册
+     *  从微信注册或者更新本地账户
      * @param dto
      * @return 注册成功用户详情
      */

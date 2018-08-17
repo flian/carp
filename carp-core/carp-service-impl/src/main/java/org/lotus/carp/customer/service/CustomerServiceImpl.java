@@ -81,7 +81,7 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     /**
-     * 从微信注册
+     * 从微信注册或者更新本地账户
      *
      * @param dto
      * @return 注册成功用户详情
@@ -94,6 +94,18 @@ public class CustomerServiceImpl implements CustomerService {
         if (Strings.isNullOrEmpty(userName)) {
             userName = uuid;
         }
+        //find exist user
+        Customer oldCustomer = customerRepository.findByUserName(userName);
+        if(null != oldCustomer){
+            //should update
+            oldCustomer.setNickName(dto.getNickName());
+            oldCustomer.setAvatar(dto.getHeadIconUrl());
+            oldCustomer.setOpenId(dto.getOpenId());
+            oldCustomer.setUnionId(dto.getUnionId());
+            return CarpBeanUtils.copy(customerRepository.save(oldCustomer), CustomerDetailResult.class);
+        }
+
+        //new user, create account
         Customer customer = new Customer();
         customer.setUuid(UUID.randomUUID().toString());
         customer.setUserName(userName);
