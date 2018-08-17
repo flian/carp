@@ -1,14 +1,17 @@
 package org.lotus.carp.customer.service;
 
+import com.google.common.base.Strings;
 import lombok.extern.slf4j.Slf4j;
 import org.lotus.carp.base.utils.CarpBeanUtils;
 import org.lotus.carp.customer.converter.CustomerConverter;
 import org.lotus.carp.customer.domain.Customer;
+import org.lotus.carp.customer.enums.From;
 import org.lotus.carp.customer.enums.Gender;
 import org.lotus.carp.customer.repository.CustomerRepository;
 import org.lotus.carp.customer.vo.CustomerDetailResult;
 import org.lotus.carp.customer.vo.CustomerRegisterDto;
 import org.lotus.carp.customer.vo.CustomerResult;
+import org.lotus.carp.customer.vo.CustomerWechatRegisterDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -16,7 +19,9 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.nio.charset.Charset;
 import java.util.Date;
+import java.util.Random;
 import java.util.UUID;
 
 /**
@@ -69,9 +74,52 @@ public class CustomerServiceImpl implements CustomerService {
         customer.setPassword(passwordEncoder.encode(dto.getPassword()));
         customer.setMobile(dto.getMobile());
         customer.setLastPasswordResetDate(new Date());
+        customer.setFromChannel(From.NORMAL);
         customer = customerRepository.save(customer);
         return CarpBeanUtils.copy(customer, CustomerDetailResult.class);
 
+    }
+
+    /**
+     * 从微信注册
+     *
+     * @param dto
+     * @return 注册成功用户详情
+     */
+    @Override
+    @Transactional(rollbackFor = {Exception.class})
+    public CustomerDetailResult registerFromWechat(CustomerWechatRegisterDto dto) {
+        String uuid = UUID.randomUUID().toString();
+        String userName = Strings.isNullOrEmpty(dto.getUnionId()) ? dto.getOpenId() : dto.getUnionId();
+        if (Strings.isNullOrEmpty(userName)) {
+            userName = uuid;
+        }
+        Customer customer = new Customer();
+        customer.setUuid(UUID.randomUUID().toString());
+        customer.setUserName(userName);
+        customer.setNickName(dto.getNickName());
+        customer.setGender(dto.getGender());
+        //random password ensure not one can login.
+        customer.setPassword(passwordEncoder.encode(randomPwd()));
+        customer.setAvatar(dto.getHeadIconUrl());
+        customer.setLastPasswordResetDate(new Date());
+        customer.setFromChannel(From.WECHAT);
+        customer.setOpenId(dto.getOpenId());
+        customer.setUnionId(dto.getUnionId());
+        customer.setMobile(Customer.DEFAULT_MOBILE_NO);
+        customer = customerRepository.save(customer);
+        return CarpBeanUtils.copy(customer, CustomerDetailResult.class);
+    }
+
+    /**
+     * 获取用户详情
+     *
+     * @param uuid uuid
+     * @return
+     */
+    @Override
+    public CustomerDetailResult getByUuid(String uuid) {
+        return CarpBeanUtils.copy(customerRepository.findByUuid(uuid), CustomerDetailResult.class);
     }
 
     /**
@@ -83,5 +131,11 @@ public class CustomerServiceImpl implements CustomerService {
     @Override
     public CustomerDetailResult userInfo(Long id) {
         return CarpBeanUtils.copy(customerRepository.getOne(id), CustomerDetailResult.class);
+    }
+
+    private String randomPwd() {
+        byte[] array = new byte[16];
+        new Random().nextBytes(array);
+        return new String(array, Charset.forName("UTF-8"));
     }
 }

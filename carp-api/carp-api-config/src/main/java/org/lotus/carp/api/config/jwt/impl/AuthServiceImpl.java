@@ -56,6 +56,14 @@ public class AuthServiceImpl implements AuthService {
     }
 
     @Override
+    public String loginWithUuid(String uuid) {
+        CustomerDetailResult customerDetailResult = customerService.getByUuid(uuid);
+        final UserDetails userDetails = userDetailsService.loadUserByUsername(customerDetailResult.getUserName());
+        final String token = jwtTokenUtil.generateToken(userDetails);
+        return token;
+    }
+
+    @Override
     public String refresh(String oldToken) {
         final String token = oldToken.substring(tokenHead.length());
         String username = jwtTokenUtil.getUsernameFromToken(token);
