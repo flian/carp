@@ -20,7 +20,6 @@ import org.lotus.carp.customer.vo.CustomerDetailResult;
 import org.lotus.carp.customer.vo.CustomerWechatRegisterDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -71,8 +70,8 @@ public class WechatOauth2ApiController implements BaseController {
         WxMpOAuth2AccessToken wxMpOAuth2AccessToken = wxMpService.oauth2getAccessToken(wxCode);
         Preconditions.checkArgument(wxMpService.oauth2validateAccessToken(wxMpOAuth2AccessToken), "access token无效!");
         WxMpUser wxMpUser = wxMpService.oauth2getUserInfo(wxMpOAuth2AccessToken, null);
-        Preconditions.checkArgument(Strings.isNullOrEmpty(wxMpUser.getOpenId())
-                && Strings.isNullOrEmpty(wxMpUser.getUnionId()), "openId, unionId不能同时为空!");
+        boolean isBothEmpty = (Strings.isNullOrEmpty(wxMpUser.getOpenId()) && Strings.isNullOrEmpty(wxMpUser.getUnionId()));
+        Preconditions.checkArgument(!isBothEmpty, "openId, unionId不能同时为空!");
         // save user, and login user
         CustomerWechatRegisterDto wechatRegisterDto = new CustomerWechatRegisterDto();
         wechatRegisterDto.setGender(Gender.parse(wxMpUser.getSex()));

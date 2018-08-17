@@ -4,12 +4,14 @@ server:
 spring:
     datasource:
         name: adminApiEnv
-        url: jdbc:mysql://127.0.0.1/carp?useUnicode=true&characterEncoding=utf-8&useSSL=false
+       # url: jdbc:mysql://127.0.0.1/carp?useUnicode=true&characterEncoding=utf-8&useSSL=false
+        url: jdbc:log4jdbc:mysql://127.0.0.1/carp?useUnicode=true&characterEncoding=utf-8&useSSL=false
         username: root
         password: Admin123
         # 使用druid数据源
         type: com.alibaba.druid.pool.DruidDataSource
-        driver-class-name: com.mysql.jdbc.Driver
+        driver-class-name: net.sf.log4jdbc.DriverSpy
+        #driver-class-name: com.mysql.jdbc.Driver
         filters: stat,slf4j
         maxActive: 20
         initialSize: 1
@@ -25,17 +27,6 @@ spring:
         maxOpenPreparedStatements: 20
         logSlowSql: true
         allow: 127.0.0.1
-    freemarker:
-        template-loader-path: classpath:/freemarker/
-        suffix: .ftl
-        cache: false
-        order: 1
-        contentType: text/html;charset=utf-8
-        requestContextAttribute: rc
-        exposeSpringMacroHelpers: true
-        settings:
-          auto_import: /layout/layout.ftl as layout
-        prefer-file-system-access: false
     #jpa自动生成sql
     jpa:
       show-sql: true
@@ -72,6 +63,7 @@ wechat:
   appid: wxdbe8e668a9deb51d
   appSecret:  d1e04e8be1ffa0a8f485faed73669192
   #oauth2成功后的回调url
-  oauth2RedirectDomain: 192.168.2.10
+  oauth2RedirectDomain: 192.168.2.10:${server.port}
   oauth2RedirectSchema: http
-  oauth2RedirectUri: ${wechat.oauth2RedirectSchema}://${wechat.oauth2RedirectDomain}:${server:port}/api/wx/oauth2/oauth2RedirectUri
+  #wechat oauth2 默认回调
+  oauth2RedirectUri: ${wechat.oauth2RedirectSchema}://${wechat.oauth2RedirectDomain}/api/wx/oauth2/oauth2RedirectUri

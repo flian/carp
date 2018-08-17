@@ -17,6 +17,8 @@ import org.springframework.context.annotation.Profile;
 
 import javax.sql.DataSource;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Druid datasource configuration
@@ -60,6 +62,10 @@ public class DruidDataSourceAutoConfiguration {
     public DataSource druidDataSource() {
         DruidDataSource datasource = new DruidDataSource();
         BeanUtils.copyProperties(druidProperties, datasource);
+        //use utf8mb4
+        List<String> connectionInitSqls = new ArrayList<>();
+        connectionInitSqls.add("set names utf8mb4;");
+        datasource.setConnectionInitSqls(connectionInitSqls);
         try {
             datasource.setFilters(druidProperties.getFilters());
         } catch (SQLException e) {

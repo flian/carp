@@ -6,7 +6,7 @@ CREATE TABLE carp_user (
   user_name VARCHAR(20)  NOT NULL
   COMMENT '用户名',
   PRIMARY KEY (id)
-);
+)ENGINE=InnoDB DEFAULT CHARSET=utf8;
 ALTER TABLE carp_user
   ADD CONSTRAINT UK_user_name UNIQUE (user_name);
 
@@ -18,7 +18,7 @@ CREATE TABLE carp_role (
   role_name VARCHAR(50) NOT NULL
   COMMENT '角色名称。',
   PRIMARY KEY (id)
-);
+)ENGINE=InnoDB DEFAULT CHARSET=utf8;
 ALTER TABLE carp_role
   ADD CONSTRAINT UK_role_code UNIQUE (role_code);
 
@@ -27,7 +27,7 @@ CREATE TABLE carp_user_role (
   user_name VARCHAR(20) NOT NULL,
   role_code VARCHAR(30) NOT NULL,
   PRIMARY KEY (user_name, role_code)
-);
+)ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 CREATE TABLE carp_action (
   id            INTEGER      NOT NULL AUTO_INCREMENT,
@@ -38,7 +38,7 @@ CREATE TABLE carp_action (
   parent_id     INT                   DEFAULT -1,
   priority      INT                   DEFAULT 100,
   PRIMARY KEY (id)
-);
+)ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 CREATE TABLE carp_menu (
   id        INTEGER      NOT NULL AUTO_INCREMENT,
@@ -48,17 +48,17 @@ CREATE TABLE carp_menu (
   priority  INT                   DEFAULT 100,
   url       VARCHAR(100) NOT NULL,
   PRIMARY KEY (id)
-);
+)ENGINE=InnoDB DEFAULT CHARSET=utf8;
 CREATE TABLE carp_role_action (
   role_id   BIGINT  NOT NULL,
   action_id INTEGER NOT NULL,
   PRIMARY KEY (role_id, action_id)
-);
+)ENGINE=InnoDB DEFAULT CHARSET=utf8;
 CREATE TABLE carp_role_menu (
   role_id BIGINT  NOT NULL,
   menu_id INTEGER NOT NULL,
   PRIMARY KEY (role_id, menu_id)
-);
+)ENGINE=InnoDB DEFAULT CHARSET=utf8;
 -- ----------------------------
 --           Add two Users:
 --           admin/admin123 with ROLE_ADMIN
