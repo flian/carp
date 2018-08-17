@@ -135,6 +135,17 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     /**
+     * 获取用户详情
+     *
+     * @param userName
+     * @return
+     */
+    @Override
+    public CustomerDetailResult getByUserName(String userName) {
+        return CarpBeanUtils.copy(customerRepository.findByUserName(userName), CustomerDetailResult.class);
+    }
+
+    /**
      * 获取用户
      *
      * @param id 用户id

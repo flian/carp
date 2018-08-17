@@ -46,4 +46,11 @@ public interface CustomerService {
      * @return
      */
     CustomerDetailResult getByUuid(String uuid);
+
+    /**
+     * 获取用户详情
+     * @param userName
+     * @return
+     */
+    CustomerDetailResult getByUserName(String userName);
 }
