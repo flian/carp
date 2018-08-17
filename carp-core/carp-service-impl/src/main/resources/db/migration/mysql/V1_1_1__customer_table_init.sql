@@ -3,7 +3,7 @@ CREATE TABLE carp_customer (
   avatar    VARCHAR(150),
   gender    INTEGER,
   mobile    VARCHAR(11) NOT NULL,
-  nick_name VARCHAR(20) CHARACTER SET utf8mb4 NOT NULL,
+  nick_name VARCHAR(32) CHARACTER SET utf8mb4 NOT NULL,
   password  VARCHAR(64) NOT NULL,
   user_name VARCHAR(32) NOT NULL,
   uuid      VARCHAR(64) NOT NULL,
