@@ -66,4 +66,4 @@ wechat:
   oauth2RedirectDomain: 192.168.2.10:${server.port}
   oauth2RedirectSchema: http
   #wechat oauth2 默认回调
-  oauth2RedirectUri: ${wechat.oauth2RedirectSchema}://${wechat.oauth2RedirectDomain}/api/wx/oauth2/oauth2RedirectUri
+  oauth2RedirectUri: ${wechat.oauth2RedirectSchema}://${wechat.oauth2RedirectDomain}/api/wx/oauth2/token

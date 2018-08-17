@@ -52,6 +52,12 @@ public class WechatOauth2ApiController implements BaseController {
     @Autowired
     private CustomerService customerService;
 
+    /**
+     *  计算wechat  oauth2转跳url
+     * @param redirectUri
+     * @param request
+     * @return
+     */
     @GetMapping("/url")
     public ResponseWrapper<WechatOauth2LoginUrlResult> wxLoginUrl(@RequestParam(value = "oauth2RedirectUri", required = false, defaultValue = "") String redirectUri,
                                                                   HttpServletRequest request) {
@@ -65,7 +71,13 @@ public class WechatOauth2ApiController implements BaseController {
         return response().execSuccess(result);
     }
 
-    @GetMapping("/oauth2RedirectUri")
+    /**
+     * 微信oauth2 回调，保存用户，并转换成jwt token
+     * @param wxCode
+     * @return
+     * @throws WxErrorException
+     */
+    @GetMapping("/token")
     public ResponseWrapper<JwtAuthenticationResponse> wxOauth2CallBack(@RequestParam(value = "code") String wxCode) throws WxErrorException {
         WxMpOAuth2AccessToken wxMpOAuth2AccessToken = wxMpService.oauth2getAccessToken(wxCode);
         Preconditions.checkArgument(wxMpService.oauth2validateAccessToken(wxMpOAuth2AccessToken), "access token无效!");
