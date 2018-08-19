@@ -46,8 +46,9 @@ spring:
       enabled: false
 carp:
   api:
-  #是否允许跨域
-    enableCrossDomain: false
+  #是否允许iframe include
+    enableFrameInclude: false
+    enableCross: false
 # JWT
 jwt:
   header: Authorization
