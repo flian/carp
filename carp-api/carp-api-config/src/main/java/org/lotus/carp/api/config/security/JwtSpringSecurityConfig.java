@@ -44,6 +44,9 @@ public class JwtSpringSecurityConfig extends WebSecurityConfigurerAdapter {
     @Value("${carp.api.enableFrameInclude}")
     private boolean enableFrameInclude = false;
 
+    @Value("${carp.api.enableCross}")
+    private boolean enableCross = false;
+
     @Value("${jwt.header}")
     private String tokenHeader;
 
@@ -107,9 +110,13 @@ public class JwtSpringSecurityConfig extends WebSecurityConfigurerAdapter {
                 // 除上面外的所有请求全部需要鉴权认证
                 .anyRequest().authenticated();
         httpSecurity.headers().cacheControl();
-        //允许跨域include
+        //允许跨域 iFrame  include
         if(enableFrameInclude){
             httpSecurity.headers().frameOptions().disable();
+        }
+        //允许跨域请求
+        if(enableCross){
+            httpSecurity.authorizeRequests().antMatchers(HttpMethod.OPTIONS,"/**").permitAll();
         }
     }
     @Bean
