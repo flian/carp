@@ -44,6 +44,8 @@ public class JwtSpringSecurityConfig extends WebSecurityConfigurerAdapter {
     @Value("${carp.api.enableFrameInclude}")
     private boolean enableFrameInclude = false;
 
+    @Value("${jwt.header}")
+    private String tokenHeader;
 
     @Autowired
     private PasswordEncoder passwordEncoder;
@@ -124,7 +126,9 @@ public class JwtSpringSecurityConfig extends WebSecurityConfigurerAdapter {
         //放行哪些原始域(头部信息)
         config.addAllowedHeader("*");
         //暴露哪些头部信息（因为跨域访问默认不能获取全部头部信息）
-        config.addExposedHeader("*");
+       // config.addExposedHeader("*");
+        config.addExposedHeader(tokenHeader);
+        config.addExposedHeader("Content-Type");
 
         //2.添加映射路径
         UrlBasedCorsConfigurationSource configSource = new UrlBasedCorsConfigurationSource();
