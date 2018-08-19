@@ -103,6 +103,8 @@ public class JwtSpringSecurityConfig extends WebSecurityConfigurerAdapter {
                         "/v2/api-docs",
                         "/csrf",
                         "/swagger-ui.html").permitAll()
+                //跨域
+                .antMatchers(HttpMethod.OPTIONS, enableCross?"/**":"").permitAll()
                 // 对于获取token的rest api要允许匿名访问
                 .antMatchers(
                         "/auth/**",
@@ -113,10 +115,6 @@ public class JwtSpringSecurityConfig extends WebSecurityConfigurerAdapter {
         //允许跨域 iFrame  include
         if(enableFrameInclude){
             httpSecurity.headers().frameOptions().disable();
-        }
-        //允许跨域请求
-        if(enableCross){
-            httpSecurity.authorizeRequests().antMatchers(HttpMethod.OPTIONS,"/**").permitAll();
         }
     }
     @Bean
