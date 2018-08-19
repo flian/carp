@@ -2,6 +2,7 @@ package org.lotus.carp.api.config.security;
 
 import org.lotus.carp.api.config.jwt.JwtAuthenticationTokenFilter;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -36,6 +37,8 @@ public class JwtSpringSecurityConfig extends WebSecurityConfigurerAdapter {
     @Resource(name = "jwtUserService")
     private UserDetailsService userDetailsService;
 
+    @Value("${carp.api.enableCrossDomain}")
+    private boolean enableCrossDomain = false;
     @Autowired
     private PasswordEncoder passwordEncoder;
 
@@ -98,5 +101,9 @@ public class JwtSpringSecurityConfig extends WebSecurityConfigurerAdapter {
 
         // 禁用缓存
         httpSecurity.headers().cacheControl();
+        //允许跨域
+        if(enableCrossDomain){
+            httpSecurity.headers().frameOptions().disable();
+        }
     }
 }

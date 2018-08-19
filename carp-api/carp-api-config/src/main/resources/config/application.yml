@@ -44,6 +44,10 @@ spring:
   #flyway配置
     flyway:
       enabled: false
+carp:
+  api:
+  #是否允许跨域
+    enableCrossDomain: false
 # JWT
 jwt:
   header: Authorization
