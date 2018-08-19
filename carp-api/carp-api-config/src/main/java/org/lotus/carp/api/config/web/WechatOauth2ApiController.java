@@ -93,7 +93,7 @@ public class WechatOauth2ApiController implements BaseController {
         wechatRegisterDto.setHeadIconUrl(wxMpUser.getHeadImgUrl());
         CustomerDetailResult customerDetailResult = customerService.registerFromWechat(wechatRegisterDto);
         //login and return jwt token
-        return response().execSuccess(authService.loginWithUuid(customerDetailResult.getUuid()));
+        return response().execSuccess(new JwtAuthenticationResponse(authService.loginWithUuid(customerDetailResult.getUuid())));
     }
 
     private boolean isWechatRequest(HttpServletRequest request) {
