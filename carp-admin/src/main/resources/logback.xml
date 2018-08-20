@@ -13,6 +13,7 @@
 
 	<!-- 按照每天生成日志文件 -->
 	<appender name="ALL"  class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<file>${logs.dir}/carp_admin.log</file>
 		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
 			<fileNamePattern>${LOG_HOME}/all_%d{yyyy-MM-dd}.%i.log</fileNamePattern>
 			<timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
