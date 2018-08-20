@@ -4,6 +4,11 @@ server:
     #servlet:
       #context-path: /admin
 spring:
+    resources:
+      cache:
+        #period: 1d
+        cachecontrol:
+          max-age: 1d
     datasource:
         name: adminPrdEnv
         url: jdbc:mysql://127.0.0.1/carp?useUnicode=true&characterEncoding=utf-8&useSSL=false
