@@ -104,7 +104,7 @@ public class JwtSpringSecurityConfig extends WebSecurityConfigurerAdapter {
                         "/csrf",
                         "/swagger-ui.html").permitAll()
                 //跨域
-                .antMatchers(HttpMethod.OPTIONS, enableCross?"/**":"").permitAll()
+                .antMatchers(HttpMethod.OPTIONS, enableCross?"/**":"/public/**").permitAll()
                 // 对于获取token的rest api要允许匿名访问
                 .antMatchers(
                         "/auth/**",
