@@ -1,5 +1,7 @@
 package org.lotus.carp.base.config.logging;
 
+import lombok.Getter;
+import lombok.Setter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpRequest;
@@ -20,6 +22,12 @@ import java.io.InputStreamReader;
  */
 public class LoggingRequestInterceptor implements ClientHttpRequestInterceptor {
     final static Logger log = LoggerFactory.getLogger(LoggingRequestInterceptor.class);
+    /**
+     * print log use System.out.println
+     */
+    @Getter
+    @Setter
+    private boolean printConsole = false;
 
     @Override
     public ClientHttpResponse intercept(HttpRequest request, byte[] body, ClientHttpRequestExecution execution) throws IOException {
@@ -30,18 +38,18 @@ public class LoggingRequestInterceptor implements ClientHttpRequestInterceptor {
     }
 
     private void traceRequest(HttpRequest request, byte[] body) throws IOException {
-        if (log.isDebugEnabled()) {
-            log.debug("===========================request begin================================================");
-            log.debug("URI         : {}", request.getURI());
-            log.debug("Method      : {}", request.getMethod());
-            log.debug("Headers     : {}", request.getHeaders());
-            log.debug("Request body: {}", new String(body, "UTF-8"));
-            log.debug("==========================request end================================================");
+        if (log.isDebugEnabled() || printConsole) {
+            printLog("===========================request begin================================================");
+            printLog("URI         : {}", request.getURI());
+            printLog("Method      : {}", request.getMethod());
+            printLog("Headers     : {}", request.getHeaders());
+            printLog("Request body: {}", new String(body, "UTF-8"));
+            printLog("==========================request end================================================");
         }
     }
 
     private void traceResponse(ClientHttpResponse response) throws IOException {
-        if (log.isDebugEnabled()) {
+        if (log.isDebugEnabled() || printConsole) {
             StringBuilder inputStringBuilder = new StringBuilder();
             BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(response.getBody(), "UTF-8"));
             String line = bufferedReader.readLine();
@@ -50,13 +58,24 @@ public class LoggingRequestInterceptor implements ClientHttpRequestInterceptor {
                 inputStringBuilder.append('\n');
                 line = bufferedReader.readLine();
             }
-            log.debug("============================response begin==========================================");
-            log.debug("Status code  : {}", response.getStatusCode());
-            log.debug("Status text  : {}", response.getStatusText());
-            log.debug("Headers      : {}", response.getHeaders());
-            log.debug("Response body: {}", inputStringBuilder.toString());
-            log.debug("=======================response end=================================================");
+            printLog("============================response begin==========================================");
+            printLog("Status code  : {}", response.getStatusCode());
+            printLog("Status text  : {}", response.getStatusText());
+            printLog("Headers      : {}", response.getHeaders());
+            printLog("Response body: {}", inputStringBuilder.toString());
+            printLog("=======================response end=================================================");
         }
 
+    }
+
+    private void printLog(String s) {
+        printLog(s, "");
+    }
+
+    private void printLog(String s, Object o) {
+        if (printConsole) {
+            System.out.println(s + o);
+        }
+        log.debug(s, o);
     }
 }
