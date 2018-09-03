@@ -4,7 +4,7 @@ import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import org.lotus.carp.base.jackson.DateJsonSerializer;
 
 /**
- * carp序列化json 日期
+ * carp序列化json 日期格式yyyy-MM-dd
  *
  * @author: Foy Lian
  * Date: 7/4/2018
