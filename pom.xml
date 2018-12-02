@@ -76,7 +76,7 @@
         <repository>
             <id>carpmaven</id>
             <name>carp maven</name>
-            <url>http://114.118.13.103:8888/nexus/content/groups/public/</url>
+            <url>http://114.118.22.200:8888/nexus/content/groups/public/</url>
         </repository>
         <repository>
             <id>macula-repo</id>
@@ -296,12 +296,12 @@
         <repository>
             <id>carp_releases</id>
             <name>Releases</name>
-            <url>http://114.118.13.103:8888/nexus/content/repositories/releases</url>
+            <url>http://114.118.22.200:8888/nexus/content/repositories/releases</url>
         </repository>
         <snapshotRepository>
             <id>carp_snapshots</id>
             <name>Snapshots</name>
-            <url>http://114.118.13.103:8888/nexus/content/repositories/snapshots</url>
+            <url>http://114.118.22.200:8888/nexus/content/repositories/snapshots</url>
         </snapshotRepository>
     </distributionManagement>
 </project>
