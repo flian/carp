@@ -1,9 +1,19 @@
-FROM openjdk:11
+FROM maven:3.3.3
 
 ARG CARP_VERSION=0.3.0
 ARG CARP_APP=carp-webapp-$CARP_VERSION-SNAPSHOT.jar
-ADD ./carp-webapp/target/$CARP_APP ./
-# run
-ENTRYPOINT ["java", "-jar", "$CARP_APP", "--spring.profiles.active=dev"]
+ARG CARP_WEBAPP_JAR=./carp-webapp/target/$CARP_APP
 
+ADD ./ /tmp/build/
+RUN cd /tmp/build && mvn -q dependency:resolve
 
+#构建应用
+RUN cd /tmp/build && mvn -q -DskipTests=true package \
+        #拷贝编译结果到指定目录
+        && mv $CARP_WEBAPP_JAR/target/*.jar /app.jar \
+        #清理编译痕迹
+        && cd / && rm -rf /tmp/build
+
+VOLUME /tmp
+EXPOSE 8080
+ENTRYPOINT ["java","-Djava.security.egd=file:/dev/./urandom","-jar","/app.jar"]
