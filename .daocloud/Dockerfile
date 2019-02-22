@@ -10,7 +10,7 @@ RUN cd /tmp/build && mvn -q dependency:resolve
 #构建应用
 RUN cd /tmp/build && mvn -q -DskipTests=true package \
         #拷贝编译结果到指定目录
-        && mv $CARP_WEBAPP_JAR/target/*.jar /app.jar \
+        && mv $CARP_WEBAPP_JAR /app.jar \
         #清理编译痕迹
         && cd / && rm -rf /tmp/build
 
