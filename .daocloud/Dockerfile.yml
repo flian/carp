@@ -1,0 +1,11 @@
+FROM openjdk:11
+
+WORKDIR /daocloud/builder/src
+
+ARG CARP_VERSION=0.3.0
+ARG CARP_APP=carp-webapp-$CARP_VERSION-1.0.0-SNAPSHOT.jar
+ADD carp-webapp/target/$CARP_APP ./
+# run
+ENTRYPOINT ["java", "-jar", "$CARP_APP", "--spring.profiles.active=dev"]
+
+
