@@ -6,6 +6,9 @@
 
 河中得上龙门去，不叹江湖岁月深。
 
+##demo site
+there is a [demo](http://114.118.22.202:8080/) site available.
+
 ## 开发快速启动
 1. application.yml配置好数据库链接(mysql)
 2. 启动`AdminApplication` 或 `WebappApplication`, 同时设置
