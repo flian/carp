@@ -110,19 +110,22 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
                 .permitAll()
                 .and()
                 .exceptionHandling().accessDeniedHandler(accessDeniedHandler);
+
         //使用hui-admin主题
-        if (shouldEnableFrameCrossDomain()) {
+        //always enable frameOptions
+        http.headers().frameOptions().disable();
+      /*  if (shouldEnableFrameCrossDomain()) {
             //允许frame调用
+            http.headers().frameOptions().disable();
             if (carpConfig.isDisableFrameOptions()) {
                 http.headers().frameOptions().disable();
             } else {
                 http.headers().frameOptions().sameOrigin();
             }
-
-        }
+        }*/
     }
 
-    private boolean shouldEnableFrameCrossDomain() {
+    /*private boolean shouldEnableFrameCrossDomain() {
         if (null == carpConfig) {
             return false;
         }
@@ -136,7 +139,7 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
             return true;
         }
         return false;
-    }
+    }*/
 
     @Autowired
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {

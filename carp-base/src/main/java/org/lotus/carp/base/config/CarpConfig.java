@@ -62,20 +62,21 @@ public class CarpConfig implements Serializable {
      */
     private String[] exposeStaticClasses;
     /**
-     *  设置框架风格：adminLTE或者huiAdmin
+     * 设置框架风格：adminLTE或者huiAdmin
      */
     private String theme = themes[0];
     /**
-     *  允许任何情况下的跨域
+     * 允许任何情况下的跨域
      */
     private boolean disableFrameOptions = false;
     /**
-     *  只允许同域跨域
+     * 只允许同域跨域
      */
     private boolean sameOrigin = false;
 
     /**
      * 是否是默认风格。 adminLTE是默认风格
+     *
      * @return
      */
     public boolean isDefaultTheme() {
@@ -84,9 +85,24 @@ public class CarpConfig implements Serializable {
 
     /**
      * 是否是huiAdmin风格
+     *
      * @return
      */
     public boolean isHuiAdminTheme() {
         return themes[1].equals(theme);
+    }
+
+    /**
+     * 修改风格
+     */
+    public void changeThemes(int what) {
+        if (what > themes.length - 1) {
+            return;
+        }
+        theme = themes[what];
+    }
+
+    public String[] themesDisplayNames() {
+        return themes;
     }
 }

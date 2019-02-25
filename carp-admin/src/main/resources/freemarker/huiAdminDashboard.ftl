@@ -45,6 +45,7 @@
             </nav>
             <nav id="Hui-userbar" class="nav navbar-nav navbar-userbar hidden-xs">
                 <ul class="cl">
+                    <li><a href="${rc.contextPath}/public/theme/change/0">Theme-AdminLTE</a></li>
                     <li><#include "layout/widget/currentUserName.ftl"/></li>
                     <li class="dropDown dropDown_hover">
                         <a href="#" class="dropDown_A">

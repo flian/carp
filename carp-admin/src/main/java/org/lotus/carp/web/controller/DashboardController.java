@@ -18,6 +18,7 @@ import org.springframework.security.web.access.AccessDeniedHandler;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -33,8 +34,8 @@ import java.util.List;
  * Created with IntelliJ IDEA.
  *
  * @author : Foy Lian
- *         Date: 8/2/2017
- *         Time: 3:00 PM
+ * Date: 8/2/2017
+ * Time: 3:00 PM
  */
 @Controller
 public class DashboardController extends AdminBaseController implements AccessDeniedHandler, ErrorController {
@@ -50,6 +51,12 @@ public class DashboardController extends AdminBaseController implements AccessDe
     private MenuServiceImpl menuService;
     @Resource(name = "carpConfig")
     private CarpConfig carpConfig;
+
+    @GetMapping("/public/theme/change/{themeIndex}")
+    public String changeTheme(@PathVariable Integer themeIndex) {
+        carpConfig.changeThemes(themeIndex);
+        return "redirect:/dashboard";
+    }
 
     @GetMapping(value = {"", "/index", "/home", "/dashboard"})
     public String index(Model model) {

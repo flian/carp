@@ -25,6 +25,10 @@
                 <!-- Navbar Right Menu -->
                 <div class="navbar-custom-menu">
                     <ul class="nav navbar-nav">
+                        <!-- change theme-->
+                        <li class="dropdown">
+                            <a href="${rc.contextPath}/public/theme/change/1">HuiAdmin Theme</a>
+                        </li>
                         <!-- Messages: style can be found in dropdown.less-->
                         <li class="dropdown messages-menu">
                         <#if  carpConfig.showUnusedIcons>
