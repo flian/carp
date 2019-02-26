@@ -22,6 +22,12 @@ import java.util.Base64;
  */
 @Slf4j
 public class AesCryptUtils {
+    /**
+     *  对文本进行加密操作
+     * @param plainText 原生文本
+     * @param encryptPassword 加密密码
+     * @return 加密后的字符串
+     */
     public static String encrypt(String plainText,String encryptPassword) {
         try {
             SecureRandom random = new SecureRandom();
@@ -54,6 +60,13 @@ public class AesCryptUtils {
         throw new RuntimeException("AesCryptUtils encrypt error");
     }
 
+    /**
+     *  对使用@encrypt加密后的文本进行解密
+     *
+     * @param encodedString 待解密的文本串
+     * @param encryptPassword 解密密码
+     * @return 解密后的明文
+     */
     public static String decrypt(String encodedString,String encryptPassword) {
         try {
             byte[] finalCipherText = Base64.getDecoder().decode(encodedString);

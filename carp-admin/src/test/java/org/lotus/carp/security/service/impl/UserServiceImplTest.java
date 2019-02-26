@@ -1,5 +1,6 @@
 package org.lotus.carp.security.service.impl;
 
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.lotus.carp.AdminApplication;
@@ -29,6 +30,7 @@ import java.util.Arrays;
 @DirtiesContext
 @Transactional
 @ActiveProfiles("it")
+@Ignore
 public class UserServiceImplTest {
     @Autowired
     private UserServiceImpl userService;
@@ -36,10 +38,11 @@ public class UserServiceImplTest {
     private UserConverter userConvter;
 
     private String[] userExist = {"admin", "user"};
-    ;
+
     private String[] userNotExist = {"adminNoExist", "userNotExist"};
 
     @Test
+    @Ignore
     public void testLoadUserByUsername() {
         Arrays.stream(userExist).forEach(userName -> {
             UserDetails userDetail = userService.loadUserByUsername(userName);
@@ -59,6 +62,7 @@ public class UserServiceImplTest {
     }
 
     @Test
+    @Ignore
     public void testSearch() throws Exception {
 
         Arrays.stream(userExist).forEach(
