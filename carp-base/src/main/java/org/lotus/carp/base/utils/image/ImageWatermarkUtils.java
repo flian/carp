@@ -64,7 +64,7 @@ public class ImageWatermarkUtils {
             Rectangle2D rect = fontMetrics.getStringBounds(waterMarkText, g2d);
 
             // calculates the coordinate where the String is painted
-            XY xy = calculatePositon(waterMarkPosition, sourceImage.getWidth(), sourceImage.getHeight(), (int) rect.getWidth(), (int) rect.getHeight());
+            XY xy = calculatePosition(waterMarkPosition, sourceImage.getWidth(), sourceImage.getHeight(), (int) rect.getWidth(), (int) rect.getHeight());
             // paints the textual watermark
             g2d.drawString(waterMarkText, xy.x, xy.y);
             ImageIO.write(sourceImage, imageType.name(), dest);
@@ -103,7 +103,7 @@ public class ImageWatermarkUtils {
             g2d.setComposite(alphaChannel);
 
             // calculates the coordinate where the image is painted
-            XY xy = calculatePositon(waterMarkPosition, sourceImage.getWidth(), sourceImage.getHeight(), watermarkImage.getWidth(), watermarkImage.getHeight());
+            XY xy = calculatePosition(waterMarkPosition, sourceImage.getWidth(), sourceImage.getHeight(), watermarkImage.getWidth(), watermarkImage.getHeight());
             // paints the image watermark
             g2d.drawImage(watermarkImage, xy.x, xy.y, null);
 
@@ -122,7 +122,7 @@ public class ImageWatermarkUtils {
         private int y;
     }
 
-    private static XY calculatePositon(Position position, int originImgWidth, int originImgHeight, int waterMarkWidth, int waterMarkHeight) {
+    private static XY calculatePosition(Position position, int originImgWidth, int originImgHeight, int waterMarkWidth, int waterMarkHeight) {
         XY xy = new XY();
         int x = 0;
         int y = 0;
