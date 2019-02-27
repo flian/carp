@@ -12,7 +12,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 
 /**
- * 图片水印工具类
+ * 图片水印工具类(文字水印、图片水印)
  *
  * @author: Foy Lian
  * Date: 2/27/2019
@@ -64,32 +64,9 @@ public class ImageWatermarkUtils {
             Rectangle2D rect = fontMetrics.getStringBounds(waterMarkText, g2d);
 
             // calculates the coordinate where the String is painted
-            int x = 0;
-            int y = 0;
-            switch (waterMarkPosition) {
-                case top_left: {
-                    x = 0;
-                    y = 0;
-                    break;
-                }
-                case bottom_right: {
-                    x = (sourceImage.getWidth() - (int) rect.getWidth());
-                    y = sourceImage.getHeight() - (int) rect.getHeight();
-                    break;
-                }
-                case bottom_center: {
-                    x = (sourceImage.getWidth() - (int) rect.getWidth());
-                    y = sourceImage.getHeight() - (int) rect.getHeight() / 2;
-                    break;
-                }
-                case middle_center: {
-                    x = (sourceImage.getWidth() - (int) rect.getWidth()) / 2;
-                    y = sourceImage.getHeight() / 2;
-                    break;
-                }
-            }
+            XY xy = calculatePositon(waterMarkPosition, sourceImage.getWidth(), sourceImage.getHeight(), (int) rect.getWidth(), (int) rect.getHeight());
             // paints the textual watermark
-            g2d.drawString(waterMarkText, x, y);
+            g2d.drawString(waterMarkText, xy.x, xy.y);
             ImageIO.write(sourceImage, imageType.name(), dest);
             g2d.dispose();
 
@@ -126,32 +103,9 @@ public class ImageWatermarkUtils {
             g2d.setComposite(alphaChannel);
 
             // calculates the coordinate where the image is painted
-            int x = 0;
-            int y = 0;
-            switch (waterMarkPosition) {
-                case top_left: {
-                    x = 0;
-                    y = 0;
-                    break;
-                }
-                case bottom_right: {
-                    x = (sourceImage.getWidth() - (int) watermarkImage.getWidth());
-                    y = sourceImage.getHeight() - (int) watermarkImage.getHeight();
-                    break;
-                }
-                case bottom_center: {
-                    x = (sourceImage.getWidth() - (int) watermarkImage.getWidth());
-                    y = sourceImage.getHeight() - (int) watermarkImage.getHeight() / 2;
-                    break;
-                }
-                case middle_center: {
-                    x = (sourceImage.getWidth() - (int) watermarkImage.getWidth()) / 2;
-                    y = sourceImage.getHeight() / 2;
-                    break;
-                }
-            }
+            XY xy = calculatePositon(waterMarkPosition, sourceImage.getWidth(), sourceImage.getHeight(), watermarkImage.getWidth(), watermarkImage.getHeight());
             // paints the image watermark
-            g2d.drawImage(watermarkImage, x, y, null);
+            g2d.drawImage(watermarkImage, xy.x, xy.y, null);
 
             ImageIO.write(sourceImage, imageType.name(), dest);
             g2d.dispose();
@@ -161,5 +115,41 @@ public class ImageWatermarkUtils {
         } catch (IOException ex) {
             log.error("ImageWatermarkUtils.addImageWatermark error:", ex);
         }
+    }
+
+    private static class XY {
+        private int x;
+        private int y;
+    }
+
+    private static XY calculatePositon(Position position, int originImgWidth, int originImgHeight, int waterMarkWidth, int waterMarkHeight) {
+        XY xy = new XY();
+        int x = 0;
+        int y = 0;
+        switch (position) {
+            case top_left: {
+                x = 0;
+                y = 0;
+                break;
+            }
+            case bottom_right: {
+                x = originImgWidth - waterMarkWidth;
+                y = originImgHeight - waterMarkHeight;
+                break;
+            }
+            case bottom_center: {
+                x = (originImgWidth - waterMarkWidth)/2;
+                y = originImgHeight -waterMarkHeight;
+                break;
+            }
+            case middle_center: {
+                x = (originImgWidth - waterMarkWidth) / 2;
+                y = originImgHeight / 2;
+                break;
+            }
+        }
+        xy.x = x;
+        xy.y = y;
+        return xy;
     }
 }
