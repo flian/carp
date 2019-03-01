@@ -84,8 +84,8 @@ public class CarpConfig implements Serializable {
      */
     public boolean isDefaultTheme() {
         String userTheme = CurrentUser.theme();
-        if (Strings.isNotEmpty(userTheme) && themes[0].equals(userTheme)) {
-            return true;
+        if (Strings.isNotEmpty(userTheme)) {
+            return themes[0].equals(userTheme);
         }
         return themes[0].equals(theme);
     }
@@ -97,8 +97,8 @@ public class CarpConfig implements Serializable {
      */
     public boolean isHuiAdminTheme() {
         String userTheme = CurrentUser.theme();
-        if (Strings.isNotEmpty(userTheme) && themes[1].equals(userTheme)) {
-            return true;
+        if (Strings.isNotEmpty(userTheme)) {
+            return themes[1].equals(userTheme);
         }
         return themes[1].equals(theme);
     }
