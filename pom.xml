@@ -68,6 +68,12 @@
         <kaptcha.version>2.3.2</kaptcha.version>
     </properties>
     <repositories>
+        <!-- for daocloud build only.-->
+        <repository>
+            <id>nexus-daocloud</id>
+            <name>Nexus daocloud</name>
+            <url>http://nexus.daocloud.io/repository/maven-public/</url>
+        </repository>
         <repository>
             <id>alimaven</id>
             <name>aliyun maven</name>
