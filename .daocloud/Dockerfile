@@ -4,6 +4,7 @@ ARG CARP_VERSION=0.3.0
 ARG CARP_APP=carp-webapp-$CARP_VERSION-SNAPSHOT.jar
 ARG CARP_WEBAPP_JAR=./carp-webapp/target/$CARP_APP
 
+COPY  ./.daocloud/settings.xml /usr/share/maven/ref/
 ADD ./ /tmp/build/
 RUN cd /tmp/build && mvn -q dependency:resolve
 
@@ -13,6 +14,8 @@ RUN cd /tmp/build && mvn -q -DskipTests=true package \
         && mv $CARP_WEBAPP_JAR /app.jar \
         #清理编译痕迹
         && cd / && rm -rf /tmp/build
+        #清理maven目录
+        && cd / &&  rm -rf /root/.m2
 
 VOLUME /tmp
 EXPOSE 8080
