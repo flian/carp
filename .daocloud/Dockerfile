@@ -13,9 +13,9 @@ RUN cd /tmp/build && mvn -q -DskipTests=true package \
         #拷贝编译结果到指定目录
         && mv $CARP_WEBAPP_JAR /app.jar \
         #清理编译痕迹
-        && cd / && rm -rf /tmp/build \
+        && cd / && rm -rf /tmp/build
         #清理maven目录
-        && cd / &&  rm -rf /root/.m2
+       # && cd / &&  rm -rf /root/.m2
 
 VOLUME /tmp
 EXPOSE 8080
