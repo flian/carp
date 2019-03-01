@@ -1,0 +1,46 @@
+version: 3
+stages:
+- Maven打包
+- 制作发布docker 镜像
+- 发布Test环境
+package:
+  stage: Maven打包
+  only:
+    branches:
+    - .*
+    tags:
+    - .*
+  pull_request: false
+  allow_failure: false
+  image: maven:latest
+  script:
+  - '# Working directory with cloned repository: /daocloud/builder/src'
+  - ""
+  - '#mvn package -Dmaven.test.skip=true'
+  - cp  ./.daocloud/settings.xml /usr/share/maven/ref/
+  - mvn package
+发布到自有主机:
+  stage: 发布Test环境
+  job_type: DCS_deploy
+  only:
+    branches:
+    - .*
+    tags:
+    - .*
+  allow_failure: false
+  app_name: carp
+  cluster_id: ""
+标准构建:
+  stage: 制作发布docker 镜像
+  job_type: image_build
+  only:
+    branches:
+    - .*
+    tags:
+    - .*
+  allow_failure: false
+  dependencies:
+  - package
+  build_dir: /
+  cache: true
+  dockerfile_path: /.daocloud/Dockerfile
