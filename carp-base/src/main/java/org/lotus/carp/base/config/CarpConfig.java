@@ -1,6 +1,7 @@
 package org.lotus.carp.base.config;
 
 import lombok.Data;
+import org.apache.logging.log4j.util.Strings;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.stereotype.Component;
@@ -74,12 +75,18 @@ public class CarpConfig implements Serializable {
      */
     private boolean sameOrigin = false;
 
+    private boolean userCanChangeTheme = true;
+
     /**
      * 是否是默认风格。 adminLTE是默认风格
      *
      * @return
      */
     public boolean isDefaultTheme() {
+        String userTheme = CurrentUser.theme();
+        if (Strings.isNotEmpty(userTheme) && themes[0].equals(userTheme)) {
+            return true;
+        }
         return themes[0].equals(theme);
     }
 
@@ -89,6 +96,10 @@ public class CarpConfig implements Serializable {
      * @return
      */
     public boolean isHuiAdminTheme() {
+        String userTheme = CurrentUser.theme();
+        if (Strings.isNotEmpty(userTheme) && themes[1].equals(userTheme)) {
+            return true;
+        }
         return themes[1].equals(theme);
     }
 
@@ -96,10 +107,13 @@ public class CarpConfig implements Serializable {
      * 修改风格
      */
     public void changeThemes(int what) {
-        if (what > themes.length - 1) {
-            return;
+        if (userCanChangeTheme) {
+            if (what > themes.length - 1) {
+                return;
+            }
+            CurrentUser.updateTheme(themes[what]);
+            //theme = themes[what];
         }
-        theme = themes[what];
     }
 
     public String[] themesDisplayNames() {
