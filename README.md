@@ -75,7 +75,9 @@ master 为开发分支，不固定更新
 发布时采用release分支
 当前版本详情：
 0.1.0 - for print demo project。后续（0.1.x作为整个版本的修复、增强）
-0.2.0 - 目前的开发版本
+0.2.0 - for scan in door poc
+0.3.0 - for iot poc
+0.4.0 - current in dev
 更多模块详情，请查看对应模块README描述
 
 发布到私服：
