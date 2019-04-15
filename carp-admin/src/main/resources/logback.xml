@@ -1,7 +1,7 @@
 <configuration>
 	<include resource="org/springframework/boot/logging/logback/base.xml"/>
 	<!--定义日志文件的存储地址 勿在 LogBack 的配置中使用相对路径-->
-	<property name="LOG_HOME" value="./log" />
+	<property name="LOG_HOME" value="${LOG_HOME:-./log}" />
 	<!--<property name="LOG_HOME" value="/Users/zbs/code/ttmv/branches/ocms_20160128_zbs/src/main/resources/log" />-->
 	<!-- 控制台输出 -->
 	<appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
