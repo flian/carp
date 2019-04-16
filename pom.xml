@@ -69,11 +69,11 @@
     </properties>
     <repositories>
         <!-- for daocloud build only.-->
-        <repository>
+<!--        <repository>
             <id>nexus-daocloud</id>
             <name>Nexus daocloud</name>
             <url>http://nexus.daocloud.io/repository/maven-public/</url>
-        </repository>
+        </repository>-->
         <repository>
             <id>alimaven</id>
             <name>aliyun maven</name>
@@ -84,11 +84,11 @@
             <name>carp maven</name>
             <url>http://114.118.22.200:8888/nexus/content/groups/public/</url>
         </repository>
-        <repository>
+ <!--       <repository>
             <id>macula-repo</id>
             <name>macula-repo</name>
             <url>http://maven.infinitus.com.cn:8081/nexus/content/groups/public</url>
-        </repository>
+        </repository>-->
     </repositories>
     <dependencyManagement>
         <dependencies>
