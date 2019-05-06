@@ -342,7 +342,7 @@
     // Add a response interceptor
     axios.interceptors.response.use(function (response) {
         // 全局业务异常提示
-        if(response.procCode!=200 && response.data.procCode != 200){
+        if(response.procCode && response.procCode!=200){
             Vue.prototype.$message({
                 showClose: true,
                 message:  response.data.message,
