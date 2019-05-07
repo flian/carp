@@ -2,7 +2,8 @@
 <section class="content">
     <div id="app" v-cloak>
         <el-button class="filter-item" style="margin-left: 10px;" @click="add" type="primary" icon="edit">添加</el-button>
-        <el-button type="primary" icon="el-icon-delete" @click="deleteSelected" :disabled="shouldDisableDelete"></el-button>
+        <el-button type="primary" icon="el-icon-delete" @click="deleteSelected"
+                   :disabled="shouldDisableDelete"></el-button>
         <el-collapse accordion>
             <el-collapse-item title="更多功能...">
                 <div class="filter-container">
@@ -17,7 +18,7 @@
             </el-collapse-item>
         </el-collapse>
         <el-table :data.sync="cards" style="width: 100%" @selection-change="handleSelectionChange"
-                  :row-class-name="tableRowClassName">
+                  :row-class-name="tableRowClassName" ref="cardsTable">
             <el-table-column type="selection" width="55"></el-table-column>
             <el-table-column type="expand">
                 <template scope="props">
@@ -42,8 +43,10 @@
             <el-table-column label="冻结金额" prop="frozenValue"></el-table-column>
             <el-table-column label="余额" prop="balanceValue"></el-table-column>
 
-            <el-table-column align="center" label="操作">
+            <el-table-column align="center" label="操作" width="300">
                 <template scope="scope">
+                    <el-button size="small" type="warning" @click="expandRow(scope.row)">展开
+                    </el-button>
                     <el-button size="small" type="success" @click="edit(scope.row)">编辑
                     </el-button>
                     <el-button size="small" type="danger" @click="deleteRow(scope.row)">删除
@@ -115,25 +118,29 @@
                 }
             },
             methods: {
-                tableRowClassName(row, rowIndex){
+                tableRowClassName(row, rowIndex) {
                     var self = this;
                     if (rowIndex <= self.highlightRowIndex) {
                         return "info-row"
                     }
                     return "";
                 },
-                add(){
+                add() {
                     var self = this;
                     self.cardItem = {};
                     self.createVisible = true;
                 },
-                edit(row){
+                expandRow(row) {
+                    var self = this;
+                    self.$refs.cardsTable.toggleRowExpansion(row, true);
+                },
+                edit(row) {
                     var self = this;
                     var item = row;
                     self.cardItem = JSON.parse(JSON.stringify(item));
                     self.editVisible = true;
                 },
-                createCard(){
+                createCard() {
                     var self = this;
                     self.$refs['createCardForm'].validate((valid) => {
                         if (valid) {
@@ -163,7 +170,7 @@
                     });
 
                 },
-                updateCard(){
+                updateCard() {
                     var self = this;
                     self.$refs.editCardForm.validate((valid) => {
                         if (valid) {
@@ -192,15 +199,15 @@
 
                 },
 
-                deleteRow(row){
+                deleteRow(row) {
                     let cards = [];
                     cards.push(row);
                     this.deleteBySelectedCards(cards);
                 },
-                deleteSelected(){
+                deleteSelected() {
                     this.deleteBySelectedCards(this.selectedCards);
                 },
-                deleteBySelectedCards(cards){
+                deleteBySelectedCards(cards) {
                     var self = this;
                     this.$confirm('永久删除选中行?', '确认删除', {
                         confirmButtonText: '确认删除',
@@ -208,7 +215,7 @@
                         type: 'warning'
                     }).then(() => {
                         var ids = [];
-                        cards.forEach(function (val) {
+                        cards.forEach(function(val) {
                             ids.push(val.id);
                             self.cards.splice(self.cards.indexOf(val), 1);
                         });
@@ -221,7 +228,7 @@
                         console.log("取消删除");
                     });
                 },
-                deleteCardsByIds(ids){
+                deleteCardsByIds(ids) {
                     axios.post("${rc.contextPath}/cards/delete", ids).then(response => {
                         console.log(response);
                     });
@@ -237,8 +244,8 @@
                 handleSelectionChange(val) {
                     this.selectedCards = val;
                 },
-                queryCards(){
-                    axios.get("${rc.contextPath}/cards/data", {params: this.query}).then(response => {
+                queryCards() {
+                    axios.get("${rc.contextPath}/cards/data", { params: this.query }).then(response => {
                         console.log(response);
                         this.cards = response.data.payload.content;
                         this.totalPage = response.data.payload.totalPages;
@@ -246,10 +253,10 @@
                     })
                 }
             },
-            created(){
+            created() {
                 this.queryCards();
             },
-            data: function () {
+            data: function() {
                 return {
                     query: {
                         page: 1,
@@ -269,16 +276,16 @@
                     createCardRules: {
                         issueValue: [
                             //FIXME 验证规则不对 文档地址：https://github.com/yiminghe/async-validator
-                            {type: "integer", required: true, message: '请输入正确的金额', trigger: 'blur'},
-                            {type: "integer", min: 0, max: 20000, message: '卡面值需是在0到2w之间数字', trigger: 'blur'}
+                            { type: "integer", required: true, message: '请输入正确的金额', trigger: 'blur' },
+                            { type: "integer", min: 0, max: 20000, message: '卡面值需是在0到2w之间数字', trigger: 'blur' }
                         ]
                     },
                     editCardRules: {
                         frozenValue: [
-                            {type: "integer", required: true, message: '请输入正确的冻结金额', trigger: 'blur'},
+                            { type: "integer", required: true, message: '请输入正确的冻结金额', trigger: 'blur' },
                         ],
                         balanceValue: [
-                            {type: "integer", required: true, message: '请输入正确的余额', trigger: 'blur'},
+                            { type: "integer", required: true, message: '请输入正确的余额', trigger: 'blur' },
                         ]
                     }
                 }
