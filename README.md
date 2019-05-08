@@ -68,16 +68,21 @@ V1_0_x 到 V1_100_x由carp项目占用, 使用carp作为startup的项目，需�
 
 >  V1_2_x系列，分配给carp-commerce及其子模块: carp-commerce-service-impl,carp-commerce-admin模块
 
->  V1_3_x系列，分配给carp-api模块？？？
+>  V1_3_x系列，分配给carp-api模块
 
 ## 其他
 master 为开发分支，不固定更新
 发布时采用release分支
 当前版本详情：
+
 0.1.0 - for print demo project。后续（0.1.x作为整个版本的修复、增强）
+
 0.2.0 - for scan in door poc
+
 0.3.0 - for iot poc
+
 0.4.0 - current in dev
+
 更多模块详情，请查看对应模块README描述
 
 发布到私服：
