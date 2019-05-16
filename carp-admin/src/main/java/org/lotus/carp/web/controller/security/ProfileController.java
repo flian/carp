@@ -3,10 +3,7 @@ package org.lotus.carp.web.controller.security;
 import org.lotus.carp.base.vo.ResponseWrapper;
 import org.lotus.carp.security.convter.UserConverter;
 import org.lotus.carp.security.service.impl.UserServiceImpl;
-import org.lotus.carp.security.vo.UserCreateDto;
-import org.lotus.carp.security.vo.UserPasswordDto;
-import org.lotus.carp.security.vo.UserResult;
-import org.lotus.carp.security.vo.UserRoleUpdateDto;
+import org.lotus.carp.security.vo.*;
 import org.lotus.carp.web.controller.AdminBaseController;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
@@ -20,8 +17,8 @@ import javax.validation.Valid;
  * 用户管理
  *
  * @author : Foy Lian
- *         Date: 8/4/2017
- *         Time: 3:51 PM
+ * Date: 8/4/2017
+ * Time: 3:51 PM
  */
 @Controller
 @RequestMapping("/profile")
@@ -60,5 +57,13 @@ public class ProfileController extends AdminBaseController {
     public ResponseWrapper<UserResult> updatePassword(@PathVariable("userName") String userName,
                                                       @Valid @RequestBody UserPasswordDto userPasswordDto) {
         return response().execSuccess(userConverter.convert(userService.updatePassword(userName, userPasswordDto)));
+    }
+
+    @PutMapping("{userName}/enable")
+    @ResponseBody
+    public ResponseWrapper<Boolean> updateUserEnableStatus(@PathVariable("userName") String userName,
+                                                           @Valid @RequestBody UserEnableDto userEnableDto) {
+        userService.updateUserEnableStatus(userName, userEnableDto.getEnable());
+        return response().execSuccess(Boolean.TRUE);
     }
 }

@@ -16,5 +16,6 @@ public class UserResult {
     private Long id;
     private String userName;
     private String roles;
+    private Boolean enable;
     private List<String> roleCodes = new ArrayList<>();
 }

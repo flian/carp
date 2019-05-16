@@ -5,10 +5,22 @@ CREATE TABLE carp_user (
   COMMENT '密码',
   user_name VARCHAR(20)  NOT NULL
   COMMENT '用户名',
+  enable tinyint NOT NULL  default 1 COMMENT '账户是否可用',
   PRIMARY KEY (id)
 )ENGINE=InnoDB DEFAULT CHARSET=utf8;
 ALTER TABLE carp_user
   ADD CONSTRAINT UK_user_name UNIQUE (user_name);
+
+CREATE TABLE `carp_user_login_log` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT 'id',
+  `user_name` varchar(20) NOT NULL DEFAULT '' COMMENT '尝试登陆用户名',
+  `agent` varchar(255) DEFAULT NULL COMMENT '登陆用户浏览信息',
+  `ip` varchar(20) DEFAULT NULL COMMENT '登陆ip信息',
+  `log` varchar(255) DEFAULT NULL COMMENT '登陆备注信息',
+  `created_datetime` datetime comment '日志记录时间',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
 
 CREATE TABLE carp_role (
   id        BIGINT      NOT NULL AUTO_INCREMENT
@@ -64,9 +76,9 @@ CREATE TABLE carp_role_menu (
 --           admin/admin123 with ROLE_ADMIN
 --           user/user123         with ROLE_USER
 -- ----------------------------
-  INSERT INTO `carp_user` VALUES (1, '$2a$10$Ohb6kWObdqM231o8lzIkT.AWkApqhEe2XNL2akji9y0wzREdOa37q', 'admin'
-);
-INSERT INTO `carp_user` VALUES (2, '$2a$10$HkOAFyU86LVXjtnlILOtFu2SdHQ4dJgYd6DATL.EydBLfvmRTo6wm', 'user');
+INSERT INTO `carp_user` (`id`, `password`, `user_name`, `enable`) VALUES (1, '$2a$10$Ohb6kWObdqM231o8lzIkT.AWkApqhEe2XNL2akji9y0wzREdOa37q', 'admin', 1);
+INSERT INTO `carp_user` (`id`, `password`, `user_name`, `enable`) VALUES (2, '$2a$10$HkOAFyU86LVXjtnlILOtFu2SdHQ4dJgYd6DATL.EydBLfvmRTo6wm', 'user', 1);
+
 INSERT INTO `carp_role` VALUES (1, 'ROLE_ADMIN', '系统管理员');
 INSERT INTO `carp_role` VALUES (2, 'ROLE_USER', '一般用户');
 INSERT INTO `carp_user_role` VALUES ('admin', 'ROLE_ADMIN');

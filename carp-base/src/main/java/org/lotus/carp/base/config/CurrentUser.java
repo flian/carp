@@ -8,7 +8,7 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 import javax.servlet.http.HttpServletRequest;
 
 /**
- * 当前用户
+ * 当前用户工具类
  *
  * @author: Foy Lian
  * Date: 2/18/2019
@@ -48,4 +48,49 @@ public class CurrentUser {
             request().getSession().setAttribute(CURRENT_USER_THEME_KEY, theme);
         }
     }
+
+    /**
+     * 获取给定请求的ip
+     *
+     * @param request
+     * @return
+     */
+    public static String ip(HttpServletRequest request) {
+        if (request != null) {
+            String remoteAddr = request.getHeader("X-FORWARDED-FOR");
+            if (Strings.isNotEmpty(remoteAddr)) {
+                return remoteAddr;
+            }
+        }
+        return request.getRemoteAddr();
+    }
+
+    /**
+     * 获取当前调用者的ip地址
+     *
+     * @return ip地址
+     */
+    public static String ip() {
+        return ip(request());
+    }
+
+    /**
+     * 获取给定请求的浏览器信息
+     *
+     * @param request
+     * @return
+     */
+    public static String userAgent(HttpServletRequest request) {
+        return request.getHeader("User-Agent");
+    }
+
+    /**
+     * 获取当前操作人的userAgent信息
+     *
+     * @return userAgent信息
+     */
+    public static String userAgent() {
+        return userAgent(request());
+    }
+
 }

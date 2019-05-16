@@ -8,7 +8,7 @@ import java.io.Serializable;
 import java.util.Set;
 
 /**
- * Created with IntelliJ IDEA.
+ *  账户信息
  * @author : Foy Lian
  * Date: 8/3/2017
  * Time: 5:53 PM
@@ -24,6 +24,9 @@ public class User implements Serializable {
     @Setter
     private Long id;
 
+    /**
+     * 账户名
+     */
     @Getter
     @Setter
     @Column(name="user_name",unique = true, nullable = false,length = 20)
@@ -34,6 +37,17 @@ public class User implements Serializable {
     @Column(nullable = false,length = 64)
     private String password;
 
+    /**
+     * 账户是否可用
+     */
+    @Getter
+    @Setter
+    @Column(name="enable",nullable = false)
+    private Boolean enable;
+
+    /**
+     * 账户角色
+     */
     @Getter
     @Setter
     @ManyToMany

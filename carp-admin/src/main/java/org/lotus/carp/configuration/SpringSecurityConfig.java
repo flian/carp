@@ -6,6 +6,7 @@ import org.lotus.carp.configuration.security.ActionFilterSecurityMetadataSource;
 import org.lotus.carp.configuration.security.AuthFailureHandler;
 import org.lotus.carp.configuration.security.CaptchaUsernamePasswordAuthenticationFilter;
 import org.lotus.carp.configuration.security.CarpRoleVoter;
+import org.lotus.carp.security.service.impl.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
@@ -20,7 +21,6 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.access.AccessDeniedHandler;
 import org.springframework.security.web.access.expression.WebExpressionVoter;
@@ -44,7 +44,7 @@ import java.util.List;
 @ConfigurationProperties(prefix = "carp.security.kaptcha")
 public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
-    private UserDetailsService userDetailsService;
+    private UserServiceImpl userDetailsService;
 
     @Autowired
     private ActionFilterSecurityMetadataSource actionFilterSecurityMetadataSource;
@@ -79,7 +79,7 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Bean
     public CaptchaUsernamePasswordAuthenticationFilter formLogin() throws Exception {
-        CaptchaUsernamePasswordAuthenticationFilter filter = new CaptchaUsernamePasswordAuthenticationFilter(captchaEnable, captchaFailedTimes);
+        CaptchaUsernamePasswordAuthenticationFilter filter = new CaptchaUsernamePasswordAuthenticationFilter(captchaEnable, captchaFailedTimes,userDetailsService);
         filter.setAuthenticationManager(authenticationManager());
         filter.setAuthenticationFailureHandler(authFailureHandler);
         return filter;

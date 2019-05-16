@@ -19,6 +19,7 @@ public class UserConverter implements Converter<User,UserResult> {
         UserResult result = new UserResult();
         result.setId(source.getId());
         result.setUserName(source.getUserName());
+        result.setEnable(source.getEnable());
         if(null != source.getRoles()){
             result.setRoles(Joiner.on(",").join(Iterables.transform(source.getRoles(), r -> r.getCode())));
             source.getRoles().forEach( r->result.getRoleCodes().add(r.getCode()));

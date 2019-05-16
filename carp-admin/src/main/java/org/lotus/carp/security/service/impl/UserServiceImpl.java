@@ -4,7 +4,9 @@ import com.google.common.base.Preconditions;
 import org.lotus.carp.base.event.SecurityResourceChangedEvent;
 import org.lotus.carp.security.domain.Role;
 import org.lotus.carp.security.domain.User;
+import org.lotus.carp.security.domain.UserLoginLog;
 import org.lotus.carp.security.repository.RoleRepository;
+import org.lotus.carp.security.repository.UserLoginLogRepository;
 import org.lotus.carp.security.repository.UserRepository;
 import org.lotus.carp.security.vo.UserCreateDto;
 import org.lotus.carp.security.vo.UserPasswordDto;
@@ -22,15 +24,16 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
 /**
- * Created with IntelliJ IDEA.
+ * 系统用户服务
  *
  * @author : Foy Lian
- *         Date: 8/3/2017
- *         Time: 6:02 PM
+ * Date: 8/3/2017
+ * Time: 6:02 PM
  */
 @Service
 public class UserServiceImpl implements UserDetailsService {
@@ -39,7 +42,8 @@ public class UserServiceImpl implements UserDetailsService {
 
     @Autowired
     private RoleRepository roleRepository;
-
+    @Autowired
+    private UserLoginLogRepository loginLogRepository;
     @Autowired
     private PasswordEncoder passwordEncoder;
 
@@ -91,5 +95,45 @@ public class UserServiceImpl implements UserDetailsService {
         Preconditions.checkArgument(user != null, "找不到待改密的用户!");
         user.setPassword(passwordEncoder.encode(userPasswordDto.getPassword()));
         return userRepository.save(user);
+    }
+
+    @Transactional(rollbackFor = {Exception.class})
+    public UserLoginLog saveLog(String userName, String agent, String ip, String log) {
+        UserLoginLog logEntity = new UserLoginLog();
+        logEntity.setAgent(agent);
+        logEntity.setUserName(userName);
+        logEntity.setIp(ip);
+        logEntity.setLog(log);
+        logEntity.setCreatedDatetime(new Date());
+        return loginLogRepository.save(logEntity);
+    }
+
+    @Transactional(rollbackFor = {Exception.class})
+    public Boolean updateUserEnableStatus(String userName, Boolean enable) {
+        Preconditions.checkNotNull(enable, "用户启用状态不能为空!");
+        User user = userRepository.findByUserName(userName);
+        if (null != user) {
+            user.setEnable(enable);
+            userRepository.save(user);
+            return Boolean.TRUE;
+        }
+        return Boolean.FALSE;
+    }
+
+    @Transactional(rollbackFor = {Exception.class})
+    public void disableUser(String userName) {
+        User user = userRepository.findByUserName(userName);
+        if (null != user) {
+            user.setEnable(Boolean.FALSE);
+            userRepository.save(user);
+        }
+    }
+
+    public Boolean canLogin(String userName) {
+        User user = userRepository.findByUserName(userName);
+        if (null != user) {
+            return user.getEnable();
+        }
+        return Boolean.FALSE;
     }
 }

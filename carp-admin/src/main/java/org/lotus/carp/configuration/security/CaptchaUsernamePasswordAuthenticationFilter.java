@@ -1,6 +1,8 @@
 package org.lotus.carp.configuration.security;
 
 import com.google.common.base.Strings;
+import org.lotus.carp.base.config.CurrentUser;
+import org.lotus.carp.security.service.impl.UserServiceImpl;
 import org.lotus.carp.utils.ProfileUtil;
 import org.springframework.security.authentication.AuthenticationServiceException;
 import org.springframework.security.core.Authentication;
@@ -23,16 +25,36 @@ public class CaptchaUsernamePasswordAuthenticationFilter extends UsernamePasswor
     private static final String PASSWORD_FAILED_TIMES_KEY = "_captcha_password_failed_times";
     public static final String DEFAULT_CAPTCHA_CODE_PARAMETER = "captchaCode";
 
+    private UserServiceImpl userService;
+    /**
+     * 最大错误密码次数,会锁定账户
+     */
+    private static final int maxFailedTime = 10;
+
     public CaptchaUsernamePasswordAuthenticationFilter() {
     }
 
-    public CaptchaUsernamePasswordAuthenticationFilter(boolean captchaEnable, int captchaFailedTimes) {
+    public CaptchaUsernamePasswordAuthenticationFilter(boolean captchaEnable, int captchaFailedTimes, UserServiceImpl userService) {
         this.captchaEnable = captchaEnable;
         this.captchaFailedTimes = captchaFailedTimes;
+        this.userService = userService;
     }
 
     @Override
     public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response) throws AuthenticationException {
+        //记录日志
+        logUserLogin(request);
+        int failedCount  = failedTimes();
+        String userName = obtainUsername(request);
+        if(!userService.canLogin(userName)){
+            throw new AuthenticationServiceException("账户已锁定，请联系管理员!");
+        }
+
+        if(maxFailedTime<=failedCount){
+            userService.disableUser(userName);
+            throw new AuthenticationServiceException("密码错误次数过多，账户已锁定，请联系管理员!");
+        }
+
         if (!isCurrentRequestNeedCaptcha()) {
             //不需要验证验证码
             failedTimesPlus();
@@ -72,5 +94,9 @@ public class CaptchaUsernamePasswordAuthenticationFilter extends UsernamePasswor
             return false;
         }
         return true;
+    }
+
+    private void logUserLogin(HttpServletRequest request) {
+        userService.saveLog(obtainUsername(request), CurrentUser.userAgent(request), CurrentUser.ip(request), "try login");
     }
 }
