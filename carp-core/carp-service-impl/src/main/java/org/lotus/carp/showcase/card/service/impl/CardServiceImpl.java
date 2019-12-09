@@ -58,23 +58,6 @@ public class CardServiceImpl implements CardService {
             }
             return cb.and(list.toArray(new Predicate[list.size()]));
         };
-
-        /*Specification<Card> specification = new Specification<Card>() {
-            @Override
-            public Predicate toPredicate(Root<Card> root, CriteriaQuery<?> criteriaQuery, CriteriaBuilder cb) {
-                List<Predicate> list = new ArrayList<>();
-
-                if (!StringUtils.isEmpty(query.getCardId())) {
-                    list.add(cb.like(root.get("cardId").as(String.class), "%" + query.getCardId() + "%"));
-                }
-
-                if (!StringUtils.isEmpty(query.getIssueValue())) {
-                    list.add(cb.equal(root.get("issueValue").as(String.class), query.getIssueValue()));
-                }
-                return cb.and(list.toArray(new Predicate[list.size()]));
-            }
-        };*/
-
         return cardConverter.toPageList(cardRepository.findAll(specification,page));
     }
 
