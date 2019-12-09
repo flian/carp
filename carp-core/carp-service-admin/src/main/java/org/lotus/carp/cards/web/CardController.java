@@ -5,6 +5,7 @@ import org.lotus.carp.base.vo.ResponseWrapper;
 import org.lotus.carp.base.web.BaseController;
 import org.lotus.carp.showcase.card.service.CardService;
 import org.lotus.carp.showcase.card.vo.CardCreateDto;
+import org.lotus.carp.showcase.card.vo.CardCriteria;
 import org.lotus.carp.showcase.card.vo.CardResult;
 import org.lotus.carp.showcase.card.vo.CardUpdateDto;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,8 +37,11 @@ public class CardController implements BaseController {
 
     @GetMapping("/data")
     @ResponseBody
-    public ResponseWrapper<Page<CardResult>> list(Pageable page) {
-        return response().execSuccess(cardService.query(null, page));
+    public ResponseWrapper<Page<CardResult>> list(String cardId,String issueValue,Pageable page) {
+        CardCriteria query = new CardCriteria();
+        query.setCardId(cardId);
+        query.setIssueValue(issueValue);
+        return response().execSuccess(cardService.query(query, page));
     }
 
     @GetMapping("/{cardId}")

@@ -1,5 +1,6 @@
 package org.lotus.carp.showcase.card.service.impl;
 
+import com.alibaba.druid.util.StringUtils;
 import org.lotus.carp.showcase.card.convter.CardConverter;
 import org.lotus.carp.showcase.card.domain.Card;
 import org.lotus.carp.showcase.card.enums.CardTypeEnum;
@@ -12,13 +13,20 @@ import org.lotus.carp.showcase.card.vo.CardUpdateDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Predicate;
+import javax.persistence.criteria.Root;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.List;
+
 
 /**
  * Created with IntelliJ IDEA.
@@ -41,7 +49,35 @@ public class CardServiceImpl implements CardService {
 
     @Override
     public Page<CardResult> query(CardCriteria query, Pageable page) {
-        return cardConverter.toPageList(cardRepository.findAll(page));
+        Specification<Card> specification = (root,criteriaQuery,cb)->{
+            List<Predicate> list = new ArrayList<>();
+
+            if (!StringUtils.isEmpty(query.getCardId())) {
+                list.add(cb.like(root.get("cardId").as(String.class), "%" + query.getCardId() + "%"));
+            }
+
+            if (!StringUtils.isEmpty(query.getIssueValue())) {
+                list.add(cb.equal(root.get("issueValue").as(BigDecimal.class), new BigDecimal(query.getIssueValue())));
+            }
+            return cb.and(list.toArray(new Predicate[list.size()]));
+        };
+
+        /*Specification<Card> specification = new Specification<Card>() {
+            @Override
+            public Predicate toPredicate(Root<Card> root, CriteriaQuery<?> criteriaQuery, CriteriaBuilder cb) {
+                List<Predicate> list = new ArrayList<>();
+
+                if (!StringUtils.isEmpty(query.getCardId())) {
+                    list.add(cb.like(root.get("cardId").as(String.class), "%" + query.getCardId() + "%"));
+                }
+
+                if (!StringUtils.isEmpty(query.getIssueValue())) {
+                    list.add(cb.equal(root.get("issueValue").as(String.class), query.getIssueValue()));
+                }
+                return cb.and(list.toArray(new Predicate[list.size()]));
+            }
+        };*/
+        return cardConverter.toPageList(cardRepository.findAll(specification,page));
     }
 
     @Override

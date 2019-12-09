@@ -7,13 +7,13 @@
         <el-collapse accordion>
             <el-collapse-item title="更多功能...">
                 <div class="filter-container">
-                    <el-input style="width: 200px;" class="filter-item" placeholder="标题">
+                    <el-input style="width: 200px;" class="filter-item" placeholder="卡号" v-model="query.cardId">
                     </el-input>
-                    <el-input style="width: 200px;" class="filter-item" placeholder="姓名">
+                    <el-input style="width: 200px;" class="filter-item" placeholder="面值" v-model="query.issueValue">
                     </el-input>
-                    <el-button class="filter-item" type="primary" icon="search" @click="">搜索</el-button>
+                    <el-button class="filter-item" type="primary" icon="search" @click="queryCards">搜索</el-button>
                     <el-button class="filter-item" type="primary" icon="document" @click="">导出</el-button>
-                    <el-checkbox class="filter-item">显示审核人</el-checkbox>
+                    <!--<el-checkbox class="filter-item">显示审核人</el-checkbox>-->
                 </div>
             </el-collapse-item>
         </el-collapse>
@@ -260,7 +260,9 @@
                 return {
                     query: {
                         page: 1,
-                        size: 10
+                        size: 10,
+                        cardId:"",
+                        issueValue:""
                     },
                     totalPage: 0,
                     totalElements: 0,

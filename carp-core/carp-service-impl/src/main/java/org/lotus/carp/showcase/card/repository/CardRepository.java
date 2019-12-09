@@ -1,6 +1,7 @@
 package org.lotus.carp.showcase.card.repository;
 
 import org.lotus.carp.showcase.card.domain.Card;
+import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.PagingAndSortingRepository;
@@ -16,7 +17,7 @@ import org.springframework.transaction.annotation.Transactional;
  * Time: 5:00 PM
  */
 @Repository
-public interface CardRepository extends PagingAndSortingRepository<Card, Long> {
+public interface CardRepository extends PagingAndSortingRepository<Card, Long>,JpaSpecificationExecutor {
     Card findByCardId(String code);
 
     @Modifying
