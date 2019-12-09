@@ -12,7 +12,8 @@
                     <el-input style="width: 200px;" class="filter-item" placeholder="面值" v-model="query.issueValue">
                     </el-input>
                     <el-button class="filter-item" type="primary" icon="search" @click="queryCards">搜索</el-button>
-                    <el-button class="filter-item" type="primary" icon="document" @click="">导出</el-button>
+                    <a :href="excelExportHref" target="_blank">导出</a>
+                    <!--<el-button class="filter-item" type="primary" icon="document" @click="doExcelExport">导出</el-button>-->
                     <!--<el-checkbox class="filter-item">显示审核人</el-checkbox>-->
                 </div>
             </el-collapse-item>
@@ -115,6 +116,11 @@
                         return false;
                     }
                     return true;
+                },
+                excelExportHref(){
+                    const self = this;
+                    url = "${rc.contextPath}/cards/export?cardId="+self.query.cardId+"&issueValue="+self.query.issueValue;
+                    return url;
                 }
             },
             methods: {
@@ -251,7 +257,13 @@
                         this.totalPage = response.data.payload.totalPages;
                         this.totalElements = response.data.payload.totalElements;
                     })
+                },
+                doExcelExport(){
+                    axios.get("${rc.contextPath}/cards/export", { params: this.query }).then(response => {
+                        console.log(response);
+                    })
                 }
+
             },
             created() {
                 this.queryCards();

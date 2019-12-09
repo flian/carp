@@ -1,6 +1,8 @@
 package org.lotus.carp.cards.web;
 
 import com.google.common.base.Preconditions;
+import com.sun.deploy.net.HttpResponse;
+import org.lotus.carp.base.utils.excel.JxlsTemplate;
 import org.lotus.carp.base.vo.ResponseWrapper;
 import org.lotus.carp.base.web.BaseController;
 import org.lotus.carp.showcase.card.service.CardService;
@@ -10,11 +12,17 @@ import org.lotus.carp.showcase.card.vo.CardResult;
 import org.lotus.carp.showcase.card.vo.CardUpdateDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 
 /**
@@ -43,6 +51,20 @@ public class CardController implements BaseController {
         query.setIssueValue(issueValue);
         return response().execSuccess(cardService.query(query, page));
     }
+
+    @GetMapping("/export")
+    public void export(String cardId, String issueValue, HttpServletResponse response) throws IOException {
+        String excelTemplate ="cards.xls";
+        CardCriteria query = new CardCriteria();
+        query.setCardId(cardId);
+        query.setIssueValue(issueValue);
+        List<CardResult> list = cardService.query(query,PageRequest.of(0,1000)).getContent();
+        Map<String, Object> params = new HashMap<>();
+        params.put("cards",list);
+        response.setHeader("Content-Disposition", "attachment;Filename=" + System.currentTimeMillis() + ".xls");
+        JxlsTemplate.processTemplate(excelTemplate, response.getOutputStream(), params);
+    }
+
 
     @GetMapping("/{cardId}")
     @ResponseBody

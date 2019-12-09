@@ -77,8 +77,10 @@ public class CardServiceImpl implements CardService {
                 return cb.and(list.toArray(new Predicate[list.size()]));
             }
         };*/
+
         return cardConverter.toPageList(cardRepository.findAll(specification,page));
     }
+
 
     @Override
     @Transactional(rollbackFor = {Exception.class})
