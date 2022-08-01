@@ -1,0 +1,31 @@
+#common基础配置
+server:
+    port: 8080
+#开发人员配置
+spring:
+    datasource:
+        name: demo
+        url: jdbc:mysql://127.0.0.1:3306/carp?useUnicode=true&characterEncoding=utf-8&useSSL=false
+        username: root
+        password: Admin123
+        # 使用druid数据源
+        driver-class-name: com.mysql.jdbc.Driver
+        #dev 不用wall设置
+        filters: stat,slf4j
+    freemarker:
+        cache: false
+
+    #jpa自动生成sql
+    jpa:
+      show-sql: false
+      properties:
+        javax:
+         persistence:
+           schema-generation:
+            create-source:  metadata
+            scripts:
+              action: create
+              create-target: carp_reate.sql
+  #flyway配置
+    flyway:
+      enabled: true

@@ -61,6 +61,8 @@ public class CardController implements BaseController {
         List<CardResult> list = cardService.query(query,PageRequest.of(0,1000)).getContent();
         Map<String, Object> params = new HashMap<>();
         params.put("cards",list);
+        params.put("message","this is a test message for jxsl multi sheep");
+        params.put("total",list.size());
         response.setHeader("Content-Disposition", "attachment;Filename=" + System.currentTimeMillis() + ".xls");
         JxlsTemplate.processTemplate(excelTemplate, response.getOutputStream(), params);
     }
