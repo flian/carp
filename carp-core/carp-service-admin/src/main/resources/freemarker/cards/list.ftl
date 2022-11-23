@@ -12,7 +12,9 @@
                     <el-input style="width: 200px;" class="filter-item" placeholder="面值" v-model="query.issueValue" clearable>
                     </el-input>
                     <el-button class="filter-item" type="primary" icon="search" @click="queryCards">搜索</el-button>
-                    <a :href="excelExportHref" target="_blank">导出</a>
+                    <a :href="excelExportHref" target="_blank">
+                        <el-button class="filter-item" type="primary" icon="document" >导出</el-button>
+                    </a>
                     <!--<el-button class="filter-item" type="primary" icon="document" @click="doExcelExport">导出</el-button>-->
                     <!--<el-checkbox class="filter-item">显示审核人</el-checkbox>-->
                 </div>
