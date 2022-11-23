@@ -7,9 +7,9 @@
         <el-collapse accordion>
             <el-collapse-item title="更多功能...">
                 <div class="filter-container">
-                    <el-input style="width: 200px;" class="filter-item" placeholder="卡号" v-model="query.cardId">
+                    <el-input style="width: 200px;" class="filter-item" placeholder="卡号" v-model="query.cardId" clearable>
                     </el-input>
-                    <el-input style="width: 200px;" class="filter-item" placeholder="面值" v-model="query.issueValue">
+                    <el-input style="width: 200px;" class="filter-item" placeholder="面值" v-model="query.issueValue" clearable>
                     </el-input>
                     <el-button class="filter-item" type="primary" icon="search" @click="queryCards">搜索</el-button>
                     <a :href="excelExportHref" target="_blank">导出</a>
