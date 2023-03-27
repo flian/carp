@@ -14,7 +14,7 @@
     <url>https://github.com/flian/carp</url>
 
     <properties>
-        <itext.pdf.version>5.5.13</itext.pdf.version>
+        <itext.pdf.version>5.5.13.3</itext.pdf.version>
     </properties>
 
     <dependencies>
