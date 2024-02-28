@@ -59,7 +59,16 @@
         <!-- webssh include https://github.com/flian/webssh/tree/dev_1.26-->
         <dependency>
             <groupId>org.lotus.carp.webssh</groupId>
-            <artifactId>webssh</artifactId>
+            <artifactId>webssh-core</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.lotus.carp.webssh</groupId>
+            <artifactId>vue2-web</artifactId>
+        </dependency>
+        <!-- webssh need websocket.-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-websocket</artifactId>
         </dependency>
         <!--webjar-->
         <!--
