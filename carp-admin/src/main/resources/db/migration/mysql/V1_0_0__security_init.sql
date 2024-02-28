@@ -143,11 +143,13 @@ INSERT INTO `carp_menu` (`id`, `leaf`, `name`, `parent_id`, `priority`, `url`) V
 INSERT INTO `carp_menu` (`id`, `leaf`, `name`, `parent_id`, `priority`, `url`) VALUES ('67', '\0', '示例管理', '-1', '4', 'NONE');
 INSERT INTO `carp_menu` (`id`, `leaf`, `name`, `parent_id`, `priority`, `url`) VALUES ('68', '\0', '示例中心', '67', '1', 'NONE');
 INSERT INTO `carp_menu` (`id`, `leaf`, `name`, `parent_id`, `priority`, `url`) VALUES ('69', '', '卡片管理示范', '68', '1', '/cards');
+INSERT INTO `carp_menu` (`id`, `leaf`, `name`, `parent_id`, `priority`, `url`) VALUES (84, '\0', '其他功能', 1, 10, 'NONE');
+INSERT INTO `carp_menu` (`id`, `leaf`, `name`, `parent_id`, `priority`, `url`) VALUES (85, '', 'webssh', 84, 1, '/webssh/index');
 
 -- ----------------------------
 -- Auto increment value for carp_menu
 -- ----------------------------
-ALTER TABLE `carp_menu` AUTO_INCREMENT=70;
+ALTER TABLE `carp_menu` AUTO_INCREMENT=84;
 
 
 -- ----------------------------
@@ -163,7 +165,10 @@ INSERT INTO `carp_action` (`id`, `action_method`, `action_url`, `leaf`, `name`, 
 INSERT INTO `carp_action` (`id`, `action_method`, `action_url`, `leaf`, `name`, `parent_id`, `priority`) VALUES ('8', 'ALL', '/menus.*', '', '菜单管理', '4', '2');
 INSERT INTO `carp_action` (`id`, `action_method`, `action_url`, `leaf`, `name`, `parent_id`, `priority`) VALUES ('9', 'ALL', '/actions.*', '', '功能管理', '4', '3');
 INSERT INTO `carp_action` (`id`, `action_method`, `action_url`, `leaf`, `name`, `parent_id`, `priority`) VALUES ('10', 'ALL', '/cards.*', '', '卡片管理示范', '5', '1');
+INSERT INTO `carp_action` (`id`, `action_method`, `action_url`, `leaf`, `name`, `parent_id`, `priority`) VALUES (23, 'ALL', 'NONE', '\0', '其他功能', 1, 10);
+INSERT INTO `carp_action` (`id`, `action_method`, `action_url`, `leaf`, `name`, `parent_id`, `priority`) VALUES (24, 'ALL', '/webssh.*', '', 'webssh', 23, 1);
+
 -- ----------------------------
 -- Auto increment value for carp_action
 -- ----------------------------
-ALTER TABLE `carp_action` AUTO_INCREMENT=11;
+ALTER TABLE `carp_action` AUTO_INCREMENT=24;

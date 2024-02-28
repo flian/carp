@@ -66,6 +66,9 @@ management:
     web:
       exposure:
         include:  info,health,metrics
+#webssh config
+webssh:
+  allowedUsers: root:CarpAdmin@123!:%
 #carp配置
 carp:
   config:

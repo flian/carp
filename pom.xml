@@ -66,6 +66,7 @@
         <jxls.version>2.4.0</jxls.version>
         <log4jdbc.version>1.2</log4jdbc.version>
         <kaptcha.version>2.3.2</kaptcha.version>
+        <webssh.version>1.26-SNAPSHOT</webssh.version>
     </properties>
     <repositories>
         <!-- for daocloud build only.-->
@@ -175,7 +176,12 @@
                 <artifactId>kaptcha</artifactId>
                 <version>${kaptcha.version}</version>
             </dependency>
-
+            <!-- webssh https://github.com/flian/webssh/tree/dev_1.26 -->
+            <dependency>
+                <groupId>org.lotus.carp.webssh</groupId>
+                <artifactId>webssh</artifactId>
+                <version>${webssh.version}</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
     <dependencies>
