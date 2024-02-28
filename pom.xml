@@ -80,11 +80,12 @@
             <name>aliyun maven</name>
             <url>http://maven.aliyun.com/nexus/content/groups/public/</url>
         </repository>
+        <!-- disable carp maven nexus as it has out of date.
         <repository>
             <id>carpmaven</id>
             <name>carp maven</name>
             <url>http://114.118.22.200:8888/nexus/content/groups/public/</url>
-        </repository>
+        </repository> -->
  <!--       <repository>
             <id>macula-repo</id>
             <name>macula-repo</name>
