@@ -75,7 +75,7 @@ carp:
   #默认页面的title
     default-title: "Carp Demo"
     #项目版本号
-    version:  "V0.3.0"
+    version:  "V0.4.0"
     #版本状态
     version-status: "SNAPSHOT"
     #项目名称,各种地方用到
