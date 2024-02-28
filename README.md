@@ -81,7 +81,14 @@ master 为开发分支，不固定更新
 
 0.3.0 - for iot poc
 
-0.4.0 - current in dev
+0.4.0 - current in dev.
+依赖：[webssh](https://github.com/flian/webssh/tree/dev_1.26)，需先下载安装。
+```
+0.4.0及之后版本添加了webssh支持，
+需要先下载 https://github.com/flian/webssh/tree/dev_1.26
+并且install到本地后才能正常启动carp.目前依赖1.26-SNAPSHOT版本，待正式发布后会依赖正式版本
+
+```
 
 更多模块详情，请查看对应模块README描述
 
